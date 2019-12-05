@@ -1,4 +1,5 @@
 const CREATE = 'CREATE';
+const RETRIEVE = 'RETRIEVE';
 const UPDATE = 'UPDATE';
 
 const CHANGE_CODE = 'CHANGE_CODE';
@@ -13,6 +14,7 @@ const EXIT = 'EXIT';
 
 module.exports = {
     CREATE,
+    RETRIEVE,
     UPDATE,
 
     CHANGE_CODE,

@@ -1,5 +1,10 @@
 import React from 'react';
 
+import { 
+    CREATE,
+    UPDATE,
+} from "./constants.js";
+
 const InCode = ({item, actions}) => {
     return (
         <input
@@ -45,36 +50,32 @@ const BtRetrieve = ({item, actions}) => {
     )
 }
 
-const DvMenuCreateRetrieve = props => {
+const BtUpdate = ({item, actions}) => {
     return (
+        <button
+            onClick={() => actions.onUpdate(item.data.id)}
+        >Τροποποίηση</button>
+    )
+}
+
+const BtDelete = ({item, actions}) => {
+    return (
+        <button
+            onClick={() => actions.onDelete(item.data.id)}
+        >Διαγραφή</button>
+    )
+}
+
+const DvMenu = props => {
+    return (!props.item.data.id)?(
         <div>
-            <BtCreate {...props} />
-            <BtRetrieve {...props} />
+        <BtCreate {...props} />
+        <BtRetrieve {...props} />
         </div>
-    )
-}
-
-const BtUpdate = () => {
-    return (
-        <button>
-            Τροποποίηση
-        </button>
-    )
-}
-
-const BtDelete = () => {
-    return (
-        <button>
-            Διαγραφή
-        </button>
-    )
-}
-
-const DvMenuUpdateDelete = props => {
-    return (
+    ):(
         <div>
-            <BtUpdate {...props} />
-            <BtDelete {...props} />
+        <BtUpdate {...props} />
+        <BtDelete {...props} />
         </div>
     )
 }
@@ -88,6 +89,14 @@ const BtSave = ({item, actions}) => {
     )
 }
 
+const BtVerify = ({item, actions}) => {
+    return (
+        <button
+            onClick={() => actions.onDelete(item.data.id)}
+        >Επιβεβαίωση</button>
+    )
+}
+
 const BtExit = ({item, actions}) => {
     return (
         <button
@@ -96,45 +105,39 @@ const BtExit = ({item, actions}) => {
     )
 }
 
-const DvMenuSaveExit = props => {
-    return (
+const DvSubMenu = props => {
+    let actionType = props.item.uiux.actionType;
+
+    return ([CREATE, UPDATE].includes(actionType))?(
         <div>
-            <BtSave {...props} />
-            <BtExit {...props} />
+        <BtSave {...props} />
+        <BtExit {...props} />
+        </div>
+    ):(
+        <div>
+        <BtVerify {...props} />
+        <BtExit {...props} />
         </div>
     )
 }
 
-const NewFund = props => {
+const Fund = props => {
     return (
         <div>
             <DvData {...props}/>
-            {(!props.item.uiux.enableMenu)?(
-                <DvMenuCreateRetrieve {...props} />
+            {(!props.item.uiux.enableSubMenu)?(
+                <DvMenu {...props}/>
             ):(
-                <DvMenuSaveExit {...props} />
+                <DvSubMenu {...props}/>
             )}
         </div>
     );
 };
     
-const Fund = props => {
-    return (
-      <div>
-            <DvData {...props}/>
-            {(!props.item.uiux.enableMenu)?(
-                <DvMenuUpdateDelete {...props} />
-            ):(
-                <DvMenuSaveExit {...props} />
-            )}
-      </div>
-    );
-};
-
 export const Funds = ({newItem, items, actions}) => {
     return (
         <div>
-            <NewFund item={newItem} actions={actions} />
+            <Fund item={newItem} actions={actions} />
             <ul>
                 <li>{items.map(item => <Fund item={item} actions={actions} />)}</li>
             </ul>

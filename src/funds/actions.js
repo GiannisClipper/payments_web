@@ -1,5 +1,6 @@
 import { 
     CREATE,
+    RETRIEVE,
     UPDATE,
     CHANGE_CODE,
     CHANGE_NAME,
@@ -12,6 +13,12 @@ import {
 export const onCreate = () => {
     return {
         type: CREATE,
+    }
+}
+
+export const onRetrieve = () => {
+    return {
+        type: RETRIEVE,
     }
 }
 

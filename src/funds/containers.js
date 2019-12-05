@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { Funds } from './components.jsx';
 import {
     onCreate,
+    onRetrieve,
     onUpdate,
 	onChangeCode,
 	onChangeName,
@@ -23,6 +24,7 @@ const mapDispatchToProps = dispatch => {
     return {
         actions: {
             onCreate: () => dispatch(onCreate()),
+            onRetrieve: () => dispatch(onRetrieve()),
             onUpdate: id => dispatch(onUpdate(id)),
             onChangeCode: (id, code) => dispatch(onChangeCode(id, code)),
             onChangeName: (id, name) => dispatch(onChangeName(id, name)),
