@@ -1,3 +1,4 @@
+import usersReducer from "../users/reducers.js";
 import fundsReducer from "../funds/reducers.js";
 
 //import { combineReducers } from "redux";
@@ -8,7 +9,8 @@ import fundsReducer from "../funds/reducers.js";
 
 const rootReducer = (state, action) => { 
     return {
-        funds: fundsReducer((state === undefined)?undefined:state.funds, action)
+        users: usersReducer((state === undefined)?undefined:state.users, action),
+        funds: fundsReducer((state === undefined)?undefined:state.funds, action),
     }
 }
 

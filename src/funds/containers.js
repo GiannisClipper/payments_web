@@ -36,6 +36,6 @@ const mapDispatchToProps = dispatch => {
     };
 }
 
-export const FundsContainer = connect(mapStateToProps, mapDispatchToProps)(Funds)
+export const FundsContainer = connect(mapStateToProps, mapDispatchToProps)(Funds);
 
 //export default FundsContainer;

@@ -9,6 +9,7 @@ const NavBar = () => {
       <NavTab to='/genres' label="GENRES" />
       <NavTab to='/funds' label="FUNDS" />
       <NavTab to='/users' label="USERS" />
+      <NavTab to='/signup' label="SIGNUP" />
       <NavTab to='/signin' label="SIGNIN" />
     </div>
   );
