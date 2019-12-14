@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 
 import { 
     CREATE,
@@ -53,40 +54,40 @@ const DvData = props => {
             <InPassword2 {...props}/>
             <InEmail {...props}/>
         </div>
-    )
-}
+    );
+};
 
 const BtCreate = ({item, actions}) => {
     return (
         <button
             onClick={() => actions.onCreate()}
         >Νέα εγγραφή</button>
-    )
-}
+    );
+};
 
 const BtRetrieve = ({item, actions}) => {
     return (
         <button
             onClick={() => actions.onRetrieve()}
         >Αναζήτηση</button>
-    )
-}
+    );
+};
 
 const BtUpdate = ({item, actions}) => {
     return (
         <button
             onClick={() => actions.onUpdate(item.data.id)}
         >Τροποποίηση</button>
-    )
-}
+    );
+};
 
 const BtDelete = ({item, actions}) => {
     return (
         <button
             onClick={() => actions.onDelete(item.data.id)}
         >Διαγραφή</button>
-    )
-}
+    );
+};
 
 const DvMenu = props => {
     return (!props.item.data.id)?(
@@ -99,8 +100,8 @@ const DvMenu = props => {
         <BtUpdate {...props} />
         <BtDelete {...props} />
         </div>
-    )
-}
+    );
+};
 
 const BtSave = ({item, actions}) => {
     return (
@@ -108,24 +109,39 @@ const BtSave = ({item, actions}) => {
             onClick={() => actions.onSave(item.data.id)}
             disabled={!item.uiux.enableSave}
         >Αποθήκευση</button>
-    )
-}
+    );
+};
 
 const BtVerify = ({item, actions}) => {
     return (
         <button
             onClick={() => actions.onDelete(item.data.id)}
         >Επιβεβαίωση</button>
-    )
-}
+    );
+};
 
 const BtExit = ({item, actions}) => {
     return (
         <button
             onClick={() => actions.onExit(item.data.id)}
         >Κλείσιμο</button>
-    )
-}
+    );
+};
+
+const BtRoot = ({item, actions}) => {
+    let history = useHistory();
+
+    return (
+        <button
+            onClick={() => 
+                {
+                    actions.onExit(item.data.id);
+                    history.push('/');     
+                }       
+            }
+        >Κλείσιμο</button>
+    );
+};
 
 const DvSubMenu = props => {
     let actionType = props.item.uiux.actionType;
@@ -140,8 +156,8 @@ const DvSubMenu = props => {
         <BtVerify {...props} />
         <BtExit {...props} />
         </div>
-    )
-}
+    );
+};
 
 const User = props => {
     return (
@@ -167,13 +183,21 @@ export const Users = ({newItem, items, actions}) => {
     );
 };
 
+const BtSignup = ({item, actions}) => {
+    return (
+        <button
+            onClick={() => actions.onCreate()}
+        >Υποβολή</button>
+    );
+};
+
 const DvSignupMenu = props => {
     return (
         <div>
-            <BtCreate {...props} />
-            <BtExit {...props} />
+            <BtSignup {...props} />
+            <BtRoot {...props} />
         </div>
-    )
+    );
 };
 
 export const Signup = ({newItem, actions}) => {

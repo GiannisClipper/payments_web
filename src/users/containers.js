@@ -41,7 +41,10 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToPropsSignup = state => {
-    let retval = {newItem: {...state.users.newItem},};
+    let retval = {
+        globals: {...state.globals},
+        newItem: {...state.users.newItem},
+    };
     retval.newItem.uiux.enableEdit = true;
     return retval;
 }

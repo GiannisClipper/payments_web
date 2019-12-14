@@ -12,6 +12,57 @@ import {
 	EXIT,
 } from "./constants.js";
 
+
+async function request(url='', method, token=null, data={}, onSuccess=null, onFail=null) {
+
+    //define arguments
+    let kwargs = {
+        method: method, 
+        mode: 'cors', 
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+token
+        }
+    }
+
+    //add body in arguments
+    if (method.toUpperCase()!=='GET') 
+        Object.assign(kwargs, {body: JSON.stringify(data)});
+
+    //make request
+    try {
+        let response = await fetch(url, kwargs);
+        let status = response.status;
+        data = await response.json();
+        if (status>=200 && status<=299)
+            onSuccess && onSuccess(status, data);
+        else
+            throw ({status:status, message:data});
+
+    //handle errors
+    } catch(err) { 
+        //alert(err.status+':'+JSON.stringify(err.message));
+        onFail && onFail(err.status, err.message);
+    }
+}
+
+async createUser(event) {
+//	await this.setState({editable:false});
+	await request(`${stateCopy.globals.origin}/users`, 'POST', stateCopy.globals.token, this.state.fields,
+		(status, data) => {
+			alert(data);
+//			this.setSavedFields(data);
+//			this.setState({mode:'update', fields:this.getSavedFields(), changed:false, editable:true});
+		},
+		(status, message) => {
+			alert(message);
+//			this.setState({message:message, editable:true});
+		}        
+	);
+}	
+
+
 const initialData = {
 	id: null,
     username: 'Username...',
@@ -34,7 +85,7 @@ const initialItem = {
 
 const initialState = {
 	newItem: {...initialItem},
-    items: [],
+	items: [],
 }
 
 const usersReducer = (state=initialState, action) => {
@@ -96,6 +147,8 @@ const usersReducer = (state=initialState, action) => {
         case SAVE:
 			stateCopy = {...state};
 			if (action.id === null) {
+
+
 				stateCopy.items.push({
 					data: {...stateCopy.newItem.data},
 					uiux: {...initialUiux},
