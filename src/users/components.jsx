@@ -184,12 +184,19 @@ export const Users = ({newItem, items, actions}) => {
     );
 };
 
+// --- --- --- --- --- --- --- --- ---
+
 const BtSignup = ({item, actions}) => {
     return (
         <button
             onClick={() => actions.onCreate()}
             disabled={!item.uiux.enableSave}
-        >Υποβολή</button>
+        >
+            {(item.uiux.isLoading)?(
+                <i class="fa fa-refresh fa-spin"></i>
+            ):null}
+            Υποβολή
+        </button>
     );
 };
 

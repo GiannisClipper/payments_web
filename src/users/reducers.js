@@ -77,6 +77,7 @@ const initialUiux = {
 	enableSubMenu: null,
 	enableSave: null,
 	enableEdit: null,
+	isLoading: null,
 }
 
 const initialItem = {
@@ -157,7 +158,6 @@ const usersReducer = (state=initialState, action) => {
 				stateCopy.newItem.data = {...initialData};
 				stateCopy.newItem.uiux = {...initialUiux};
 			}
-			console.log('save');
 			return stateCopy;
   
 		case START_SAVE:
@@ -166,15 +166,15 @@ const usersReducer = (state=initialState, action) => {
 			itemPointer.data.username = "And the new username is...";
 			itemPointer.uiux.enableEdit = false;
 			itemPointer.uiux.enableSave = false;
-			console.log('start');
+			itemPointer.uiux.isLoading = true;
 			return stateCopy;
 
 		case FINISH_SAVE:
 			stateCopy = {...state};
 			itemPointer = (action.id === null)?stateCopy.newItem:stateCopy.items[action.id];
 			itemPointer.data.username = "Back to old username...";
+			itemPointer.uiux.isLoading = false;
 			itemPointer.uiux.enableEdit = true;
-			console.log('finish');
 			return stateCopy;
 
 		case DELETE:

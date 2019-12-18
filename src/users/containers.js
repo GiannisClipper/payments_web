@@ -45,7 +45,10 @@ const mapStateToPropsSignup = state => {
         globals: {...state.globals},
         newItem: {...state.users.newItem},
     };
-    retval.newItem.uiux.enableEdit = true;
+
+    if (retval.newItem.uiux.enableEdit === null)
+        retval.newItem.uiux.enableEdit = true;
+
     return retval;
 }
 
