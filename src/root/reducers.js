@@ -28,7 +28,7 @@ const globalsReducer = (state=initialState, action) => {
 //  ...
 //});
 
-export const rootReducer = (state, action) => { 
+const rootReducer = (state, action) => { 
     return {
         globals: globalsReducer((state === undefined)?undefined:state.globals, action),
         users: usersReducer((state === undefined)?undefined:state.users, action),
@@ -36,4 +36,4 @@ export const rootReducer = (state, action) => {
     }
 }
 
-// export default rootReducer;
+export default rootReducer;

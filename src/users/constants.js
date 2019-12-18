@@ -13,6 +13,8 @@ const TO_DELETE = 'TO_DELETE';  //delete is reserved word
 const VERIFY_DELETE = 'VERIFY_DELETE';
 
 const EXIT = 'EXIT';
+const START_SAVE = 'START_SAVE';
+const FINISH_SAVE = 'FINISH_SAVE';
 
 module.exports = {
     CREATE,
@@ -30,4 +32,6 @@ module.exports = {
     VERIFY_DELETE,
 
     EXIT,
+    START_SAVE,
+    FINISH_SAVE,
 }

@@ -7,11 +7,12 @@ import {
     CHANGE_PASSWORD2,
     CHANGE_EMAIL,
 	SAVE,
+	START_SAVE,
+	FINISH_SAVE,
 	DELETE,
 	VERIFY_DELETE,
 	EXIT,
 } from "./constants.js";
-
 
 async function request(url='', method, token=null, data={}, onSuccess=null, onFail=null) {
 
@@ -37,8 +38,8 @@ async function request(url='', method, token=null, data={}, onSuccess=null, onFa
         data = await response.json();
         if (status>=200 && status<=299)
             onSuccess && onSuccess(status, data);
-        else
-            throw ({status:status, message:data});
+        //else
+        //    throw ({status:status, message:data});
 
     //handle errors
     } catch(err) { 
@@ -47,7 +48,7 @@ async function request(url='', method, token=null, data={}, onSuccess=null, onFa
     }
 }
 
-async createUser(event) {
+/*async function createUser(event) {
 //	await this.setState({editable:false});
 	await request(`${stateCopy.globals.origin}/users`, 'POST', stateCopy.globals.token, this.state.fields,
 		(status, data) => {
@@ -60,7 +61,7 @@ async createUser(event) {
 //			this.setState({message:message, editable:true});
 		}        
 	);
-}	
+}*/	
 
 
 const initialData = {
@@ -98,7 +99,7 @@ const usersReducer = (state=initialState, action) => {
 			stateCopy.newItem.uiux.enableSubMenu = true;
 			stateCopy.newItem.uiux.enableEdit = true;
 			stateCopy.newItem.uiux.enableSave = false;
-	        return stateCopy;
+			return stateCopy;
 
 		case RETRIEVE:
 			stateCopy = {...state};
@@ -147,8 +148,6 @@ const usersReducer = (state=initialState, action) => {
         case SAVE:
 			stateCopy = {...state};
 			if (action.id === null) {
-
-
 				stateCopy.items.push({
 					data: {...stateCopy.newItem.data},
 					uiux: {...initialUiux},
@@ -157,12 +156,28 @@ const usersReducer = (state=initialState, action) => {
 				stateCopy.items[id].data.id = id;
 				stateCopy.newItem.data = {...initialData};
 				stateCopy.newItem.uiux = {...initialUiux};
-			} else {
-				stateCopy.items[action.id].uiux.enableSave = false;
 			}
+			console.log('save');
 			return stateCopy;
   
-	    case DELETE:
+		case START_SAVE:
+			stateCopy = {...state};
+			itemPointer = (action.id === null)?stateCopy.newItem:stateCopy.items[action.id];
+			itemPointer.data.username = "And the new username is...";
+			itemPointer.uiux.enableEdit = false;
+			itemPointer.uiux.enableSave = false;
+			console.log('start');
+			return stateCopy;
+
+		case FINISH_SAVE:
+			stateCopy = {...state};
+			itemPointer = (action.id === null)?stateCopy.newItem:stateCopy.items[action.id];
+			itemPointer.data.username = "Back to old username...";
+			itemPointer.uiux.enableEdit = true;
+			console.log('finish');
+			return stateCopy;
+
+		case DELETE:
         	stateCopy = {...state};
 			stateCopy.items[action.id].uiux.actionType = action.type;
             stateCopy.items[action.id].uiux.enableSubMenu = true;

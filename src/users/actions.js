@@ -7,15 +7,24 @@ import {
     CHANGE_PASSWORD2,
     CHANGE_EMAIL,
     SAVE,
+    START_SAVE,
+    FINISH_SAVE,
     TO_DELETE,
     VERIFY_DELETE,
     EXIT,
 } from './constants.js';
 
 export const onCreate = () => {
-    return {
-        type: CREATE,
-    }
+    //return {
+    //    type: CREATE,
+    //}
+    return dispatch => {
+        dispatch(onStartSave(null));
+        setTimeout(() => {
+            dispatch(onSave(null));
+            dispatch(onFinishSave(null));
+        }, 10000);
+    };
 }
 
 export const onRetrieve = () => {
@@ -66,6 +75,20 @@ export const onChangeEmail = (id, email) => {
 export const onSave = id => {
     return {
         type: SAVE,
+        id
+    }
+}
+
+export const onStartSave = id => {
+    return {
+        type: START_SAVE,
+        id
+    }
+}
+
+export const onFinishSave = id => {
+    return {
+        type: FINISH_SAVE,
         id
     }
 }

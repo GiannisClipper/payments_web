@@ -61,6 +61,7 @@ const BtCreate = ({item, actions}) => {
     return (
         <button
             onClick={() => actions.onCreate()}
+            disabled={!item.uiux.enableSave}
         >Νέα εγγραφή</button>
     );
 };
@@ -187,6 +188,7 @@ const BtSignup = ({item, actions}) => {
     return (
         <button
             onClick={() => actions.onCreate()}
+            disabled={!item.uiux.enableSave}
         >Υποβολή</button>
     );
 };
