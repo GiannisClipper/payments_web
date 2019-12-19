@@ -1,10 +1,12 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
 
 import { 
-    CREATE,
-    UPDATE,
-} from "./constants.js";
+    DvMenu,
+    DvSubMenu,
+    BtRoot,
+} from '../core/components.jsx';
+
+import { initialData } from './reducers.js';
 
 const InUsername = ({item, actions}) => {
     return (
@@ -57,108 +59,7 @@ const DvData = props => {
     );
 };
 
-const BtCreate = ({item, actions}) => {
-    return (
-        <button
-            onClick={() => actions.onCreate()}
-            disabled={!item.uiux.enableSave}
-        >Νέα εγγραφή</button>
-    );
-};
-
-const BtRetrieve = ({item, actions}) => {
-    return (
-        <button
-            onClick={() => actions.onRetrieve()}
-        >Αναζήτηση</button>
-    );
-};
-
-const BtUpdate = ({item, actions}) => {
-    return (
-        <button
-            onClick={() => actions.onUpdate(item.data.id)}
-        >Τροποποίηση</button>
-    );
-};
-
-const BtDelete = ({item, actions}) => {
-    return (
-        <button
-            onClick={() => actions.onDelete(item.data.id)}
-        >Διαγραφή</button>
-    );
-};
-
-const DvMenu = props => {
-    return (!props.item.data.id)?(
-        <div>
-        <BtCreate {...props} />
-        <BtRetrieve {...props} />
-        </div>
-    ):(
-        <div>
-        <BtUpdate {...props} />
-        <BtDelete {...props} />
-        </div>
-    );
-};
-
-const BtSave = ({item, actions}) => {
-    return (
-        <button
-            onClick={() => actions.onSave(item.data.id)}
-            disabled={!item.uiux.enableSave}
-        >Αποθήκευση</button>
-    );
-};
-
-const BtVerify = ({item, actions}) => {
-    return (
-        <button
-            onClick={() => actions.onDelete(item.data.id)}
-        >Επιβεβαίωση</button>
-    );
-};
-
-const BtExit = ({item, actions}) => {
-    return (
-        <button
-            onClick={() => actions.onExit(item.data.id)}
-        >Κλείσιμο</button>
-    );
-};
-
-const BtRoot = ({item, actions}) => {
-    let history = useHistory();
-
-    return (
-        <button
-            onClick={() => 
-                {
-                    actions.onExit(item.data.id);
-                    history.push('/');     
-                }       
-            }
-        >Κλείσιμο</button>
-    );
-};
-
-const DvSubMenu = props => {
-    let actionType = props.item.uiux.actionType;
-
-    return ([CREATE, UPDATE].includes(actionType))?(
-        <div>
-        <BtSave {...props} />
-        <BtExit {...props} />
-        </div>
-    ):(
-        <div>
-        <BtVerify {...props} />
-        <BtExit {...props} />
-        </div>
-    );
-};
+// --- --- --- --- --- --- --- --- ---
 
 const User = props => {
     return (
@@ -186,7 +87,7 @@ export const Users = ({newItem, items, actions}) => {
 
 // --- --- --- --- --- --- --- --- ---
 
-const BtSignup = ({item, actions}) => {
+const BtSignup = ({item, initialData, actions}) => {
     return (
         <button
             onClick={() => actions.onCreate()}
@@ -209,11 +110,13 @@ const DvSignupMenu = props => {
     );
 };
 
+// --- --- --- --- --- --- --- --- ---
+
 export const Signup = ({newItem, actions}) => {
     return (
         <div>
             <DvData item={newItem} actions={actions}/>
-            <DvSignupMenu item={newItem} actions={actions}/>
+            <DvSignupMenu item={newItem} initialData={initialData} actions={actions}/>
         </div>
     );
 };

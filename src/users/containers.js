@@ -4,14 +4,17 @@ import {
     onCreate,
     onRetrieve,
     onUpdate,
-	onChangeUsername,
-	onChangePassword,
-	onChangePassword2,
-	onChangeEmail,
 	onSave,
 	onDelete,
     onVerifyDelete,
     onExit,
+} from '../core/actions.js';
+
+import {
+	onChangeUsername,
+	onChangePassword,
+	onChangePassword2,
+	onChangeEmail,
 } from './actions.js';
 
 const mapStateToProps = (state, ownProps=null) => {
@@ -61,7 +64,7 @@ const mapDispatchToPropsSignup = dispatch => {
             onChangePassword2: (id, password2) => dispatch(onChangePassword2(id, password2)),
             onChangeEmail: (id, email) => dispatch(onChangeEmail(id, email)),
             onSave: id => dispatch(onSave(id)),
-            onExit: id => dispatch(onExit(id)),
+            onExit: (id, initialData) => dispatch(onExit(id, initialData)),
         }
     };
 }

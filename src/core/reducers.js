@@ -2,18 +2,16 @@ import {
 	CREATE,
 	RETRIEVE,
 	UPDATE,
-	CHANGE_CODE,
-	CHANGE_NAME,
-	SAVE,
-	DELETE,
+    SAVE,
+	START_SAVE,
+	FINISH_SAVE,
+    DELETE,
 	VERIFY_DELETE,
-	EXIT,
+    EXIT,
 } from "./constants.js";
 
+
 const initialData = {
-	id: null,
-	code: 'Code...', 
-	name: 'Name...',
 }
 
 const initialUiux = {
@@ -21,19 +19,24 @@ const initialUiux = {
 	enableSubMenu: null,
 	enableSave: null,
 	enableEdit: null,
+	isLoading: null,
 }
 
-const initialItem = {
-	data: {...initialData},
-	uiux: {...initialUiux},
+const initialItem = (initialData) => {
+	return {
+		data: {...initialData},
+		uiux: {...initialUiux},
+	}
 }
 
-const initialState = {
-	newItem: {...initialItem},
-    items: [],
+export const initialState = (initialData) => {
+	return {
+		newItem: {...initialItem(initialData)},
+		items: [],
+	}
 }
 
-const fundsReducer = (state=initialState, action) => {
+export const basicFormReducer = (state=initialState, action) => {
 	let stateCopy, itemPointer;
 
     switch (action.type) {
@@ -43,7 +46,7 @@ const fundsReducer = (state=initialState, action) => {
 			stateCopy.newItem.uiux.enableSubMenu = true;
 			stateCopy.newItem.uiux.enableEdit = true;
 			stateCopy.newItem.uiux.enableSave = false;
-	        return stateCopy;
+			return stateCopy;
 
 		case RETRIEVE:
 			stateCopy = {...state};
@@ -61,21 +64,7 @@ const fundsReducer = (state=initialState, action) => {
             stateCopy.items[action.id].uiux.enableSave = false;
             return stateCopy;
   
-        case CHANGE_CODE:
-        	stateCopy = {...state};
-			itemPointer = (action.id === null)?stateCopy.newItem:stateCopy.items[action.id];
-	        itemPointer.data.code = action.code;
-			itemPointer.uiux.enableSave = true;
-            return stateCopy;
-  
-        case CHANGE_NAME:
-        	stateCopy = {...state};
-			itemPointer = (action.id === null)?stateCopy.newItem:stateCopy.items[action.id];
-			itemPointer.data.name = action.name;
-			itemPointer.uiux.enableSave = true;
-            return stateCopy;
-
-		case SAVE:
+        case SAVE:
 			stateCopy = {...state};
 			if (action.id === null) {
 				stateCopy.items.push({
@@ -86,12 +75,27 @@ const fundsReducer = (state=initialState, action) => {
 				stateCopy.items[id].data.id = id;
 				stateCopy.newItem.data = {...initialData};
 				stateCopy.newItem.uiux = {...initialUiux};
-			} else {
-				stateCopy.items[action.id].uiux.enableSave = false;
 			}
 			return stateCopy;
   
-	    case DELETE:
+		case START_SAVE:
+			stateCopy = {...state};
+			itemPointer = (action.id === null)?stateCopy.newItem:stateCopy.items[action.id];
+			itemPointer.data.username = "And the new username is...";
+			itemPointer.uiux.enableEdit = false;
+			itemPointer.uiux.enableSave = false;
+			itemPointer.uiux.isLoading = true;
+			return stateCopy;
+
+		case FINISH_SAVE:
+			stateCopy = {...state};
+			itemPointer = (action.id === null)?stateCopy.newItem:stateCopy.items[action.id];
+			itemPointer.data.username = "Back to old username...";
+			itemPointer.uiux.isLoading = false;
+			itemPointer.uiux.enableEdit = true;
+			return stateCopy;
+
+		case DELETE:
         	stateCopy = {...state};
 			stateCopy.items[action.id].uiux.actionType = action.type;
             stateCopy.items[action.id].uiux.enableSubMenu = true;
@@ -106,7 +110,7 @@ const fundsReducer = (state=initialState, action) => {
 	    case EXIT:
         	stateCopy = {...state};
 			if (action.payload.id === null) {
-				stateCopy.newItem.data = {...initialData};
+				stateCopy.newItem.data = {...action.payload.initialData};
 				stateCopy.newItem.uiux = {...initialUiux};
 			} else {
 				stateCopy.items[action.payload.id].uiux = {...initialUiux};
@@ -117,5 +121,3 @@ const fundsReducer = (state=initialState, action) => {
 	        return state;
     }
 }
-
-export default fundsReducer;
