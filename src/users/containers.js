@@ -1,16 +1,19 @@
 import { connect } from 'react-redux';
 import { Users, Signup } from './components.jsx';
 import {
-    onCreate,
-    onRetrieve,
-    onUpdate,
-	onSave,
-	onDelete,
+    onSelectCreate,
+    onSelectRetrieve,
+    onVerifyRetrieve,
+    onSelectUpdate,
+    onVerifyUpdate,
+	onSelectDelete,
     onVerifyDelete,
     onExit,
 } from '../core/actions.js';
 
 import {
+    onVerifyCreate,
+
 	onChangeUsername,
 	onChangePassword,
 	onChangePassword2,
@@ -28,17 +31,20 @@ const mapStateToProps = (state, ownProps=null) => {
 const mapDispatchToProps = dispatch => {
     return {
         actions: {
-            onCreate: () => dispatch(onCreate()),
-            onRetrieve: () => dispatch(onRetrieve()),
-            onUpdate: id => dispatch(onUpdate(id)),
+            onSelectCreate: () => dispatch(onSelectCreate()),
+            onVerifyCreate: () => dispatch(onVerifyCreate()),
+            onSelectRetrieve: () => dispatch(onSelectRetrieve()),
+            onVerifyRetrieve: () => dispatch(onVerifyRetrieve()),
+            onSelectUpdate: id => dispatch(onSelectUpdate(id)),
+            onVerifyUpdate: id => dispatch(onVerifyUpdate(id)),
+            onSelectDelete: id => dispatch(onSelectDelete(id)),
+            onVerifyDelete: id => dispatch(onVerifyDelete(id)),
+            onExit: id => dispatch(onExit(id)),
+
             onChangeUsername: (id, username) => dispatch(onChangeUsername(id, username)),
             onChangePassword: (id, password) => dispatch(onChangePassword(id, password)),
             onChangePassword2: (id, password2) => dispatch(onChangePassword2(id, password2)),
             onChangeEmail: (id, email) => dispatch(onChangeEmail(id, email)),
-            onSave: id => dispatch(onSave(id)),
-            onDelete: id => dispatch(onDelete(id)),
-            onVerifyDelete: id => dispatch(onVerifyDelete(id)),
-            onExit: id => dispatch(onExit(id)),
         }
     };
 }
@@ -58,13 +64,13 @@ const mapStateToPropsSignup = state => {
 const mapDispatchToPropsSignup = dispatch => {
     return {
         actions: {
-            onCreate: () => dispatch(onCreate()),
+            onVerifyCreate: (globals, data) => dispatch(onVerifyCreate(globals, data)),
+            onExit: (id, initialData) => dispatch(onExit(id, initialData)),
+
             onChangeUsername: (id, username) => dispatch(onChangeUsername(id, username)),
             onChangePassword: (id, password) => dispatch(onChangePassword(id, password)),
             onChangePassword2: (id, password2) => dispatch(onChangePassword2(id, password2)),
             onChangeEmail: (id, email) => dispatch(onChangeEmail(id, email)),
-            onSave: id => dispatch(onSave(id)),
-            onExit: (id, initialData) => dispatch(onExit(id, initialData)),
         }
     };
 }

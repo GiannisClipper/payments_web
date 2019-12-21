@@ -1,73 +1,77 @@
 import {
-    CREATE,
-    RETRIEVE,
-    UPDATE,
-    SAVE,
-    START_SAVE,
-    FINISH_SAVE,
-    TO_DELETE,
+    SELECT_CREATE,
+    VERIFY_CREATE,
+
+    SELECT_RETRIEVE,
+    VERIFY_RETRIEVE,
+
+    SELECT_UPDATE,
+    VERIFY_UPDATE,
+
+    SELECT_DELETE,
     VERIFY_DELETE,
+
     EXIT,
+
+    BEFORE_REQUEST,
+    AFTER_REQUEST,
+
 } from './constants.js';
 
-export const onCreate = () => {
-    //return {
-    //    type: CREATE,
-    //}
-    return dispatch => {
-        dispatch(onStartSave(null));
-        setTimeout(() => {
-            dispatch(onSave(null));
-            dispatch(onFinishSave(null));
-        }, 2000);
+
+export const onSelectCreate = () => {
+    return {
+        type: SELECT_CREATE,
+        payload: {},
     };
 }
 
-export const onRetrieve = () => {
+export const onVerifyCreate = () => {
     return {
-        type: RETRIEVE,
-    }
+        type: VERIFY_CREATE,
+        payload: {},
+    };
 }
 
-export const onUpdate = id => {
+export const onSelectRetrieve = () => {
     return {
-        type: UPDATE,
-        id
-    }
+        type: SELECT_RETRIEVE,
+        payload: {},
+    };
 }
 
-export const onSave = id => {
+export const onVerifyRetrieve = () => {
     return {
-        type: SAVE,
-        id
-    }
+        type: VERIFY_RETRIEVE,
+        payload: {},
+    };
 }
 
-export const onStartSave = id => {
+export const onSelectUpdate = id => {
     return {
-        type: START_SAVE,
-        id
-    }
+        type: SELECT_UPDATE,
+        payload: {id},
+    };
 }
 
-export const onFinishSave = id => {
+export const onVerifyUpdate = id => {
     return {
-        type: FINISH_SAVE,
-        id
-    }
+        type: VERIFY_UPDATE,
+        payload: {id},
+    };
 }
 
-export const onDelete = id => {
+export const onSelectDelete = id => {
     return {
-        type: TO_DELETE,
-        id
+        type: SELECT_DELETE,
+        payload: {id},
     }
 }
 
 export const onVerifyDelete = id => {
     return {
         type: VERIFY_DELETE,
-        id
+        payload: {id},
     }
 }
 
@@ -75,5 +79,19 @@ export const onExit = (id, initialData) => {
     return {
         type: EXIT,
         payload: {id, initialData},
+    };
+}
+
+export const beforeRequest = id => {
+    return {
+        type: BEFORE_REQUEST,
+        payload: {id},
+    };
+}
+
+export const afterRequest = id => {
+    return {
+        type: AFTER_REQUEST,
+        payload: {id},
     }
 }

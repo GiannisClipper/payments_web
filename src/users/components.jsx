@@ -87,10 +87,10 @@ export const Users = ({newItem, items, actions}) => {
 
 // --- --- --- --- --- --- --- --- ---
 
-const BtSignup = ({item, initialData, actions}) => {
+const BtSignup = ({globals, item, actions}) => {
     return (
         <button
-            onClick={() => actions.onCreate()}
+            onClick={() => actions.onVerifyCreate(globals, item.data)}
             disabled={!item.uiux.enableSave}
         >
             {(item.uiux.isLoading)?(
@@ -112,11 +112,11 @@ const DvSignupMenu = props => {
 
 // --- --- --- --- --- --- --- --- ---
 
-export const Signup = ({newItem, actions}) => {
+export const Signup = ({globals, newItem, actions}) => {
     return (
         <div>
             <DvData item={newItem} actions={actions}/>
-            <DvSignupMenu item={newItem} initialData={initialData} actions={actions}/>
+            <DvSignupMenu globals={globals} item={newItem} initialData={initialData} actions={actions}/>
         </div>
     );
 };

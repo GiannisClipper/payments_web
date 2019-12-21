@@ -2,8 +2,8 @@ import usersReducer from "../users/reducers.js";
 import fundsReducer from "../funds/reducers.js";
 
 const initialState = {
-    origin: 'http://localhost:3000',
-	token: null,
+    host: 'http://localhost:5000',
+    token: {prefix: 'Token', key: null},
 	user: [],
 }
 
