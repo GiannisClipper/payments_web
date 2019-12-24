@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
-import { Users, Signup } from './components.jsx';
+import { Users, Signup, Signin } from './components.jsx';
 import {
     onSelectCreate,
     onSelectRetrieve,
-    onVerifyRetrieve,
     onSelectUpdate,
     onVerifyUpdate,
 	onSelectDelete,
@@ -12,7 +11,12 @@ import {
 } from '../core/actions.js';
 
 import {
+    onSignin,
+} from '../root/actions.js';
+
+import {
     onVerifyCreate,
+    onVerifyRetrieve,
 
 	onChangeUsername,
 	onChangePassword,
@@ -49,7 +53,7 @@ const mapDispatchToProps = dispatch => {
     };
 }
 
-const mapStateToPropsSignup = state => {
+const mapStateToPropsSign = state => {
     let retval = {
         globals: {...state.globals},
         newItem: {...state.users.newItem},
@@ -60,6 +64,9 @@ const mapStateToPropsSignup = state => {
 
     return retval;
 }
+
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
+
 
 const mapDispatchToPropsSignup = dispatch => {
     return {
@@ -75,6 +82,19 @@ const mapDispatchToPropsSignup = dispatch => {
     };
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
+const mapDispatchToPropsSignin = dispatch => {
+    return {
+        actions: {
+            onSignin: (user, token) => dispatch(onSignin(user, token)),
+            onVerifyRetrieve: (globals, data) => dispatch(onVerifyRetrieve(globals, data)),
+            onExit: (id, initialData) => dispatch(onExit(id, initialData)),
 
-export const SignupContainer = connect(mapStateToPropsSignup, mapDispatchToPropsSignup)(Signup);
+            onChangeUsername: (id, username) => dispatch(onChangeUsername(id, username)),
+            onChangePassword: (id, password) => dispatch(onChangePassword(id, password)),
+        }
+    };
+}
+
+export const SignupContainer = connect(mapStateToPropsSign, mapDispatchToPropsSignup)(Signup);
+
+export const SigninContainer = connect(mapStateToPropsSign, mapDispatchToPropsSignin)(Signin);

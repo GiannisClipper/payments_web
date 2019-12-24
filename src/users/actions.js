@@ -1,5 +1,6 @@
 import { request } from '../core/lib.js';
 import { beforeRequest, afterRequest } from '../core/actions.js';
+import { onSignin } from '../root/actions.js';
 
 import {
     CHANGE_USERNAME,
@@ -14,13 +15,35 @@ export const onVerifyCreate = (globals, data) => {
         dispatch(beforeRequest(null));
         dispatch(
             async () => {
-                await request(`${globals.host}/users`, 'POST', globals.token, data,
+                await request(`${globals.origin}/users/signup/`, 'POST', globals.token, {user: data},
                     (status, data) => {
-                        alert(data);
+                        alert('onsuccess' + data);
+                        dispatch(onSignin(data.user, data.token));
                         dispatch(afterRequest(null));
                     },
                     (status, message) => {
-                        alert(message);
+                        alert('onfail' + message);
+                        dispatch(afterRequest(null));
+                    }        
+                );
+            }
+        );
+    };
+}
+
+export const onVerifyRetrieve = (globals, data) => {
+    return dispatch => {
+        dispatch(beforeRequest(null));
+        dispatch(
+            async () => {
+                await request(`${globals.origin}/users/signin/`, 'POST', globals.token, {user: data},
+                    (status, data) => {
+                        alert('onsuccess' + data);
+                        dispatch(onSignin(data.user, data.token));
+                        dispatch(afterRequest(null));
+                    },
+                    (status, message) => {
+                        alert('onfail' + message);
                         dispatch(afterRequest(null));
                     }        
                 );
@@ -32,31 +55,27 @@ export const onVerifyCreate = (globals, data) => {
 export const onChangeUsername = (id, username) => {
     return {
         type: CHANGE_USERNAME,
-		id,
-		username
+		payload: {id, username},
     }
 }
 
 export const onChangePassword = (id, password) => {
     return {
         type: CHANGE_PASSWORD,
-		id,
-		password
+		payload: {id, password},
     }
 }
 
 export const onChangePassword2 = (id, password2) => {
     return {
         type: CHANGE_PASSWORD2,
-		id,
-		password2
+		payload: {id, password2},
     }
 }
 
 export const onChangeEmail = (id, email) => {
     return {
         type: CHANGE_EMAIL,
-		id,
-		email
+		payload: {id, email},
     }
 }

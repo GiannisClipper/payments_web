@@ -2,9 +2,9 @@ import usersReducer from "../users/reducers.js";
 import fundsReducer from "../funds/reducers.js";
 
 const initialState = {
-    host: 'http://localhost:5000',
-    token: {prefix: 'Token', key: null},
-	user: [],
+    origin: 'http://localhost:8000',
+    token: {prefix: 'Token', key: localStorage.getItem('tokenKey')},
+	user: JSON.parse(localStorage.getItem('user')),
 }
 
 const globalsReducer = (state=initialState, action) => {
@@ -13,9 +13,16 @@ const globalsReducer = (state=initialState, action) => {
     switch (action.type) {
         case 'SIGNIN':
         	stateCopy = {...state};
-			stateCopy.globals.user = action.user;
-			stateCopy.globals.token = action.token;
-	        return stateCopy;
+			stateCopy.user = {
+                id: action.payload.user.id,
+                username: action.payload.user.username,
+            };
+            stateCopy.token.key = action.payload.tokenKey;
+            
+            localStorage.setItem('user', JSON.stringify(stateCopy.user));
+            localStorage.setItem('tokenKey', stateCopy.token.key);
+
+            return stateCopy;
 
         default:
 	        return state;

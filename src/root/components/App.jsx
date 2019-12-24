@@ -3,9 +3,8 @@ import NavBar from './NavBar.jsx';
 import Payments from './Payments.jsx';
 import Genres from './Genres.jsx';
 import { FundsContainer } from '../../funds/containers.js';
-import { SignupContainer } from '../../users/containers.js';
+import { SignupContainer, SigninContainer } from '../../users/containers.js';
 import NavTabUsers from './NavTabUsers.jsx';
-import Signin from './Signin.jsx';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
@@ -22,7 +21,7 @@ const App = () => (
 				<Route path='/funds' component={FundsContainer} />
 				<Route path='/users' component={NavTabUsers} />
 				<Route path='/signup' component={SignupContainer} />
-				<Route path='/signin' component={Signin} />
+				<Route path='/signin' component={SigninContainer} />
 			</Switch>
 		</div>
 	</BrowserRouter>

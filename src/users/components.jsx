@@ -120,3 +120,48 @@ export const Signup = ({globals, newItem, actions}) => {
         </div>
     );
 };
+
+// --- --- --- --- --- --- --- --- ---
+
+const DvSigninData = props => {
+    return (
+        <div>
+            <InUsername {...props}/>
+            <InPassword {...props}/>
+        </div>
+    );
+};
+
+const BtSignin = ({globals, item, actions}) => {
+    return (
+        <button
+            onClick={() => actions.onVerifyRetrieve(globals, item.data)}
+            disabled={!item.uiux.enableSave}
+        >
+            {(item.uiux.isLoading)?(
+                <i class="fa fa-refresh fa-spin"></i>
+            ):null}
+            Είσοδος
+        </button>
+    );
+};
+
+const DvSigninMenu = props => {
+    return (
+        <div>
+            <BtSignin {...props} />
+            <BtRoot {...props} />
+        </div>
+    );
+};
+
+// --- --- --- --- --- --- --- --- ---
+
+export const Signin = ({globals, newItem, actions}) => {
+    return (
+        <div>
+            <DvSigninData item={newItem} actions={actions}/>
+            <DvSigninMenu globals={globals} item={newItem} initialData={initialData} actions={actions}/>
+        </div>
+    );
+};
