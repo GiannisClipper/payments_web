@@ -11,7 +11,9 @@ import {
     SELECT_DELETE,
     VERIFY_DELETE,
 
-    EXIT,
+	CLOSE_ITEM,
+	CLOSE_FORM,
+	GO_HOME,
 
     BEFORE_REQUEST,
 	AFTER_REQUEST,
@@ -103,10 +105,10 @@ export const basicFormReducer = (state=initialState, action) => {
 	    case VERIFY_DELETE:
         	stateCopy = {...state};
 			delete stateCopy.items[action.payload.id];
-			stateCopy.items[action.payload.id].uiux.actionType = EXIT;
+			stateCopy.items[action.payload.id].uiux.actionType = CLOSE_ITEM;
 			return stateCopy;
 
-	    case EXIT:
+	    case CLOSE_FORM:
         	stateCopy = {...state};
 			if (action.payload.id === null) {
 				stateCopy.newItem.data = {...action.payload.initialData};
@@ -115,6 +117,10 @@ export const basicFormReducer = (state=initialState, action) => {
 				stateCopy.items[action.payload.id].uiux = {...initialUiux};
 			}
 			return stateCopy;
+
+		case GO_HOME:
+			action.payload.history.push('/')
+			return state;
 
 		case BEFORE_REQUEST:
 			stateCopy = {...state};

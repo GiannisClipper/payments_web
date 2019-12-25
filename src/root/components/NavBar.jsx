@@ -11,6 +11,7 @@ const NavBar = () => {
       <NavTab to='/users' label='USERS' />
       <NavTab to='/signup' label='SIGNUP' />
       <NavTab to='/signin' label='SIGNIN' />
+      <NavTab to='/signout' label='SIGNOUT' />
     </div>
   );
 };

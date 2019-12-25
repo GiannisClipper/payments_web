@@ -24,16 +24,23 @@ const globalsReducer = (state=initialState, action) => {
 
             return stateCopy;
 
+        case 'SIGNOUT':
+            stateCopy = {...state};
+            stateCopy.token.key = null;
+            if (stateCopy.user)
+                stateCopy.user.id = null;
+
+            if (localStorage.getItem('tokenKey', null))
+                localStorage.removeItem('tokenKey');
+            if (localStorage.getItem('user', null))
+                localStorage.removeItem('user');
+
+            return stateCopy;
+
         default:
 	        return state;
     }
 }
-
-//import { combineReducers } from "redux";
-//const rootReducer = combineReducers({
-//  fundsReducer,
-//  ...
-//});
 
 const rootReducer = (state, action) => { 
     return {

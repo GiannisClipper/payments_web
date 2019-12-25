@@ -11,7 +11,9 @@ import {
     SELECT_DELETE,
     VERIFY_DELETE,
 
-    EXIT,
+    CLOSE_ITEM,
+    CLOSE_FORM,
+    GO_HOME,
 
     BEFORE_REQUEST,
     AFTER_REQUEST,
@@ -75,11 +77,25 @@ export const onVerifyDelete = id => {
     }
 }
 
-export const onExit = (id, initialData) => {
+export const onCloseItem = (id, initialData) => {
     return {
-        type: EXIT,
+        type: CLOSE_ITEM,
         payload: {id, initialData},
     };
+}
+
+export const onCloseForm = (id, initialData) => {
+    return {
+        type: CLOSE_FORM,
+        payload: {id, initialData},
+    };
+}
+
+export const onGoHome = history => {
+    return {
+        type: GO_HOME,
+        payload: {history},
+    }
 }
 
 export const beforeRequest = id => {

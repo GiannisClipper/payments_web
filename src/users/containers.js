@@ -1,5 +1,11 @@
 import { connect } from 'react-redux';
-import { Users, Signup, Signin } from './components.jsx';
+import { 
+    UsersForm,
+    SignupForm,
+    SigninForm,
+    SignoutForm,
+} from './components.jsx';
+
 import {
     onSelectCreate,
     onSelectRetrieve,
@@ -7,11 +13,14 @@ import {
     onVerifyUpdate,
 	onSelectDelete,
     onVerifyDelete,
-    onExit,
+    onCloseItem,
+    onCloseForm,
+    onGoHome,
 } from '../core/actions.js';
 
 import {
     onSignin,
+    onSignout,
 } from '../root/actions.js';
 
 import {
@@ -23,6 +32,8 @@ import {
 	onChangePassword2,
 	onChangeEmail,
 } from './actions.js';
+
+// --- --- --- --- --- --- --- --- ---
 
 const mapStateToProps = (state, ownProps=null) => {
     //const { dateId } = ownProps;
@@ -43,7 +54,8 @@ const mapDispatchToProps = dispatch => {
             onVerifyUpdate: id => dispatch(onVerifyUpdate(id)),
             onSelectDelete: id => dispatch(onSelectDelete(id)),
             onVerifyDelete: id => dispatch(onVerifyDelete(id)),
-            onExit: id => dispatch(onExit(id)),
+            onCloseItem: id => dispatch(onCloseItem(id)),
+            onCloseForm: id => dispatch(onCloseForm(id)),
 
             onChangeUsername: (id, username) => dispatch(onChangeUsername(id, username)),
             onChangePassword: (id, password) => dispatch(onChangePassword(id, password)),
@@ -52,6 +64,10 @@ const mapDispatchToProps = dispatch => {
         }
     };
 }
+
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersForm);
+
+// --- --- --- --- --- --- --- --- ---
 
 const mapStateToPropsSign = state => {
     let retval = {
@@ -65,14 +81,12 @@ const mapStateToPropsSign = state => {
     return retval;
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
-
-
 const mapDispatchToPropsSignup = dispatch => {
     return {
         actions: {
             onVerifyCreate: (globals, data) => dispatch(onVerifyCreate(globals, data)),
-            onExit: (id, initialData) => dispatch(onExit(id, initialData)),
+            onCloseForm: (id, initialData) => dispatch(onCloseForm(id, initialData)),
+            onGoHome: (actions) => dispatch(onGoHome(actions)),
 
             onChangeUsername: (id, username) => dispatch(onChangeUsername(id, username)),
             onChangePassword: (id, password) => dispatch(onChangePassword(id, password)),
@@ -82,12 +96,17 @@ const mapDispatchToPropsSignup = dispatch => {
     };
 }
 
+export const SignupContainer = connect(mapStateToPropsSign, mapDispatchToPropsSignup)(SignupForm);
+
+// --- --- --- --- --- --- --- --- ---
+
 const mapDispatchToPropsSignin = dispatch => {
     return {
         actions: {
             onSignin: (user, token) => dispatch(onSignin(user, token)),
             onVerifyRetrieve: (globals, data) => dispatch(onVerifyRetrieve(globals, data)),
-            onExit: (id, initialData) => dispatch(onExit(id, initialData)),
+            onCloseForm: (id, initialData) => dispatch(onCloseForm(id, initialData)),
+            onGoHome: (actions) => dispatch(onGoHome(actions)),
 
             onChangeUsername: (id, username) => dispatch(onChangeUsername(id, username)),
             onChangePassword: (id, password) => dispatch(onChangePassword(id, password)),
@@ -95,6 +114,22 @@ const mapDispatchToPropsSignin = dispatch => {
     };
 }
 
-export const SignupContainer = connect(mapStateToPropsSign, mapDispatchToPropsSignup)(Signup);
+export const SigninContainer = connect(mapStateToPropsSign, mapDispatchToPropsSignin)(SigninForm);
 
-export const SigninContainer = connect(mapStateToPropsSign, mapDispatchToPropsSignin)(Signin);
+// --- --- --- --- --- --- --- --- ---
+
+const mapStateToPropsSignout = state => {
+    return {globals: {...state.globals}};
+}
+
+const mapDispatchToPropsSignout = dispatch => {
+    return {
+        actions: {
+            onSignout: (globals) => dispatch(onSignout(globals)),
+            onGoHome: (actions) => dispatch(onGoHome(actions)),
+        }
+    };
+}
+
+export const SignoutContainer = connect(mapStateToPropsSignout, mapDispatchToPropsSignout)(SignoutForm);
+

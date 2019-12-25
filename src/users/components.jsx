@@ -1,12 +1,14 @@
 import React from 'react';
 
+import { initialData } from './reducers.js';
+
 import { 
-    DvMenu,
-    DvSubMenu,
-    BtRoot,
+    DvItemMenu,
+    BtCloseForm,
+    BtGoHome,
 } from '../core/components.jsx';
 
-import { initialData } from './reducers.js';
+// --- --- --- --- --- --- --- --- ---
 
 const InUsername = ({item, actions}) => {
     return (
@@ -48,7 +50,7 @@ const InEmail = ({item, actions}) => {
     );
 };
 
-const DvData = props => {
+const DvUserData = props => {
     return (
         <div>
             <InUsername {...props}/>
@@ -59,33 +61,38 @@ const DvData = props => {
     );
 };
 
-// --- --- --- --- --- --- --- --- ---
-
-const User = props => {
+const UserItem = props => {
     return (
         <div>
-            <DvData {...props}/>
-            {(!props.item.uiux.enableSubMenu)?(
-                <DvMenu {...props}/>
-            ):(
-                <DvSubMenu {...props}/>
-            )}
+            <DvUserData {...props}/>
+            <DvItemMenu {...props}/>
         </div>
     );
 };
 
-export const Users = ({newItem, items, actions}) => {
+export const UsersForm = ({newItem, items, actions}) => {
     return (
         <div>
-            <User item={newItem} actions={actions} />
+            <UserItem item={newItem} actions={actions} />
             <ul>
-                <li>{items.map(item => <User item={item} actions={actions} />)}</li>
+                <li>{items.map(item => <UserItem item={item} actions={actions} />)}</li>
             </ul>
         </div>
     );
 };
 
 // --- --- --- --- --- --- --- --- ---
+
+const DvSignupData = props => {
+    return (
+        <div>
+            <InUsername {...props}/>
+            <InPassword {...props}/>
+            <InPassword2 {...props}/>
+            <InEmail {...props}/>
+        </div>
+    );
+};
 
 const BtSignup = ({globals, item, actions}) => {
     return (
@@ -94,7 +101,7 @@ const BtSignup = ({globals, item, actions}) => {
             disabled={!item.uiux.enableSave}
         >
             {(item.uiux.isLoading)?(
-                <i class="fa fa-refresh fa-spin"></i>
+                <i className="fa fa-refresh fa-spin"></i>
             ):null}
             Υποβολή
         </button>
@@ -105,17 +112,15 @@ const DvSignupMenu = props => {
     return (
         <div>
             <BtSignup {...props} />
-            <BtRoot {...props} />
+            <BtCloseForm {...props} />
         </div>
     );
 };
 
-// --- --- --- --- --- --- --- --- ---
-
-export const Signup = ({globals, newItem, actions}) => {
+export const SignupForm = ({globals, newItem, actions}) => {
     return (
         <div>
-            <DvData item={newItem} actions={actions}/>
+            <DvSignupData item={newItem} actions={actions}/>
             <DvSignupMenu globals={globals} item={newItem} initialData={initialData} actions={actions}/>
         </div>
     );
@@ -139,7 +144,7 @@ const BtSignin = ({globals, item, actions}) => {
             disabled={!item.uiux.enableSave}
         >
             {(item.uiux.isLoading)?(
-                <i class="fa fa-refresh fa-spin"></i>
+                <i className="fa fa-refresh fa-spin"></i>
             ):null}
             Είσοδος
         </button>
@@ -150,18 +155,31 @@ const DvSigninMenu = props => {
     return (
         <div>
             <BtSignin {...props} />
-            <BtRoot {...props} />
+            <BtCloseForm {...props} />
+        </div>
+    );
+};
+
+export const SigninForm = ({globals, newItem, actions}) => {
+    return (
+        <div>
+            <DvSigninData item={newItem} actions={actions}/>
+            <DvSigninMenu globals={globals} item={newItem} initialData={initialData} actions={actions}/>
         </div>
     );
 };
 
 // --- --- --- --- --- --- --- --- ---
 
-export const Signin = ({globals, newItem, actions}) => {
+export const SignoutForm = ({globals, actions}) => {
+
+    if (globals.user && globals.user.id)
+        actions.onSignout();
+
     return (
         <div>
-            <DvSigninData item={newItem} actions={actions}/>
-            <DvSigninMenu globals={globals} item={newItem} initialData={initialData} actions={actions}/>
+            Επιτυχής αποσύνδεση χρήστη ({(globals.user && globals.user.username)?globals.user.username:''})
+            <BtGoHome {...actions} />
         </div>
     );
 };

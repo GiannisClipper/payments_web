@@ -15,7 +15,7 @@ export const onVerifyCreate = (globals, data) => {
         dispatch(beforeRequest(null));
         dispatch(
             async () => {
-                await request(`${globals.origin}/users/signup/`, 'POST', globals.token, {user: data},
+                await request(`${globals.origin}/users/signup/`, 'POST', '', {user: data},
                     (status, data) => {
                         alert('onsuccess' + data);
                         dispatch(onSignin(data.user, data.token));
@@ -36,7 +36,7 @@ export const onVerifyRetrieve = (globals, data) => {
         dispatch(beforeRequest(null));
         dispatch(
             async () => {
-                await request(`${globals.origin}/users/signin/`, 'POST', globals.token, {user: data},
+                await request(`${globals.origin}/users/signin/`, 'POST', '', {user: data},
                     (status, data) => {
                         alert('onsuccess' + data);
                         dispatch(onSignin(data.user, data.token));
