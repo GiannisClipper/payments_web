@@ -1,148 +1,101 @@
 import React from 'react';
 
-import {
-    CREATE,
-    UPDATE,
-} from "./constants.js";
+import { initialData } from './reducers.js';
 
-const InCode = ({item, actions}) => {
+import { 
+    DvFormMenu,
+    DvItemMenu,
+    DvCreateMenu,
+    DvRetrieveMenu,
+    DvUpdateMenu,
+    DvDeleteMenu,
+} from '../core/components.jsx';
+
+// --- --- --- --- --- --- --- --- ---
+
+const InCode = ({uiux, data, actions}) => {
     return (
         <input
-            value={item.data.code}
-            onChange={event => actions.onChangeCode(item.data.id, event.target.value)}
-            disabled={!item.uiux.enableEdit}
+            value={data.code}
+            onChange={event => actions.onChangeCode(data.id, event.target.value)}
+            disabled={!uiux.allowEdit}
         />
     );
 };
 
-const InName = ({item, actions}) => {
+const InName = ({uiux, data, actions}) => {
     return (
         <input 
-            value={item.data.name}
-            onChange={event => actions.onChangeName(item.data.id, event.target.value)}
-            disabled={!item.uiux.enableEdit}
+            value={data.name}
+            onChange={event => actions.onChangeName(data.id, event.target.value)}
+            disabled={!uiux.allowEdit}
         />
     );
 };
 
-const DvData = props => {
+const DvFundData = props => {
     return (
         <div>
             <InCode {...props}/>
             <InName {...props}/>
         </div>
-    )
-}
-
-const BtCreate = ({item, actions}) => {
-    return (
-        <button
-            onClick={() => actions.onCreate()}
-        >Νέα εγγραφή</button>
-    )
-}
-
-const BtRetrieve = ({item, actions}) => {
-    return (
-        <button
-            onClick={() => actions.onRetrieve()}
-        >Αναζήτηση</button>
-    )
-}
-
-const BtUpdate = ({item, actions}) => {
-    return (
-        <button
-            onClick={() => actions.onUpdate(item.data.id)}
-        >Τροποποίηση</button>
-    )
-}
-
-const BtDelete = ({item, actions}) => {
-    return (
-        <button
-            onClick={() => actions.onDelete(item.data.id)}
-        >Διαγραφή</button>
-    )
-}
-
-const DvMenu = props => {
-    return (!props.item.data.id)?(
-        <div>
-        <BtCreate {...props} />
-        <BtRetrieve {...props} />
-        </div>
-    ):(
-        <div>
-        <BtUpdate {...props} />
-        <BtDelete {...props} />
-        </div>
-    )
-}
-
-const BtSave = ({item, actions}) => {
-    return (
-        <button
-            onClick={() => actions.onSave(item.data.id)}
-            disabled={!item.uiux.enableSave}
-        >Αποθήκευση</button>
-    )
-}
-
-const BtVerify = ({item, actions}) => {
-    return (
-        <button
-            onClick={() => actions.onDelete(item.data.id)}
-        >Επιβεβαίωση</button>
-    )
-}
-
-const BtExit = ({item, actions}) => {
-    return (
-        <button
-            onClick={() => actions.onExit(item.data.id)}
-        >Κλείσιμο</button>
-    )
-}
-
-const DvSubMenu = props => {
-    let actionType = props.item.uiux.actionType;
-
-    return ([CREATE, UPDATE].includes(actionType))?(
-        <div>
-        <BtSave {...props} />
-        <BtExit {...props} />
-        </div>
-    ):(
-        <div>
-        <BtVerify {...props} />
-        <BtExit {...props} />
-        </div>
-    )
-}
-
-const Fund = props => {
-    return (
-        <div>
-            <DvData {...props}/>
-            {(!props.item.uiux.enableSubMenu)?(
-                <DvMenu {...props}/>
-            ):(
-                <DvSubMenu {...props}/>
-            )}
-        </div>
     );
 };
-    
-export const Funds = ({newItem, items, actions}) => {
+
+const DvFundsList = props => {
+    const items = props.items; 
+    const ids = Object.keys(items);
+
     return (
         <div>
-            <Fund item={newItem} actions={actions} />
+            <div>
+                <span>ΚΩΔΙΚΟΣ</span>
+                <span>ΟΝΟΜΑΣΙΑ</span>
+            </div>
             <ul>
-                <li>{items.map(item => <Fund item={item} actions={actions} />)}</li>
+            {ids.map(id => (
+            <li>
+                <span>{items[id].code}</span>
+                <span>{items[id].name}</span>
+                <DvItemMenu {...props} />
+            </li>
+            ))}
             </ul>
         </div>
     );
 };
 
-//export default Funds;
+export const FundsForm = props => {
+    let uiux = props.uiux;
+    
+    return (uiux.mode === 'CREATE')?(
+                <div>
+                <DvFundData {...props}/>
+                <DvCreateMenu {...props}/>
+                </div>
+
+            ):(uiux.mode === 'RETRIEVE')?(
+                <div>
+                <DvFundData {...props}/>
+                <DvRetrieveMenu {...props}/>
+                </div>
+
+            ):(uiux.mode === 'UPDATE')?(
+                <div>
+                <DvFundData {...props}/>
+                <DvUpdateMenu {...props}/>
+                </div>
+
+            ):(uiux.mode === 'DELETE')?(
+                <div>
+                <DvFundData {...props}/>
+                <DvDeleteMenu {...props}/>
+                </div>
+
+            ):(
+                <div>
+                <DvFundsList {...props} />
+                <DvFormMenu {...props} />
+                </div>
+            );
+};

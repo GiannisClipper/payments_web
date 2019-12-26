@@ -1,36 +1,25 @@
 import {
     SELECT_CREATE,
-    VERIFY_CREATE,
-
     SELECT_RETRIEVE,
-    VERIFY_RETRIEVE,
-
     SELECT_UPDATE,
-    VERIFY_UPDATE,
-
     SELECT_DELETE,
-    VERIFY_DELETE,
-
-    CLOSE_ITEM,
     CLOSE_FORM,
     GO_HOME,
 
+    VERIFY_CREATE,
+    VERIFY_RETRIEVE,
+    VERIFY_UPDATE,
+    VERIFY_DELETE,
+    CLOSE_DATA,
+
     BEFORE_REQUEST,
     AFTER_REQUEST,
-
 } from './constants.js';
 
 
 export const onSelectCreate = () => {
     return {
         type: SELECT_CREATE,
-        payload: {},
-    };
-}
-
-export const onVerifyCreate = () => {
-    return {
-        type: VERIFY_CREATE,
         payload: {},
     };
 }
@@ -42,23 +31,9 @@ export const onSelectRetrieve = () => {
     };
 }
 
-export const onVerifyRetrieve = () => {
-    return {
-        type: VERIFY_RETRIEVE,
-        payload: {},
-    };
-}
-
 export const onSelectUpdate = id => {
     return {
         type: SELECT_UPDATE,
-        payload: {id},
-    };
-}
-
-export const onVerifyUpdate = id => {
-    return {
-        type: VERIFY_UPDATE,
         payload: {id},
     };
 }
@@ -70,24 +45,10 @@ export const onSelectDelete = id => {
     }
 }
 
-export const onVerifyDelete = id => {
-    return {
-        type: VERIFY_DELETE,
-        payload: {id},
-    }
-}
-
-export const onCloseItem = (id, initialData) => {
-    return {
-        type: CLOSE_ITEM,
-        payload: {id, initialData},
-    };
-}
-
-export const onCloseForm = (id, initialData) => {
+export const onCloseForm = initialData => {
     return {
         type: CLOSE_FORM,
-        payload: {id, initialData},
+        payload: {initialData},
     };
 }
 
@@ -96,6 +57,41 @@ export const onGoHome = history => {
         type: GO_HOME,
         payload: {history},
     }
+}
+
+export const onVerifyCreate = () => {
+    return {
+        type: VERIFY_CREATE,
+        payload: {},
+    };
+}
+
+export const onVerifyRetrieve = () => {
+    return {
+        type: VERIFY_RETRIEVE,
+        payload: {},
+    };
+}
+
+export const onVerifyUpdate = id => {
+    return {
+        type: VERIFY_UPDATE,
+        payload: {id},
+    };
+}
+
+export const onVerifyDelete = id => {
+    return {
+        type: VERIFY_DELETE,
+        payload: {id},
+    }
+}
+
+export const onCloseData = initialData => {
+    return {
+        type: CLOSE_DATA,
+        payload: {initialData},
+    };
 }
 
 export const beforeRequest = id => {

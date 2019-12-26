@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { initialData } from './reducers.js';
-
 import { 
     DvItemMenu,
     BtCloseForm,
@@ -10,42 +8,42 @@ import {
 
 // --- --- --- --- --- --- --- --- ---
 
-const InUsername = ({item, actions}) => {
+const InUsername = ({uiux, data, actions}) => {
     return (
         <input
-            value={item.data.username}
-            onChange={event => actions.onChangeUsername(item.data.id, event.target.value)}
-            disabled={!item.uiux.enableEdit}
+            value={data.username}
+            onChange={event => actions.onChangeUsername(data.id, event.target.value)}
+            disabled={!uiux.allowEdit}
         />
     );
 };
 
-const InPassword = ({item, actions}) => {
+const InPassword = ({uiux, data, actions}) => {
     return (
         <input 
-            value={item.data.password}
-            onChange={event => actions.onChangePassword(item.data.id, event.target.value)}
-            disabled={!item.uiux.enableEdit}
+            value={data.password}
+            onChange={event => actions.onChangePassword(data.id, event.target.value)}
+            disabled={!uiux.allowEdit}
         />
     );
 };
 
-const InPassword2 = ({item, actions}) => {
+const InPassword2 = ({uiux, data, actions}) => {
     return (
         <input 
-            value={item.data.password2}
-            onChange={event => actions.onChangePassword2(item.data.id, event.target.value)}
-            disabled={!item.uiux.enableEdit}
+            value={data.password2}
+            onChange={event => actions.onChangePassword2(data.id, event.target.value)}
+            disabled={!uiux.allowEdit}
         />
     );
 };
 
-const InEmail = ({item, actions}) => {
+const InEmail = ({uiux, data, actions}) => {
     return (
         <input 
-            value={item.data.email}
-            onChange={event => actions.onChangeEmail(item.data.id, event.target.value)}
-            disabled={!item.uiux.enableEdit}
+            value={data.email}
+            onChange={event => actions.onChangeEmail(data.id, event.target.value)}
+            disabled={!uiux.allowEdit}
         />
     );
 };
@@ -61,22 +59,9 @@ const DvUserData = props => {
     );
 };
 
-const UserItem = props => {
+export const UsersForm = ({uiux, data, actions}) => {
     return (
         <div>
-            <DvUserData {...props}/>
-            <DvItemMenu {...props}/>
-        </div>
-    );
-};
-
-export const UsersForm = ({newItem, items, actions}) => {
-    return (
-        <div>
-            <UserItem item={newItem} actions={actions} />
-            <ul>
-                <li>{items.map(item => <UserItem item={item} actions={actions} />)}</li>
-            </ul>
         </div>
     );
 };
@@ -94,15 +79,13 @@ const DvSignupData = props => {
     );
 };
 
-const BtSignup = ({globals, item, actions}) => {
+const BtSignup = ({globals, uiux, data, actions}) => {
     return (
         <button
-            onClick={() => actions.onVerifyCreate(globals, item.data)}
-            disabled={!item.uiux.enableSave}
+            onClick={() => actions.onVerifyCreate(globals, data)}
+            disabled={!uiux.allowSave}
         >
-            {(item.uiux.isLoading)?(
-                <i className="fa fa-refresh fa-spin"></i>
-            ):null}
+            {(uiux.isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
             Υποβολή
         </button>
     );
@@ -117,11 +100,11 @@ const DvSignupMenu = props => {
     );
 };
 
-export const SignupForm = ({globals, newItem, actions}) => {
+export const SignupForm = props => {
     return (
         <div>
-            <DvSignupData item={newItem} actions={actions}/>
-            <DvSignupMenu globals={globals} item={newItem} initialData={initialData} actions={actions}/>
+            <DvSignupData {...props} />
+            <DvSignupMenu {...props} />
         </div>
     );
 };
@@ -137,15 +120,13 @@ const DvSigninData = props => {
     );
 };
 
-const BtSignin = ({globals, item, actions}) => {
+const BtSignin = ({globals, uiux, data, actions}) => {
     return (
         <button
-            onClick={() => actions.onVerifyRetrieve(globals, item.data)}
-            disabled={!item.uiux.enableSave}
+            onClick={() => actions.onVerifyRetrieve(globals, data)}
+            disabled={!uiux.allowSave}
         >
-            {(item.uiux.isLoading)?(
-                <i className="fa fa-refresh fa-spin"></i>
-            ):null}
+            {(uiux.isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
             Είσοδος
         </button>
     );
@@ -160,11 +141,11 @@ const DvSigninMenu = props => {
     );
 };
 
-export const SigninForm = ({globals, newItem, actions}) => {
+export const SigninForm = props => {
     return (
         <div>
-            <DvSigninData item={newItem} actions={actions}/>
-            <DvSigninMenu globals={globals} item={newItem} initialData={initialData} actions={actions}/>
+            <DvSigninData {...props}/>
+            <DvSigninMenu {...props}/>
         </div>
     );
 };

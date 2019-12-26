@@ -1,74 +1,65 @@
-import { 
-    CREATE,
-    RETRIEVE,
-    UPDATE,
+import { request } from '../core/lib.js';
+import { beforeRequest, afterRequest } from '../core/actions.js';
+import { onSignin } from '../root/actions.js';
+
+import {
     CHANGE_CODE,
     CHANGE_NAME,
-    SAVE,
-    TO_DELETE,
-    VERIFY_DELETE,
-    EXIT,
 } from './constants.js';
 
-export const onCreate = () => {
-    return {
-        type: CREATE,
-    }
+
+export const onVerifyCreate = (globals, data) => {
+    return dispatch => {
+        dispatch(beforeRequest(null));
+        dispatch(
+            async () => {
+                await request(`${globals.origin}/users/signup/`, 'POST', '', {user: data},
+                    (status, data) => {
+                        alert('onsuccess' + data);
+                        dispatch(onSignin(data.user, data.token));
+                        dispatch(afterRequest(null));
+                    },
+                    (status, message) => {
+                        alert('onfail' + message);
+                        dispatch(afterRequest(null));
+                    }        
+                );
+            }
+        );
+    };
 }
 
-export const onRetrieve = () => {
-    return {
-        type: RETRIEVE,
-    }
-}
-
-export const onUpdate = id => {
-    return {
-        type: UPDATE,
-        id
-    }
+export const onVerifyRetrieve = (globals, data) => {
+    return dispatch => {
+        dispatch(beforeRequest(null));
+        dispatch(
+            async () => {
+                await request(`${globals.origin}/users/signin/`, 'POST', '', {user: data},
+                    (status, data) => {
+                        alert('onsuccess' + data);
+                        dispatch(onSignin(data.user, data.token));
+                        dispatch(afterRequest(null));
+                    },
+                    (status, message) => {
+                        alert('onfail' + message);
+                        dispatch(afterRequest(null));
+                    }        
+                );
+            }
+        );
+    };
 }
 
 export const onChangeCode = (id, code) => {
     return {
         type: CHANGE_CODE,
-		id,
-		code
+		payload: {id, code},
     }
 }
 
 export const onChangeName = (id, name) => {
     return {
         type: CHANGE_NAME,
-		id,
-		name
-    }
-}
-
-export const onSave = id => {
-    return {
-        type: SAVE,
-        id
-    }
-}
-
-export const onDelete = id => {
-    return {
-        type: TO_DELETE,
-        id
-    }
-}
-
-export const onVerifyDelete = id => {
-    return {
-        type: VERIFY_DELETE,
-        id
-    }
-}
-
-export const onExit = id => {
-    return {
-        type: EXIT,
-        id
+		payload: {id, name},
     }
 }

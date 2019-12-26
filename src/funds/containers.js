@@ -1,41 +1,64 @@
 import { connect } from 'react-redux';
-import { Funds } from './components.jsx';
+
+import { 
+    FundsForm,
+} from './components.jsx';
+
 import {
-    onCreate,
-    onRetrieve,
-    onUpdate,
+    onSelectCreate,
+    onSelectRetrieve,
+    onSelectUpdate,
+    onSelectDelete,
+    onCloseForm,
+    onGoHome,
+
+    onVerifyUpdate,
+    onVerifyDelete,
+    onCloseData,
+} from '../core/actions.js';
+
+import {
+    onVerifyCreate,
+    onVerifyRetrieve,
 	onChangeCode,
 	onChangeName,
-	onSave,
-	onDelete,
-    onVerifyDelete,
-    onExit,
- } from './actions.js';
+} from './actions.js';
+
+import { initialData } from './reducers.js';
+
+// --- --- --- --- --- --- --- --- ---
 
 const mapStateToProps = (state, ownProps=null) => {
     //const { dateId } = ownProps;
     return {
-        newItem: {...state.funds.newItem},
-        items: [...state.funds.items],
+        globals: {...state.globals},
+        uiux: {...state.funds.uiux},
+        data: {...state.funds.data},
+        initialData: {...initialData},
+        items: {...state.funds.items},
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         actions: {
-            onCreate: () => dispatch(onCreate()),
-            onRetrieve: () => dispatch(onRetrieve()),
-            onUpdate: id => dispatch(onUpdate(id)),
+            onSelectCreate: () => dispatch(onSelectCreate()),
+            onSelectRetrieve: () => dispatch(onSelectRetrieve()),
+            onSelectUpdate: id => dispatch(onSelectUpdate(id)),
+            onSelectDelete: id => dispatch(onSelectDelete(id)),
+            onCloseForm: initialData => dispatch(onCloseForm(initialData)),
+            onGoHome: actions => dispatch(onGoHome(actions)),
+
+            onVerifyUpdate: id => dispatch(onVerifyUpdate(id)),
+            onVerifyCreate: () => dispatch(onVerifyCreate()),
+            onVerifyRetrieve: () => dispatch(onVerifyRetrieve()),
+            onVerifyDelete: id => dispatch(onVerifyDelete(id)),
+            onCloseData: initialData => dispatch(onCloseData(initialData)),
+
             onChangeCode: (id, code) => dispatch(onChangeCode(id, code)),
             onChangeName: (id, name) => dispatch(onChangeName(id, name)),
-            onSave: id => dispatch(onSave(id)),
-            onDelete: id => dispatch(onDelete(id)),
-            onVerifyDelete: id => dispatch(onVerifyDelete(id)),
-            onExit: id => dispatch(onExit(id)),
         }
     };
 }
 
-export const FundsContainer = connect(mapStateToProps, mapDispatchToProps)(Funds);
-
-//export default FundsContainer;
+export const FundsContainer = connect(mapStateToProps, mapDispatchToProps)(FundsForm);

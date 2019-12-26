@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+
 import { 
     UsersForm,
     SignupForm,
@@ -10,12 +11,13 @@ import {
     onSelectCreate,
     onSelectRetrieve,
     onSelectUpdate,
-    onVerifyUpdate,
 	onSelectDelete,
-    onVerifyDelete,
-    onCloseItem,
     onCloseForm,
     onGoHome,
+
+    onVerifyUpdate,
+    onVerifyDelete,
+    onCloseData,
 } from '../core/actions.js';
 
 import {
@@ -33,13 +35,18 @@ import {
 	onChangeEmail,
 } from './actions.js';
 
+import { initialData } from './reducers.js';
+
 // --- --- --- --- --- --- --- --- ---
 
 const mapStateToProps = (state, ownProps=null) => {
     //const { dateId } = ownProps;
     return {
-        newItem: {...state.users.newItem},
-        items: [...state.users.items],
+        globals: {...state.globals},
+        uiux: {...state.users.uiux},
+        data: {...state.users.data},
+        initialData: {...initialData},
+        items: {...state.funds.items},
     };
 }
 
@@ -47,15 +54,17 @@ const mapDispatchToProps = dispatch => {
     return {
         actions: {
             onSelectCreate: () => dispatch(onSelectCreate()),
-            onVerifyCreate: () => dispatch(onVerifyCreate()),
             onSelectRetrieve: () => dispatch(onSelectRetrieve()),
-            onVerifyRetrieve: () => dispatch(onVerifyRetrieve()),
             onSelectUpdate: id => dispatch(onSelectUpdate(id)),
-            onVerifyUpdate: id => dispatch(onVerifyUpdate(id)),
             onSelectDelete: id => dispatch(onSelectDelete(id)),
+            onCloseData: initialData => dispatch(onCloseData(initialData)),
+            onGoHome: actions => dispatch(onGoHome(actions)),
+
+            onVerifyUpdate: id => dispatch(onVerifyUpdate(id)),
+            onVerifyCreate: () => dispatch(onVerifyCreate()),
+            onVerifyRetrieve: () => dispatch(onVerifyRetrieve()),
             onVerifyDelete: id => dispatch(onVerifyDelete(id)),
-            onCloseItem: id => dispatch(onCloseItem(id)),
-            onCloseForm: id => dispatch(onCloseForm(id)),
+            onCloseForm: initialData => dispatch(onCloseForm(initialData)),
 
             onChangeUsername: (id, username) => dispatch(onChangeUsername(id, username)),
             onChangePassword: (id, password) => dispatch(onChangePassword(id, password)),
@@ -72,11 +81,13 @@ export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users
 const mapStateToPropsSign = state => {
     let retval = {
         globals: {...state.globals},
-        newItem: {...state.users.newItem},
+        uiux: {...state.users.uiux},
+        data: {...state.users.data},
+        initialData: {...initialData},
     };
 
-    if (retval.newItem.uiux.enableEdit === null)
-        retval.newItem.uiux.enableEdit = true;
+    if (retval.uiux.allowEdit === null)
+        retval.uiux.allowEdit = true;
 
     return retval;
 }
@@ -85,8 +96,8 @@ const mapDispatchToPropsSignup = dispatch => {
     return {
         actions: {
             onVerifyCreate: (globals, data) => dispatch(onVerifyCreate(globals, data)),
-            onCloseForm: (id, initialData) => dispatch(onCloseForm(id, initialData)),
-            onGoHome: (actions) => dispatch(onGoHome(actions)),
+            onCloseForm: initialData => dispatch(onCloseForm(initialData)),
+            onGoHome: actions => dispatch(onGoHome(actions)),
 
             onChangeUsername: (id, username) => dispatch(onChangeUsername(id, username)),
             onChangePassword: (id, password) => dispatch(onChangePassword(id, password)),
@@ -105,8 +116,8 @@ const mapDispatchToPropsSignin = dispatch => {
         actions: {
             onSignin: (user, token) => dispatch(onSignin(user, token)),
             onVerifyRetrieve: (globals, data) => dispatch(onVerifyRetrieve(globals, data)),
-            onCloseForm: (id, initialData) => dispatch(onCloseForm(id, initialData)),
-            onGoHome: (actions) => dispatch(onGoHome(actions)),
+            onCloseForm: initialData => dispatch(onCloseForm(initialData)),
+            onGoHome: actions => dispatch(onGoHome(actions)),
 
             onChangeUsername: (id, username) => dispatch(onChangeUsername(id, username)),
             onChangePassword: (id, password) => dispatch(onChangePassword(id, password)),
@@ -125,8 +136,8 @@ const mapStateToPropsSignout = state => {
 const mapDispatchToPropsSignout = dispatch => {
     return {
         actions: {
-            onSignout: (globals) => dispatch(onSignout(globals)),
-            onGoHome: (actions) => dispatch(onGoHome(actions)),
+            onSignout: globals => dispatch(onSignout(globals)),
+            onGoHome: actions => dispatch(onGoHome(actions)),
         }
     };
 }

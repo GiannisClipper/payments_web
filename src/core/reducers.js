@@ -20,102 +20,84 @@ import {
 
 } from "./constants.js";
 
+const initialUiux = {
+	mode: null,
+	allowSave: null,
+	allowEdit: null,
+	isLoading: null,
+}
 
 const initialData = {
 }
 
-const initialUiux = {
-	actionType: null,
-	enableSubMenu: null,
-	enableSave: null,
-	enableEdit: null,
-	isLoading: null,
-}
-
-const initialItem = (initialData) => {
-	return {
-		data: {...initialData},
-		uiux: {...initialUiux},
-	}
-}
-
 export const initialState = (initialData) => {
 	return {
-		newItem: {...initialItem(initialData)},
-		items: [],
+		uiux: {...initialUiux},
+		data: {...initialData},
+		items: {},
 	}
 }
 
-export const basicFormReducer = (state=initialState, action) => {
-	let stateCopy, itemPointer;
+export const basicFormReducer = (state=initialState(initialData), action) => {
+	let stateCopy;
 
     switch (action.type) {
         case SELECT_CREATE:
         	stateCopy = {...state};
-			stateCopy.newItem.uiux.actionType = action.type;
-			stateCopy.newItem.uiux.enableSubMenu = true;
-			stateCopy.newItem.uiux.enableEdit = true;
-			stateCopy.newItem.uiux.enableSave = false;
+			stateCopy.uiux.mode = 'CREATE';
+			stateCopy.uiux.allowEdit = true;
+			stateCopy.uiux.allowSave = false;
 			return stateCopy;
 
-		case VERIFY_CREATE:
-			stateCopy = {...state};
-			if (action.payload.id === null) {
-				stateCopy.items.push({
-					data: {...stateCopy.newItem.data},
-					uiux: {...initialUiux},
-				});
-				let id = stateCopy.items.length - 1;
-				stateCopy.items[id].data.id = id;
-				stateCopy.newItem.data = {...initialData};
-				stateCopy.newItem.uiux = {...initialUiux};
-			}
-			return stateCopy;
-	
 		case SELECT_RETRIEVE:
 			stateCopy = {...state};
-			stateCopy.newItem.uiux.actionType = action.type;
-			stateCopy.newItem.uiux.enableSubMenu = true;
-			stateCopy.newItem.uiux.enableEdit = true;
-			stateCopy.newItem.uiux.enableSave = false;
-			return stateCopy;
-
-		case VERIFY_RETRIEVE:
-			stateCopy = {...state};
+			stateCopy.uiux.mode = 'RETRIEVE';
+			stateCopy.uiux.allowEdit = true;
+			stateCopy.uiux.allowSave = false;
 			return stateCopy;
 	
-        case SELECT_UPDATE:
-        	stateCopy = {...state};
-			stateCopy.items[action.payload.id].uiux.actionType = action.type;
-            stateCopy.items[action.payload.id].uiux.enableSubMenu = true;
-            stateCopy.items[action.payload.id].uiux.enableEdit = true;
-            stateCopy.items[action.payload.id].uiux.enableSave = false;
-            return stateCopy;
-  
-        case VERIFY_UPDATE:
+		case SELECT_UPDATE:
 			stateCopy = {...state};
+			stateCopy.uiux.mode = 'UPDATE';
+			stateCopy.uiux.allowEdit = true;
+			stateCopy.uiux.allowSave = false;
+			return stateCopy;
+	
+		case SELECT_DELETE:
+			stateCopy = {...state};
+			stateCopy.uiux.mode = 'DELETE';
+			stateCopy.uiux.allowEdit = false;
+			stateCopy.uiux.allowSave = false;
+			return stateCopy;
+	
+		case VERIFY_CREATE:
+			stateCopy = {...state};
+			if (action.payload.id === null)
+				stateCopy.items.push({data: {...stateCopy.data}});
+			return stateCopy;
+	
+		case VERIFY_RETRIEVE:
+			return state;
+	  
+        case VERIFY_UPDATE:
+        	stateCopy = {...state};
+			stateCopy.items[action.payload.id] = {...stateCopy.data};
 			return stateCopy;
   
-		case SELECT_DELETE:
-        	stateCopy = {...state};
-			stateCopy.items[action.payload.id].uiux.actionType = action.type;
-            stateCopy.items[action.payload.id].uiux.enableSubMenu = true;
-        	return stateCopy;
-
 	    case VERIFY_DELETE:
         	stateCopy = {...state};
 			delete stateCopy.items[action.payload.id];
-			stateCopy.items[action.payload.id].uiux.actionType = CLOSE_ITEM;
 			return stateCopy;
 
+		case CLOSE_ITEM:
+			stateCopy = {...state};
+			stateCopy.uiux = {...initialUiux};
+			stateCopy.data = {...initialData};	
+			return stateCopy;
+	
 	    case CLOSE_FORM:
-        	stateCopy = {...state};
-			if (action.payload.id === null) {
-				stateCopy.newItem.data = {...action.payload.initialData};
-				stateCopy.newItem.uiux = {...initialUiux};
-			} else {
-				stateCopy.items[action.payload.id].uiux = {...initialUiux};
-			}
+			stateCopy = {...state};
+			stateCopy = initialState(action.payload.initialData);
 			return stateCopy;
 
 		case GO_HOME:
@@ -124,17 +106,15 @@ export const basicFormReducer = (state=initialState, action) => {
 
 		case BEFORE_REQUEST:
 			stateCopy = {...state};
-			itemPointer = (action.payload.id === null)?stateCopy.newItem:stateCopy.items[action.payload.id];
-			itemPointer.uiux.enableEdit = false;
-			itemPointer.uiux.enableSave = false;
-			itemPointer.uiux.isLoading = true;
+			stateCopy.uiux.allowEdit = false;
+			stateCopy.uiux.allowSave = false;
+			stateCopy.uiux.isLoading = true;
 			return stateCopy;
 
 		case AFTER_REQUEST:
 			stateCopy = {...state};
-			itemPointer = (action.payload.id === null)?stateCopy.newItem:stateCopy.items[action.payload.id];
-			itemPointer.uiux.isLoading = false;
-			itemPointer.uiux.enableEdit = true;
+			stateCopy.uiux.allowEdit = true;
+			stateCopy.uiux.isLoading = false;
 			return stateCopy;
 	
 		default:
