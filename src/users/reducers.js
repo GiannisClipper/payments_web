@@ -7,7 +7,7 @@ import {
 
 import {
 	initialState,
-	basicFormReducer,
+	baseFormReducer,
 } from '../core/reducers.js'
 
 
@@ -19,8 +19,11 @@ export const initialData = {
 	email: 'Email...', 
 }
 
-const usersReducer = (state=initialState(initialData), action) => {
-	let stateCopy;
+const usersReducer = (state=initialState({form: 'users'}, initialData), action) => {
+    let stateCopy;
+
+    if (!action.uiux || action.uiux.form !== 'users')
+        return state
 
     switch (action.type) {
         case CHANGE_USERNAME:
@@ -48,8 +51,7 @@ const usersReducer = (state=initialState(initialData), action) => {
             return stateCopy;
         
 		default:
-			return basicFormReducer(state, action)
-	        //return state;
+			return baseFormReducer(state, action)
     }
 }
 

@@ -17,93 +17,106 @@ import {
 } from './constants.js';
 
 
-export const onSelectCreate = () => {
+export const onSelectCreate = uiux => {
     return {
+        uiux: uiux, 
         type: SELECT_CREATE,
         payload: {},
     };
 }
 
-export const onSelectRetrieve = () => {
+export const onSelectRetrieve = uiux => {
     return {
+        uiux: uiux, 
         type: SELECT_RETRIEVE,
         payload: {},
     };
 }
 
-export const onSelectUpdate = id => {
+export const onSelectUpdate = (uiux, id) => {
     return {
+        uiux: uiux, 
         type: SELECT_UPDATE,
         payload: {id},
     };
 }
 
-export const onSelectDelete = id => {
+export const onSelectDelete = (uiux, id) => {
     return {
+        uiux: uiux, 
         type: SELECT_DELETE,
         payload: {id},
     }
 }
 
-export const onCloseForm = initialData => {
+export const onCloseForm = (uiux, initialData) => {
     return {
+        uiux: uiux, 
         type: CLOSE_FORM,
         payload: {initialData},
     };
 }
 
-export const onGoHome = history => {
+export const onGoHome = (uiux, history) => {
     return {
+        uiux: uiux, 
         type: GO_HOME,
         payload: {history},
     }
 }
 
-export const onVerifyCreate = () => {
+export const onVerifyCreate = uiux => {
     return {
+        uiux: uiux, 
         type: VERIFY_CREATE,
         payload: {},
     };
 }
 
-export const onVerifyRetrieve = () => {
+export const onVerifyRetrieve = uiux => {
     return {
+        uiux: uiux, 
         type: VERIFY_RETRIEVE,
         payload: {},
     };
 }
 
-export const onVerifyUpdate = id => {
+export const onVerifyUpdate = (uiux, id) => {
     return {
+        uiux: uiux, 
         type: VERIFY_UPDATE,
         payload: {id},
     };
 }
 
-export const onVerifyDelete = id => {
+export const onVerifyDelete = (uiux, id) => {
     return {
+        uiux: uiux, 
         type: VERIFY_DELETE,
         payload: {id},
     }
 }
 
-export const onCloseData = initialData => {
+export const onCloseData = (uiux, initialData) => {
     return {
+        uiux: uiux,
         type: CLOSE_DATA,
         payload: {initialData},
     };
 }
 
-export const beforeRequest = id => {
+export const beforeRequest = uiux => {
     return {
+        uiux: uiux,
         type: BEFORE_REQUEST,
-        payload: {id},
+        payload: {},
     };
 }
 
-export const afterRequest = id => {
+export const afterRequest = uiux => {
     return {
+        uiux: uiux,
         type: AFTER_REQUEST,
-        payload: {id},
+        payload: {},
     }
 }

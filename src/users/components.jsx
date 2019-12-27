@@ -1,60 +1,60 @@
 import React from 'react';
 
 import { 
-    DvItemMenu,
-    BtCloseForm,
-    BtGoHome,
+    DivItemMenu,
+    ButtonCloseForm,
+    ButtonGoHome,
 } from '../core/components.jsx';
 
 // --- --- --- --- --- --- --- --- ---
 
-const InUsername = ({uiux, data, actions}) => {
+const InputUsername = ({uiux, data, actions}) => {
     return (
         <input
             value={data.username}
-            onChange={event => actions.onChangeUsername(data.id, event.target.value)}
+            onChange={event => actions.onChangeUsername(uiux, data.id, event.target.value)}
             disabled={!uiux.allowEdit}
         />
     );
 };
 
-const InPassword = ({uiux, data, actions}) => {
+const InputPassword = ({uiux, data, actions}) => {
     return (
         <input 
             value={data.password}
-            onChange={event => actions.onChangePassword(data.id, event.target.value)}
+            onChange={event => actions.onChangePassword(uiux, data.id, event.target.value)}
             disabled={!uiux.allowEdit}
         />
     );
 };
 
-const InPassword2 = ({uiux, data, actions}) => {
+const InputPassword2 = ({uiux, data, actions}) => {
     return (
         <input 
             value={data.password2}
-            onChange={event => actions.onChangePassword2(data.id, event.target.value)}
+            onChange={event => actions.onChangePassword2(uiux, data.id, event.target.value)}
             disabled={!uiux.allowEdit}
         />
     );
 };
 
-const InEmail = ({uiux, data, actions}) => {
+const InputEmail = ({uiux, data, actions}) => {
     return (
         <input 
             value={data.email}
-            onChange={event => actions.onChangeEmail(data.id, event.target.value)}
+            onChange={event => actions.onChangeEmail(uiux, data.id, event.target.value)}
             disabled={!uiux.allowEdit}
         />
     );
 };
 
-const DvUserData = props => {
+const DivEdit = props => {
     return (
         <div>
-            <InUsername {...props}/>
-            <InPassword {...props}/>
-            <InPassword2 {...props}/>
-            <InEmail {...props}/>
+            <InputUsername {...props}/>
+            <InputPassword {...props}/>
+            <InputPassword2 {...props}/>
+            <InputEmail {...props}/>
         </div>
     );
 };
@@ -68,21 +68,21 @@ export const UsersForm = ({uiux, data, actions}) => {
 
 // --- --- --- --- --- --- --- --- ---
 
-const DvSignupData = props => {
+const DivSignupEdit = props => {
     return (
         <div>
-            <InUsername {...props}/>
-            <InPassword {...props}/>
-            <InPassword2 {...props}/>
-            <InEmail {...props}/>
+            <InputUsername {...props}/>
+            <InputPassword {...props}/>
+            <InputPassword2 {...props}/>
+            <InputEmail {...props}/>
         </div>
     );
 };
 
-const BtSignup = ({globals, uiux, data, actions}) => {
+const ButtonSignup = ({globals, uiux, data, actions}) => {
     return (
         <button
-            onClick={() => actions.onVerifyCreate(globals, data)}
+            onClick={() => actions.onVerifyCreate(globals, uiux, data)}
             disabled={!uiux.allowSave}
         >
             {(uiux.isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
@@ -91,11 +91,11 @@ const BtSignup = ({globals, uiux, data, actions}) => {
     );
 };
 
-const DvSignupMenu = props => {
+const DivSignupMenu = props => {
     return (
         <div>
-            <BtSignup {...props} />
-            <BtCloseForm {...props} />
+            <ButtonSignup {...props} />
+            <ButtonCloseForm {...props} />
         </div>
     );
 };
@@ -103,27 +103,27 @@ const DvSignupMenu = props => {
 export const SignupForm = props => {
     return (
         <div>
-            <DvSignupData {...props} />
-            <DvSignupMenu {...props} />
+            <DivSignupEdit {...props} />
+            <DivSignupMenu {...props} />
         </div>
     );
 };
 
 // --- --- --- --- --- --- --- --- ---
 
-const DvSigninData = props => {
+const DivSigninEdit = props => {
     return (
         <div>
-            <InUsername {...props}/>
-            <InPassword {...props}/>
+            <InputUsername {...props}/>
+            <InputPassword {...props}/>
         </div>
     );
 };
 
-const BtSignin = ({globals, uiux, data, actions}) => {
+const ButtonSignin = ({globals, uiux, data, actions}) => {
     return (
         <button
-            onClick={() => actions.onVerifyRetrieve(globals, data)}
+            onClick={() => actions.onVerifyRetrieve(globals, uiux, data)}
             disabled={!uiux.allowSave}
         >
             {(uiux.isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
@@ -132,11 +132,11 @@ const BtSignin = ({globals, uiux, data, actions}) => {
     );
 };
 
-const DvSigninMenu = props => {
+const DivSigninMenu = props => {
     return (
         <div>
-            <BtSignin {...props} />
-            <BtCloseForm {...props} />
+            <ButtonSignin {...props} />
+            <ButtonCloseForm {...props} />
         </div>
     );
 };
@@ -144,15 +144,17 @@ const DvSigninMenu = props => {
 export const SigninForm = props => {
     return (
         <div>
-            <DvSigninData {...props}/>
-            <DvSigninMenu {...props}/>
+            <DivSigninEdit {...props}/>
+            <DivSigninMenu {...props}/>
         </div>
     );
 };
 
 // --- --- --- --- --- --- --- --- ---
 
-export const SignoutForm = ({globals, actions}) => {
+export const SignoutForm = props => {
+    const globals = props.globals;
+    const actions = props.actions;
 
     if (globals.user && globals.user.id)
         actions.onSignout();
@@ -160,7 +162,7 @@ export const SignoutForm = ({globals, actions}) => {
     return (
         <div>
             Επιτυχής αποσύνδεση χρήστη ({(globals.user && globals.user.username)?globals.user.username:''})
-            <BtGoHome {...actions} />
+            <ButtonGoHome {...props} />
         </div>
     );
 };

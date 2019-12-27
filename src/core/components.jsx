@@ -4,156 +4,156 @@ import React from 'react';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const BtSelectCreate = ({actions}) => {
+export const ButtonSelectCreate = ({uiux, actions}) => {
     return (
         <button
-            onClick={() => actions.onSelectCreate()}
+            onClick={() => actions.onSelectCreate(uiux)}
         >Νέα εγγραφή</button>
     );
 };
 
-export const BtSelectRetrieve = ({actions}) => {
+export const ButtonSelectRetrieve = ({uiux, actions}) => {
     return (
         <button
-            onClick={() => actions.onSelectRetrieve()}
+            onClick={() => actions.onSelectRetrieve(uiux)}
         >Αναζήτηση</button>
     );
 };
 
-export const BtSelectUpdate = ({data, actions}) => {
+export const ButtonSelectUpdate = ({uiux, data, actions}) => {
     return (
         <button
-            onClick={() => actions.onSelectUpdate(data)}
+            onClick={() => actions.onSelectUpdate(uiux, data)}
         >Τροποποίηση</button>
     );
 };
 
-export const BtSelectDelete = ({data, actions}) => {
+export const ButtonSelectDelete = ({uiux, data, actions}) => {
     return (
         <button
-            onClick={() => actions.onSelectDelete(data)}
+            onClick={() => actions.onSelectDelete(uiux, data)}
         >Διαγραφή</button>
     );
 };
 
-export const BtCloseForm = ({initialData, actions}) => {
+export const ButtonCloseForm = ({uiux, initialData, actions}) => {
     let history = useHistory();
 
     return (
         <button
             onClick={() => {
-                actions.onCloseForm(initialData);
-                actions.onGoHome(history);
+                actions.onCloseForm(uiux, initialData);
+                actions.onGoHome(uiux, history);
             }}
         >Κλείσιμο</button>
     );
 };
 
-export const BtGoHome = actions => {
+export const ButtonGoHome = ({uiux, actions}) => {
     let history = useHistory();
 
     return (
         <button
-            onClick={() => actions.onGoHome(history)}
+            onClick={() => actions.onGoHome(uiux, history)}
         >Κλείσιμο</button>
     );
 };
 
-export const DvFormMenu = props => {
+export const DivFormMenu = props => {
     return (
         <div>
-            <BtSelectCreate {...props} />
-            <BtSelectRetrieve {...props} />
-            <BtCloseForm {...props} />
+            <ButtonSelectCreate {...props} />
+            <ButtonSelectRetrieve {...props} />
+            <ButtonCloseForm {...props} />
         </div>
     );
 };
 
-export const DvItemMenu = props => {
+export const DivItemMenu = props => {
     return (
         <div>
-            <BtSelectUpdate {...props} />
-            <BtSelectDelete {...props} />
+            <ButtonSelectUpdate {...props} />
+            <ButtonSelectDelete {...props} />
         </div>
     );
 };
 
 // --- --- --- --- --- --- --- --- ---
 
-export const BtVerifyCreate = ({uiux, data, actions}) => {
+export const ButtonVerifyCreate = ({globals, uiux, data, actions}) => {
     return (
         <button
-            onClick={() => actions.onVerifyCreate(data)}
+            onClick={() => actions.onVerifyCreate(globals, uiux, data)}
             disabled={!uiux.allowSave}
         >Αποθήκευση</button>
     );
 };
 
-export const BtVerifyUpdate = ({uiux, data, actions}) => {
+export const ButtonVerifyUpdate = ({globals, uiux, data, actions}) => {
     return (
         <button
-            onClick={() => actions.onVerifyUpdate(data)}
+            onClick={() => actions.onVerifyUpdate(globals, uiux, data)}
             disabled={!uiux.allowSave}
         >Αποθήκευση</button>
     );
 };
 
-export const BtVerifyRetrieve = ({data, actions}) => {
+export const ButtonVerifyRetrieve = ({globals, uiux, data, actions}) => {
     return (
         <button
-            onClick={() => actions.onVerifyRetrieve(data)}
+            onClick={() => actions.onVerifyRetrieve(globals, uiux, data)}
         >Αναζήτηση</button>
     );
 };
 
-export const BtVerifyDelete = ({data, actions}) => {
+export const ButtonVerifyDelete = ({globals, uiux, data, actions}) => {
     return (
         <button
-            onClick={() => actions.onVerifyDelete(data)}
+            onClick={() => actions.onVerifyDelete(globals, uiux, data)}
         >Επιβεβαίωση</button>
     );
 };
 
-export const BtCloseData = ({initialData, actions}) => {
+export const ButtonCloseData = ({uiux, initialData, actions}) => {
     return (
         <button
-            onClick={() => actions.onCloseData(initialData)}
+            onClick={() => actions.onCloseData(uiux, initialData)}
         >Κλείσιμο</button>
     );
 };
 
-export const DvCreateMenu = props => {
+export const DivCreateMenu = props => {
     return (
         <div>
-            <BtVerifyCreate {...props} />
-            <BtCloseData {...props} />
+            <ButtonVerifyCreate {...props} />
+            <ButtonCloseData {...props} />
         </div>
     );
 };
 
-export const DvUpdateMenu = props => {
+export const DivUpdateMenu = props => {
     return (
         <div>
-            <BtVerifyUpdate {...props} />
-            <BtCloseData {...props} />
+            <ButtonVerifyUpdate {...props} />
+            <ButtonCloseData {...props} />
         </div>
     );
 };
 
-export const DvRetrieveMenu = props => {
+export const DivRetrieveMenu = props => {
     return (
         <div>
-            <BtVerifyRetrieve {...props} />
-            <BtCloseData {...props} />
+            <ButtonVerifyRetrieve {...props} />
+            <ButtonCloseData {...props} />
         </div>
     );
 };
 
-export const DvDeleteMenu = props => {
+export const DivDeleteMenu = props => {
     return (
         <div>
-            <BtVerifyDelete {...props} />
-            <BtCloseData {...props} />
+            <ButtonVerifyDelete {...props} />
+            <ButtonCloseData {...props} />
         </div>
     );
 };

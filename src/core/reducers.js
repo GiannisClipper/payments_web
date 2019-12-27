@@ -30,15 +30,15 @@ const initialUiux = {
 const initialData = {
 }
 
-export const initialState = (initialData) => {
+export const initialState = (moreInitialUiux, initialData) => {
 	return {
-		uiux: {...initialUiux},
+		uiux: {...moreInitialUiux, ...initialUiux},
 		data: {...initialData},
 		items: {},
 	}
 }
 
-export const basicFormReducer = (state=initialState(initialData), action) => {
+export const baseFormReducer = (state=initialState({}, initialData), action) => {
 	let stateCopy;
 
     switch (action.type) {
@@ -91,13 +91,13 @@ export const basicFormReducer = (state=initialState(initialData), action) => {
 
 		case CLOSE_ITEM:
 			stateCopy = {...state};
-			stateCopy.uiux = {...initialUiux};
+			stateCopy.uiux = {...stateCopy.uiux, ...initialUiux};
 			stateCopy.data = {...initialData};	
 			return stateCopy;
 	
 	    case CLOSE_FORM:
 			stateCopy = {...state};
-			stateCopy = initialState(action.payload.initialData);
+			stateCopy = initialState({...stateCopy.uiux}, action.payload.initialData);
 			return stateCopy;
 
 		case GO_HOME:

@@ -42,21 +42,21 @@ const mapStateToProps = (state, ownProps=null) => {
 const mapDispatchToProps = dispatch => {
     return {
         actions: {
-            onSelectCreate: () => dispatch(onSelectCreate()),
-            onSelectRetrieve: () => dispatch(onSelectRetrieve()),
-            onSelectUpdate: id => dispatch(onSelectUpdate(id)),
-            onSelectDelete: id => dispatch(onSelectDelete(id)),
-            onCloseForm: initialData => dispatch(onCloseForm(initialData)),
-            onGoHome: actions => dispatch(onGoHome(actions)),
+            onSelectCreate: uiux => dispatch(onSelectCreate(uiux)),
+            onSelectRetrieve: uiux => dispatch(onSelectRetrieve(uiux)),
+            onSelectUpdate: (uiux, id) => dispatch(onSelectUpdate(uiux, id)),
+            onSelectDelete: (uiux, id) => dispatch(onSelectDelete(uiux, id)),
+            onCloseForm: (uiux, initialData) => dispatch(onCloseForm(uiux, initialData)),
+            onGoHome: (uiux, actions) => dispatch(onGoHome(uiux, actions)),
 
-            onVerifyUpdate: id => dispatch(onVerifyUpdate(id)),
-            onVerifyCreate: () => dispatch(onVerifyCreate()),
-            onVerifyRetrieve: () => dispatch(onVerifyRetrieve()),
-            onVerifyDelete: id => dispatch(onVerifyDelete(id)),
-            onCloseData: initialData => dispatch(onCloseData(initialData)),
+            onVerifyCreate: (globals, uiux, data) => dispatch(onVerifyCreate(globals, uiux, data)),
+            onVerifyUpdate: (uiux, id )=> dispatch(onVerifyUpdate(uiux, id)),
+            onVerifyRetrieve: uiux => dispatch(onVerifyRetrieve(uiux)),
+            onVerifyDelete: (uiux, id) => dispatch(onVerifyDelete(uiux, id)),
+            onCloseData: (uiux, initialData) => dispatch(onCloseData(uiux, initialData)),
 
-            onChangeCode: (id, code) => dispatch(onChangeCode(id, code)),
-            onChangeName: (id, name) => dispatch(onChangeName(id, name)),
+            onChangeCode: (uiux, id, code) => dispatch(onChangeCode(uiux, id, code)),
+            onChangeName: (uiux, id, name) => dispatch(onChangeName(uiux, id, name)),
         }
     };
 }

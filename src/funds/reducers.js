@@ -5,7 +5,7 @@ import {
 
 import {
 	initialState,
-	basicFormReducer,
+	baseFormReducer,
 } from '../core/reducers.js'
 
 export const initialData = {
@@ -14,8 +14,11 @@ export const initialData = {
 	name: 'Name...',
 }
 
-const fundsReducer = (state=initialState(initialData), action) => {
+const fundsReducer = (state=initialState({form: 'funds'}, initialData), action) => {
 	let stateCopy;
+
+    if (!action.uiux || action.uiux.form !== 'funds')
+        return state
 
     switch (action.type) {  
         case CHANGE_CODE:
@@ -31,7 +34,7 @@ const fundsReducer = (state=initialState(initialData), action) => {
             return stateCopy;
 
 		default:
-			return basicFormReducer(state, action)
+			return baseFormReducer(state, action)
     }
 }
 
