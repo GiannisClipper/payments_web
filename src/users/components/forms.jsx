@@ -1,73 +1,103 @@
 import React from 'react';
 
-import { 
-    DivItemMenu,
-    ButtonCloseForm,
-    ButtonGoHome,
-} from '../core/components.jsx';
+import {
+    DivFormMenu,
+    DivCreateMenu,
+    DivRetrieveMenu,
+    DivUpdateMenu,
+    DivDeleteMenu,
+} from '../../core/components/menus.jsx';
+
+import {
+    DivSignupMenu,
+    DivSigninMenu,
+} from './menus.jsx';
+
+import {
+    MappedButtonGoHome,
+} from '../../core/containers.js';
+
+import {
+    MappedDivInputs,
+    MappedDivSignupInputs,
+    MappedDivSigninInputs,
+} from '../containers.js';
+
+import { HOST_ARGS } from '../../root/constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-const InputUsername = ({uiux, data, actions}) => {
-    return (
-        <input
-            value={data.username}
-            onChange={event => actions.onChangeUsername(uiux, data.id, event.target.value)}
-            disabled={!uiux.allowEdit}
-        />
-    );
-};
+export const UsersForm = ({namespace, mode}) => {
+    const props = {namespace};
 
-const InputPassword = ({uiux, data, actions}) => {
-    return (
-        <input 
-            value={data.password}
-            onChange={event => actions.onChangePassword(uiux, data.id, event.target.value)}
-            disabled={!uiux.allowEdit}
-        />
-    );
-};
+    return (mode === 'CREATE')?(
+        <div className='form'>
+            <MappedDivInputs {...props} />
+            <DivCreateMenu namespace={namespace} hostArgs={HOST_ARGS.CREATE_USER} />
+        </div>
 
-const InputPassword2 = ({uiux, data, actions}) => {
-    return (
-        <input 
-            value={data.password2}
-            onChange={event => actions.onChangePassword2(uiux, data.id, event.target.value)}
-            disabled={!uiux.allowEdit}
-        />
-    );
-};
+    ):(mode === 'RETRIEVE')?(
+        <div className='form'>
+            <MappedDivInputs {...props} />
+            <DivRetrieveMenu {...props} />
+        </div>
 
-const InputEmail = ({uiux, data, actions}) => {
-    return (
-        <input 
-            value={data.email}
-            onChange={event => actions.onChangeEmail(uiux, data.id, event.target.value)}
-            disabled={!uiux.allowEdit}
-        />
-    );
-};
+    ):(mode === 'UPDATE')?(
+        <div className='form'>
+            <MappedDivInputs {...props} />
+            <DivUpdateMenu {...props} />
+        </div>
 
-const DivEdit = props => {
-    return (
-        <div>
-            <InputUsername {...props}/>
-            <InputPassword {...props}/>
-            <InputPassword2 {...props}/>
-            <InputEmail {...props}/>
+    ):(mode === 'DELETE')?(
+        <div className='form'>
+            <MappedDivInputs {...props} />
+            <DivDeleteMenu {...props} />
+        </div>
+
+    ):(
+        <div className='form'>
+            <MappedDivInputs {...props} />
+            <DivFormMenu {...props} />
         </div>
     );
 };
 
-export const UsersForm = ({uiux, data, actions}) => {
+export const SignupForm = ({namespace, onSelectCreate}) => {
+    onSelectCreate(namespace);
+
     return (
-        <div>
+        <div className='form'>
+            <MappedDivSignupInputs namespace={namespace} />
+            <DivSignupMenu namespace={namespace} hostArgs={HOST_ARGS.SIGNUP} />
+        </div>
+    );
+};
+
+export const SigninForm = ({namespace, onSelectRetrieve}) => {
+    onSelectRetrieve(namespace);
+
+    return (
+        <div className='form'>
+            <MappedDivSigninInputs namespace={namespace} />
+            <DivSigninMenu namespace={namespace} hostArgs={HOST_ARGS.SIGNIN} />
+        </div>
+    );
+};
+
+export const SignoutForm = ({namespace, auth, onSignout}) => {
+    if (auth.user && auth.user.id)
+        onSignout();
+
+    return (
+        <div className='form'>
+            Επιτυχής αποσύνδεση χρήστη ({(auth.user && auth.user.username)?auth.user.username:''})
+            <MappedButtonGoHome {...{namespace}} />
         </div>
     );
 };
 
 // --- --- --- --- --- --- --- --- ---
-
+/*
 const DivSignupEdit = props => {
     return (
         <div>
@@ -162,7 +192,8 @@ export const SignoutForm = props => {
     return (
         <div>
             Επιτυχής αποσύνδεση χρήστη ({(globals.user && globals.user.username)?globals.user.username:''})
-            <ButtonGoHome {...props} />
+            <MappedButtonGoHome {...props} />
         </div>
     );
 };
+*/

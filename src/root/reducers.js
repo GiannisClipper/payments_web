@@ -1,6 +1,17 @@
-import usersReducer from "../users/reducers.js";
-import fundsReducer from "../funds/reducers.js";
+import { usersReducer, authReducer } from '../users/reducers.js';
+import { fundsReducer } from '../funds/reducers.js';
 
+const rootReducer = (state, action) => {
+    return {
+        users: usersReducer((state === undefined)?undefined:state.users, action),
+        auth: authReducer((state === undefined)?undefined:state.auth, action),
+        funds: fundsReducer((state === undefined)?undefined:state.funds, action),
+    }
+}
+
+export default rootReducer;
+
+/*
 const initialState = {
     origin: 'http://localhost:8000',
     token: {prefix: 'Token', key: localStorage.getItem('tokenKey')},
@@ -41,13 +52,4 @@ const globalsReducer = (state=initialState, action) => {
 	        return state;
     }
 }
-
-const rootReducer = (state, action) => { 
-    return {
-        globals: globalsReducer((state === undefined)?undefined:state.globals, action),
-        users: usersReducer((state === undefined)?undefined:state.users, action),
-        funds: fundsReducer((state === undefined)?undefined:state.funds, action),
-    }
-}
-
-export default rootReducer;
+*/

@@ -1,29 +1,29 @@
-import { request } from '../core/lib.js';
-import { beforeRequest, afterRequest } from '../core/actions.js';
+/*import { request } from '../core/lib.js';
+
 import { onSignin } from '../root/actions.js';
 
 import {
-    CHANGE_USERNAME,
-    CHANGE_PASSWORD,
-    CHANGE_PASSWORD2,
-    CHANGE_EMAIL,
-} from './constants.js';
-
-
+    onBeforeRequest,
+    onRespondData,
+    onRespondErrors,
+    onAfterResponse } 
+from '../core/actions.js';
+*/
+/*
 export const onVerifyCreate = (globals, uiux, data) => {
     return dispatch => {
-        dispatch(beforeRequest(uiux));
+        dispatch(onBeforeRequest(uiux));
         dispatch(
             async () => {
                 await request(`${globals.origin}/users/signup/`, 'POST', '', {user: data},
                     (status, data) => {
                         alert('onsuccess' + data);
                         dispatch(onSignin(data.user, data.token));
-                        dispatch(afterRequest(uiux));
+                        dispatch(onAfterResponse(uiux));
                     },
                     (status, message) => {
                         alert('onfail' + message);
-                        dispatch(afterRequest(uiux));
+                        dispatch(onAfterResponse(uiux));
                     }        
                 );
             }
@@ -33,53 +33,78 @@ export const onVerifyCreate = (globals, uiux, data) => {
 
 export const onVerifyRetrieve = (globals, uiux, data) => {
     return dispatch => {
-        dispatch(beforeRequest(uiux));
+        dispatch(onBeforeRequest(uiux));
         dispatch(
             async () => {
                 await request(`${globals.origin}/users/signin/`, 'POST', '', {user: data},
                     (status, data) => {
                         alert('onsuccess' + data);
                         dispatch(onSignin(data.user, data.token));
-                        dispatch(afterRequest(uiux));
+                        dispatch(onAfterResponse(uiux));
                     },
                     (status, message) => {
                         alert('onfail' + message);
-                        dispatch(afterRequest(uiux));
+                        dispatch(onAfterResponse(uiux));
                     }        
                 );
             }
         );
     };
 }
+*/
 
-export const onChangeUsername = (uiux, id, username) => {
+import {
+    CHANGE_USERNAME,
+    CHANGE_PASSWORD,
+    CHANGE_PASSWORD2,
+    CHANGE_EMAIL,
+
+    SIGNIN,
+    SIGNOUT,
+} from './constants.js';
+
+// --- --- --- --- --- --- --- --- ---
+
+export const onChangeUsername = (namespace, username) => {
     return {
-        uiux: uiux,
-        type: CHANGE_USERNAME,
-		payload: {id, username},
+        type: `${namespace}/${CHANGE_USERNAME}`,
+		payload: {username},
     }
 }
 
-export const onChangePassword = (uiux, id, password) => {
+export const onChangePassword = (namespace, password) => {
     return {
-        uiux: uiux,
-        type: CHANGE_PASSWORD,
-		payload: {id, password},
+        type: `${namespace}/${CHANGE_PASSWORD}`,
+		payload: {password},
     }
 }
 
-export const onChangePassword2 = (uiux, id, password2) => {
+export const onChangePassword2 = (namespace, password2) => {
     return {
-        uiux: uiux,
-        type: CHANGE_PASSWORD2,
-		payload: {id, password2},
+        type: `${namespace}/${CHANGE_PASSWORD2}`,
+		payload: {password2},
     }
 }
 
-export const onChangeEmail = (uiux, id, email) => {
+export const onChangeEmail = (namespace, email) => {
     return {
-        uiux: uiux,
-        type: CHANGE_EMAIL,
-		payload: {id, email},
+        type: `${namespace}/${CHANGE_EMAIL}`,
+		payload: {email},
+    }
+}
+
+// --- --- --- --- --- --- --- --- ---
+
+export const onSignin = (namespace, user, tokenKey) => {
+    return {
+        type: `${namespace}/${SIGNIN}`,
+		payload: {user, tokenKey},
+    }
+}
+
+export const onSignout = namespace => {
+    return {
+        type: `${namespace}/${SIGNOUT}`,
+		payload: {},
     }
 }

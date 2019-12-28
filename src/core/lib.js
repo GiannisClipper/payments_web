@@ -1,35 +1,44 @@
-export const request = async (url='', method, token=null, data={}, onSuccess=null, onFail=null) => {
+export const request = async (hostArgs, token=null, data={}, onSuccess=null, onFail=null) => {
+// hostArgs = {url, method, namespace}
 
-    // Setup arguments
-    let kwargs = {
-        method: method,
+// Setup arguments
+    let fetchArgs = {
+        method: hostArgs.method,
         mode: 'cors',  // Warning: `no-cors` allows only simple requests (not `json` content-type)
         cache: 'no-cache',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': token.key?(token.prefix + ' ' + token.key):'',
+            'Authorization': token.key?`${token.prefix} ${token.key}`:'',
         },
-    }
+    };
 
     // Add body in arguments
-    if (method.toUpperCase()!=='GET') 
-        Object.assign(kwargs, {body: JSON.stringify(data)});
+    if (hostArgs.method.toUpperCase()!=='GET') {
+
+        // Encapsulate data in namespace
+        if (hostArgs.namespace)
+            data = {[hostArgs.namespace]: data}
+
+        Object.assign(fetchArgs, {body: JSON.stringify(data)});
+    };
+
+    console.log('hostArgs.url/fetchArgs>>>', hostArgs.url, fetchArgs);
 
     // Make request
     try {
-        console.log('kwargs>>>', kwargs);
-        let res = await fetch(url, kwargs);
-        let status = res.status;
+        let res = await fetch(hostArgs.url, fetchArgs);
         data = await res.json();
-        console.log(data)
-        if (status>=200 && status<=299)
-            onSuccess && onSuccess(status, data);
+
+        console.log('res.json>>>', data);
+
+        if (res.status>=200 && res.status<=299)
+            onSuccess && onSuccess(res.status, data);
         else
-            onFail && onFail(status, data); //throw ({status:status, message:data});
+            onFail && onFail(res.status, data); //throw ({status:res.status, message:data});
 
     // Handle errors
     } catch(err) {
         onFail && onFail(err.status, err.message);
-    }
-}
+    };
+};

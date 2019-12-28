@@ -1,8 +1,13 @@
+import { TOKEN_PREFIX } from '../root/constants.js';
+
 import { 
     CHANGE_USERNAME,
     CHANGE_PASSWORD,
     CHANGE_PASSWORD2,
     CHANGE_EMAIL,
+
+    SIGNIN,
+    SIGNOUT,
 } from './constants.js';
 
 import {
@@ -10,49 +15,96 @@ import {
 	baseFormReducer,
 } from '../core/reducers.js'
 
+// --- --- --- --- --- --- --- --- ---
 
-export const initialData = {
-	id: null,
+const initialData = {
+	id: '',
     username: 'Username...',
 	password: 'Password...', 
 	password2: 'Password2...', 
 	email: 'Email...', 
-}
+};
 
-const usersReducer = (state=initialState({form: 'users'}, initialData), action) => {
+const initialErrors = {
+    username: '',
+	password: '', 
+	password2: '', 
+	email: '',
+};
+
+export const usersReducer = (state=initialState(initialData, initialErrors), action) => {
+    const namespace = 'users';
     let stateCopy;
 
-    if (!action.uiux || action.uiux.form !== 'users')
-        return state
-
     switch (action.type) {
-        case CHANGE_USERNAME:
+        case `${namespace}/${CHANGE_USERNAME}`:
         	stateCopy = {...state};
 			stateCopy.data.username = action.payload.username;
 			stateCopy.uiux.allowSave = true;
             return stateCopy;
 
-        case CHANGE_PASSWORD:
+        case `${namespace}/${CHANGE_PASSWORD}`:
             stateCopy = {...state};
             stateCopy.data.password = action.payload.password;
             stateCopy.uiux.allowSave = true;
             return stateCopy;
       
-        case CHANGE_PASSWORD2:
+        case `${namespace}/${CHANGE_PASSWORD2}`:
             stateCopy = {...state};
             stateCopy.data.password2 = action.payload.password2;
             stateCopy.uiux.allowSave = true;
             return stateCopy;
           
-        case CHANGE_EMAIL:
+        case `${namespace}/${CHANGE_EMAIL}`:
             stateCopy = {...state};
             stateCopy.data.email = action.payload.email;
             stateCopy.uiux.allowSave = true;
             return stateCopy;
         
 		default:
-			return baseFormReducer(state, action)
-    }
-}
+			return baseFormReducer(namespace, state, action)
+    };
+};
 
-export default usersReducer;
+// --- --- --- --- --- --- --- --- ---
+
+const initialAuth = {
+    token: {prefix: TOKEN_PREFIX, key: localStorage.getItem('tokenKey')},
+    user: JSON.parse(localStorage.getItem('user')),
+};
+
+export const authReducer = (state=initialAuth, action) => {
+    const namespace = 'users';
+	let stateCopy;
+
+    switch (action.type) {
+        case `${namespace}/${SIGNIN}`:
+        	stateCopy = {...state};
+			stateCopy.user = {
+                id: action.payload.user.id,
+                username: action.payload.user.username,
+            };
+            stateCopy.token.key = action.payload.tokenKey;
+            
+            localStorage.setItem('user', JSON.stringify(stateCopy.user));
+            localStorage.setItem('tokenKey', stateCopy.token.key);
+
+            return stateCopy;
+
+        case `${namespace}/${SIGNOUT}`:
+            stateCopy = {...state};
+            stateCopy.token.key = null;
+            if (stateCopy.user)
+                stateCopy.user.id = null;
+
+            if (localStorage.getItem('tokenKey', null))
+                localStorage.removeItem('tokenKey');
+            if (localStorage.getItem('user', null))
+                localStorage.removeItem('user');
+
+            return stateCopy;
+
+        default:
+	        return state;
+    };
+};

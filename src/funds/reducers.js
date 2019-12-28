@@ -8,34 +8,37 @@ import {
 	baseFormReducer,
 } from '../core/reducers.js'
 
-export const initialData = {
-	id: null,
-	code: 'Code...', 
-	name: 'Name...',
-}
+// --- --- --- --- --- --- --- --- ---
 
-const fundsReducer = (state=initialState({form: 'funds'}, initialData), action) => {
+const initialData = {
+	id: '',
+	code: '..', 
+	name: '..',
+};
+
+const initialErrors = {
+	code: '', 
+	name: '',
+};
+
+export const fundsReducer = (state=initialState(initialData, initialErrors), action) => {
+	const namespace = 'funds';
 	let stateCopy;
 
-    if (!action.uiux || action.uiux.form !== 'funds')
-        return state
-
     switch (action.type) {  
-        case CHANGE_CODE:
+        case `${namespace}/${CHANGE_CODE}`:
         	stateCopy = {...state};
 	        stateCopy.data.code = action.payload.code;
 			stateCopy.uiux.allowSave = true;
             return stateCopy;
   
-        case CHANGE_NAME:
+        case `${namespace}/${CHANGE_NAME}`:
         	stateCopy = {...state};
 			stateCopy.data.name = action.payload.name;
 			stateCopy.uiux.allowSave = true;
             return stateCopy;
 
 		default:
-			return baseFormReducer(state, action)
-    }
-}
-
-export default fundsReducer;
+			return baseFormReducer(namespace, state, action)
+    };
+};

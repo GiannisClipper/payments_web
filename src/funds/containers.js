@@ -1,64 +1,58 @@
 import { connect } from 'react-redux';
 
-import { 
+import {
+    InputCode,
+    InputName,
+    DivInputs,
+} from './components/inputs.jsx';
+
+import {
     FundsForm,
-} from './components.jsx';
+} from './components/forms.jsx';
 
 import {
-    onSelectCreate,
-    onSelectRetrieve,
-    onSelectUpdate,
-    onSelectDelete,
-    onCloseForm,
-    onGoHome,
-
-    onVerifyUpdate,
-    onVerifyDelete,
-    onCloseData,
-} from '../core/actions.js';
-
-import {
-    onVerifyCreate,
-    onVerifyRetrieve,
 	onChangeCode,
 	onChangeName,
 } from './actions.js';
 
-import { initialData } from './reducers.js';
+// --- --- --- --- --- --- --- --- ---
+
+export const MappedInputCode = connect(
+    (state, {namespace}) => ({
+        value: state[namespace].data.code,
+        errors: state[namespace].errors.code,
+        allowEdit: state[namespace].uiux.allowEdit,
+    }),
+    (dispatch, {namespace}) => ({
+        onChangeCode: value => dispatch(onChangeCode(namespace, value)),
+    })
+)(InputCode);
+
+export const MappedInputName = connect(
+    (state, {namespace}) => ({
+        value: state[namespace].data.name,
+        errors: state[namespace].errors.name,
+        allowEdit: state[namespace].uiux.allowEdit,
+    }),
+    (dispatch, {namespace}) => ({
+        onChangeName: value => dispatch(onChangeName(namespace, value)),
+    })
+)(InputName);
 
 // --- --- --- --- --- --- --- --- ---
 
-const mapStateToProps = (state, ownProps=null) => {
-    //const { dateId } = ownProps;
-    return {
-        globals: {...state.globals},
-        uiux: {...state.funds.uiux},
-        data: {...state.funds.data},
-        initialData: {...initialData},
-        items: {...state.funds.items},
-    };
-}
+export const MappedDivInputs = connect(
+    (state, {namespace}) => ({
+        errors: state[namespace].errors,
+    }),
+)(DivInputs);
 
-const mapDispatchToProps = dispatch => {
-    return {
-        actions: {
-            onSelectCreate: uiux => dispatch(onSelectCreate(uiux)),
-            onSelectRetrieve: uiux => dispatch(onSelectRetrieve(uiux)),
-            onSelectUpdate: (uiux, id) => dispatch(onSelectUpdate(uiux, id)),
-            onSelectDelete: (uiux, id) => dispatch(onSelectDelete(uiux, id)),
-            onCloseForm: (uiux, initialData) => dispatch(onCloseForm(uiux, initialData)),
-            onGoHome: (uiux, actions) => dispatch(onGoHome(uiux, actions)),
+// --- --- --- --- --- --- --- --- ---
 
-            onVerifyCreate: (globals, uiux, data) => dispatch(onVerifyCreate(globals, uiux, data)),
-            onVerifyUpdate: (uiux, id )=> dispatch(onVerifyUpdate(uiux, id)),
-            onVerifyRetrieve: uiux => dispatch(onVerifyRetrieve(uiux)),
-            onVerifyDelete: (uiux, id) => dispatch(onVerifyDelete(uiux, id)),
-            onCloseData: (uiux, initialData) => dispatch(onCloseData(uiux, initialData)),
-
-            onChangeCode: (uiux, id, code) => dispatch(onChangeCode(uiux, id, code)),
-            onChangeName: (uiux, id, name) => dispatch(onChangeName(uiux, id, name)),
-        }
-    };
-}
-
-export const FundsContainer = connect(mapStateToProps, mapDispatchToProps)(FundsForm);
+export const MappedFundsForm = connect(
+    state => ({
+        namespace: 'funds',
+        mode: state['funds'].uiux.mode,
+    }), 
+    ({})
+)(FundsForm);

@@ -13,110 +13,151 @@ import {
     CLOSE_DATA,
 
     BEFORE_REQUEST,
-    AFTER_REQUEST,
+    RESPOND_DATA,
+    RESPOND_ERRORS,
+    AFTER_RESPONSE,
 } from './constants.js';
 
+import { request } from '../core/lib.js';
 
-export const onSelectCreate = uiux => {
+// --- --- --- --- --- --- --- --- ---
+
+export const onSelectCreate = namespace => {
     return {
-        uiux: uiux, 
-        type: SELECT_CREATE,
+        type: `${namespace}/${SELECT_CREATE}`,
         payload: {},
     };
 }
 
-export const onSelectRetrieve = uiux => {
+export const onSelectRetrieve = namespace => {
     return {
-        uiux: uiux, 
-        type: SELECT_RETRIEVE,
+        type: `${namespace}/${SELECT_RETRIEVE}`,
         payload: {},
     };
 }
 
-export const onSelectUpdate = (uiux, id) => {
+export const onSelectUpdate = (namespace, id) => {
     return {
-        uiux: uiux, 
-        type: SELECT_UPDATE,
+        type: `${namespace}/${SELECT_UPDATE}`,
         payload: {id},
     };
 }
 
-export const onSelectDelete = (uiux, id) => {
+export const onSelectDelete = (namespace, id) => {
     return {
-        uiux: uiux, 
-        type: SELECT_DELETE,
+        type: `${namespace}/${SELECT_DELETE}`,
         payload: {id},
     }
 }
 
-export const onCloseForm = (uiux, initialData) => {
+export const onCloseForm = namespace => {
     return {
-        uiux: uiux, 
-        type: CLOSE_FORM,
-        payload: {initialData},
+        type: `${namespace}/${CLOSE_FORM}`,
+        payload: {},
     };
 }
 
-export const onGoHome = (uiux, history) => {
+export const onGoHome = (namespace, history) => {
     return {
-        uiux: uiux, 
-        type: GO_HOME,
+        type: `${namespace}/${GO_HOME}`,
         payload: {history},
     }
 }
 
-export const onVerifyCreate = uiux => {
-    return {
-        uiux: uiux, 
-        type: VERIFY_CREATE,
-        payload: {},
-    };
-}
+// --- --- --- --- --- --- --- --- ---
 
-export const onVerifyRetrieve = uiux => {
-    return {
-        uiux: uiux, 
-        type: VERIFY_RETRIEVE,
-        payload: {},
+export const onVerifyCreate = (namespace, hostArgs, auth, data) => {
+    return dispatch => {
+        dispatch(onBeforeRequest(namespace));
+        dispatch(
+            async () => {
+                await request(hostArgs, auth.token, data,
+                    (status, data) => {
+                        alert('onsuccess' + data);
+                        dispatch(onRespondData(data));
+                        dispatch(onAfterResponse(namespace));
+                    },
+                    (status, message) => {
+                        alert('onfail' + message);
+                        dispatch(onAfterResponse(namespace));
+                        dispatch(onRespondErrors(namespace, message));
+                    }        
+                );
+            }
+        );
     };
-}
+};
 
-export const onVerifyUpdate = (uiux, id) => {
+export const onVerifyRetrieve = (namespace, hostArgs, auth, data) => {
+    return dispatch => {
+        dispatch(onBeforeRequest(namespace));
+        dispatch(
+            async () => {
+                await request(hostArgs, auth.token, data,
+                    (status, data) => {
+                        alert('onsuccess' + data);
+                        dispatch(onRespondData(data));
+                        //dispatch(onSignin(data.user, data.token));
+                        dispatch(onAfterResponse(namespace));
+                    },
+                    (status, message) => {
+                        alert('onfail' + message);
+                        dispatch(onAfterResponse(namespace));
+                        dispatch(onRespondErrors(namespace, message));
+                    }        
+                );
+            }
+        );
+    };
+};
+
+export const onVerifyUpdate = (namespace, id) => {
     return {
-        uiux: uiux, 
-        type: VERIFY_UPDATE,
+        type: `${namespace}/${VERIFY_UPDATE}`,
         payload: {id},
     };
 }
 
-export const onVerifyDelete = (uiux, id) => {
+export const onVerifyDelete = (namespace, id) => {
     return {
-        uiux: uiux, 
-        type: VERIFY_DELETE,
+        type: `${namespace}/${VERIFY_DELETE}`,
         payload: {id},
     }
 }
 
-export const onCloseData = (uiux, initialData) => {
+export const onCloseData = namespace => {
     return {
-        uiux: uiux,
-        type: CLOSE_DATA,
-        payload: {initialData},
-    };
-}
-
-export const beforeRequest = uiux => {
-    return {
-        uiux: uiux,
-        type: BEFORE_REQUEST,
+        type: `${namespace}/${CLOSE_DATA}`,
         payload: {},
     };
 }
 
-export const afterRequest = uiux => {
+// --- --- --- --- --- --- --- --- ---
+
+export const onBeforeRequest = namespace => {
     return {
-        uiux: uiux,
-        type: AFTER_REQUEST,
+        type: `${namespace}/${BEFORE_REQUEST}`,
+        payload: {},
+    };
+}
+
+export const onRespondData = (namespace, data) => {
+    return {
+        type: `${namespace}/${RESPOND_DATA}`,
+        payload: {data},
+    };
+}
+
+export const onRespondErrors = (namespace, errors) => {
+    return {
+        type: `${namespace}/${RESPOND_ERRORS}`,
+        payload: {errors},
+    };
+}
+
+export const onAfterResponse = namespace => {
+    return {
+        type: `${namespace}/${AFTER_RESPONSE}`,
         payload: {},
     }
 }
