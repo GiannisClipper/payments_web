@@ -13,9 +13,9 @@ import {
     CLOSE_DATA,
 
     BEFORE_REQUEST,
-    RESPOND_DATA,
-    RESPOND_ERRORS,
     AFTER_RESPONSE,
+    DATA_RESPONSE,
+    ERRORS_RESPONSE,
 } from './constants.js';
 
 import { request } from '../core/lib.js';
@@ -66,7 +66,49 @@ export const onGoHome = (namespace, history) => {
 
 // --- --- --- --- --- --- --- --- ---
 
-export const onVerifyCreate = (namespace, hostArgs, auth, data) => {
+export const onRequestProcess = (namespace, hostArgs, auth, data, onVerify) => {
+    return dispatch => {
+        dispatch(onBeforeRequest(namespace));
+        dispatch(
+            async () => {
+                // Enclose `data` in `jsonKey`-namespace
+                if (hostArgs.jsonKey)
+                    data = {[hostArgs.jsonKey]: data}
+
+                let response = await request(hostArgs.url, hostArgs.method, auth.token, data);
+
+                data = response.data;
+                console.log('data1', data);
+                if (response.status >= 200 && response.status <= 299) {
+                    // Rename `jsonKey` to a generic namespace
+                    if (hostArgs.jsonKey && data[hostArgs.jsonKey] !== undefined)
+                        data.data = data[hostArgs.jsonKey];
+                        delete data[hostArgs.jsonKey];
+
+                    alert('onsuccess' + data);
+                    dispatch(onAfterResponse(namespace));
+                    dispatch(onDataResponse(namespace));
+                    if (onVerify)
+                        dispatch(onVerify(namespace, data));
+
+                } else {
+                    // Rename `jsonKey` to a generic namespace
+                    if (hostArgs.jsonKey && data[hostArgs.jsonKey] !== undefined)
+                        data.errors = data[hostArgs.jsonKey];
+                        delete data[hostArgs.jsonKey];
+
+                    alert('onfail' + data);
+                    dispatch(onAfterResponse(namespace));
+                    dispatch(onErrorsResponse(namespace, data));
+                };
+                console.log('data2', data);
+                //dispatch(onTest(namespace));
+            }
+        );
+    };
+};
+
+/*export const onVerifyCreate = (namespace, hostArgs, auth, data) => {
     return dispatch => {
         dispatch(onBeforeRequest(namespace));
         dispatch(
@@ -81,8 +123,9 @@ export const onVerifyCreate = (namespace, hostArgs, auth, data) => {
                         alert('onfail' + message);
                         dispatch(onAfterResponse(namespace));
                         dispatch(onRespondErrors(namespace, message));
-                    }        
+                    }
                 );
+                dispatch(onTest(namespace));
             }
         );
     };
@@ -96,26 +139,43 @@ export const onVerifyRetrieve = (namespace, hostArgs, auth, data) => {
                 await request(hostArgs, auth.token, data,
                     (status, data) => {
                         alert('onsuccess' + data);
-                        dispatch(onRespondData(data));
+                        dispatch(onDataResponse(data));
                         //dispatch(onSignin(data.user, data.token));
                         dispatch(onAfterResponse(namespace));
                     },
                     (status, message) => {
                         alert('onfail' + message);
                         dispatch(onAfterResponse(namespace));
-                        dispatch(onRespondErrors(namespace, message));
+                        dispatch(onErrorsResponse(namespace, message));
                     }        
                 );
             }
         );
     };
 };
+*/
+
+// --- --- --- --- --- --- --- --- ---
+
+export const onVerifyCreate = namespace => {
+    return {
+        type: `${namespace}/${VERIFY_CREATE}`,
+        payload: {},
+    };
+}
+
+export const onVerifyRetrieve = namespace => {
+    return {
+        type: `${namespace}/${VERIFY_RETRIEVE}`,
+        payload: {},
+    };
+}
 
 export const onVerifyUpdate = (namespace, id) => {
     return {
         type: `${namespace}/${VERIFY_UPDATE}`,
         payload: {id},
-    };
+    }
 }
 
 export const onVerifyDelete = (namespace, id) => {
@@ -141,23 +201,23 @@ export const onBeforeRequest = namespace => {
     };
 }
 
-export const onRespondData = (namespace, data) => {
-    return {
-        type: `${namespace}/${RESPOND_DATA}`,
-        payload: {data},
-    };
-}
-
-export const onRespondErrors = (namespace, errors) => {
-    return {
-        type: `${namespace}/${RESPOND_ERRORS}`,
-        payload: {errors},
-    };
-}
-
 export const onAfterResponse = namespace => {
     return {
         type: `${namespace}/${AFTER_RESPONSE}`,
         payload: {},
     }
+}
+
+export const onDataResponse = (namespace, data) => {
+    return {
+        type: `${namespace}/${DATA_RESPONSE}`,
+        payload: {data},
+    };
+}
+
+export const onErrorsResponse = (namespace, errors) => {
+    return {
+        type: `${namespace}/${ERRORS_RESPONSE}`,
+        payload: {errors},
+    };
 }

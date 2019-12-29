@@ -16,9 +16,9 @@ import {
 	GO_HOME,
 
     BEFORE_REQUEST,
-    RESPOND_DATA,
-    RESPOND_ERRORS,
     AFTER_RESPONSE,
+    DATA_RESPONSE,
+    ERRORS_RESPONSE,
 
 } from "./constants.js";
 
@@ -85,8 +85,9 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 	
 		case `${namespace}/${VERIFY_CREATE}`:
 			stateCopy = {...state};
-			if (action.payload.id === null)
-				stateCopy.items.push({data: {...stateCopy.data}});
+			stateCopy.data = {...action.payload.data};
+//			if (action.payload.data.id)
+//				stateCopy.items.push({data: {...stateCopy.data}});
 			return stateCopy;
 	
 		case `${namespace}/${VERIFY_RETRIEVE}`:
@@ -94,12 +95,12 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 	  
         case `${namespace}/${VERIFY_UPDATE}`:
         	stateCopy = {...state};
-			stateCopy.items[action.payload.id] = {...stateCopy.data};
+			stateCopy.items[action.payload.data.id] = {...stateCopy.data};
 			return stateCopy;
   
 	    case `${namespace}/${VERIFY_DELETE}`:
         	stateCopy = {...state};
-			delete stateCopy.items[action.payload.id];
+			delete stateCopy.items[action.payload.data.id];
 			return stateCopy;
 
 		case `${namespace}/${CLOSE_DATA}`:
@@ -128,24 +129,24 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 			stateCopy.uiux.isLoading = true;
 			return stateCopy;
 
-		case `${namespace}/${RESPOND_DATA}`:
-			stateCopy = {...state};
-			stateCopy.data = action.payload.data;
-			stateCopy.errors = {...stateCopy.initialErrors};
-			return stateCopy;
-
-		case `${namespace}/${RESPOND_ERRORS}`:
-			stateCopy = {...state};
-			stateCopy.errors = {...stateCopy.initialErrors, ...action.payload.errors};
-			return stateCopy;
-	
 		case `${namespace}/${AFTER_RESPONSE}`:
 			stateCopy = {...state};
 			stateCopy.uiux.allowEdit = true;
 			stateCopy.uiux.isLoading = false;
+			return stateCopy;
+
+		case `${namespace}/${DATA_RESPONSE}`:
+			stateCopy = {...state};
+			stateCopy.errors = {...stateCopy.initialErrors};
+			return stateCopy;
+
+		case `${namespace}/${ERRORS_RESPONSE}`:
+			stateCopy = {...state};
+			stateCopy.errors = {...stateCopy.initialErrors, ...action.payload.errors.errors};
 			return stateCopy;
 	
 		default:
 	        return state;
     };
 };
+ 

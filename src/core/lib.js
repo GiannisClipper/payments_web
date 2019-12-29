@@ -1,10 +1,9 @@
-export const request = async (hostArgs, token=null, data={}, onSuccess=null, onFail=null) => {
-// hostArgs = {url, method, namespace}
+export const request = async (url, method, token=null, data={}) => {
 
-// Setup arguments
-    let fetchArgs = {
-        method: hostArgs.method,
-        mode: 'cors',  // Warning: `no-cors` allows only simple requests (not `json` content-type)
+    // Setup arguments
+    let args = {
+        method: method,
+        mode: 'cors',  // `no-cors` allows only simple requests (not `json` content-type)
         cache: 'no-cache',
         headers: {
             'Accept': 'application/json',
@@ -13,32 +12,18 @@ export const request = async (hostArgs, token=null, data={}, onSuccess=null, onF
         },
     };
 
-    // Add body in arguments
-    if (hostArgs.method.toUpperCase()!=='GET') {
+    // Add `body` in arguments
+    if (args.method.toUpperCase()!=='GET')
+        Object.assign(args, {body: JSON.stringify(data)});
 
-        // Encapsulate data in namespace
-        if (hostArgs.namespace)
-            data = {[hostArgs.namespace]: data}
+    // Do request
+    console.log('fetch url args>>>', url, args);
 
-        Object.assign(fetchArgs, {body: JSON.stringify(data)});
-    };
-
-    console.log('hostArgs.url/fetchArgs>>>', hostArgs.url, fetchArgs);
-
-    // Make request
     try {
-        let res = await fetch(hostArgs.url, fetchArgs);
+        let res = await fetch(url, args);
         data = await res.json();
-
-        console.log('res.json>>>', data);
-
-        if (res.status>=200 && res.status<=299)
-            onSuccess && onSuccess(res.status, data);
-        else
-            onFail && onFail(res.status, data); //throw ({status:res.status, message:data});
-
-    // Handle errors
+        return {status: res.status, data: data};
     } catch(err) {
-        onFail && onFail(err.status, err.message);
+        return {status: err.status, data: err.message};
     };
-};
+}

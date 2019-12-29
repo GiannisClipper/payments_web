@@ -12,39 +12,40 @@ import {
     MappedDivInputs,
 } from '../containers.js';
 
+import { HOST_ARGS } from '../../root/constants.js';
+
 // --- --- --- --- --- --- --- --- ---
 
 export const FundsForm = ({namespace, mode}) => {
-    const props = {namespace};
 
     return (mode === 'CREATE')?(
         <div className='form'>
-            <MappedDivInputs {...props} />
-            <DivCreateMenu namespace={namespace} path={'/funds/'} />
+            <MappedDivInputs namespace={namespace} />
+            <DivCreateMenu namespace={namespace} hostArgs={HOST_ARGS.CREATE_FUNDS} />
         </div>
 
     ):(mode === 'RETRIEVE')?(
         <div className='form'>
-            <MappedDivInputs {...props} />
-            <DivRetrieveMenu {...props} />
+            <MappedDivInputs namespace={namespace} />
+            <DivRetrieveMenu namespace={namespace} />
         </div>
 
     ):(mode === 'UPDATE')?(
         <div className='form'>
-            <MappedDivInputs {...props} />
-            <DivUpdateMenu {...props} />
+            <MappedDivInputs namespace={namespace} />
+            <DivUpdateMenu namespace={namespace} />
         </div>
 
     ):(mode === 'DELETE')?(
         <div className='form'>
-            <MappedDivInputs {...props} />
-            <DivDeleteMenu {...props} />
+            <MappedDivInputs namespace={namespace} />
+            <DivDeleteMenu namespace={namespace} />
         </div>
 
     ):(
         <div className='form'>
-            <MappedDivInputs {...props} />
-            <DivFormMenu {...props} />
+            <MappedDivInputs namespace={namespace} />
+            <DivFormMenu namespace={namespace} />
         </div>
     );
 };

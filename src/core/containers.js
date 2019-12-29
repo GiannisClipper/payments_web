@@ -26,6 +26,7 @@ import {
     onSelectUpdate,
     onSelectDelete,
 
+    onRequestProcess,
     onVerifyCreate,
     onVerifyRetrieve,
     onVerifyUpdate,
@@ -84,7 +85,7 @@ export const MappedButtonVerifyCreate = connect(
         isLoading: state[namespace].uiux.isLoading,
     }),
     (dispatch, {namespace, hostArgs}) => ({
-        onVerifyCreate: (auth, data) => dispatch(onVerifyCreate(namespace, hostArgs, auth, data)),
+        onVerifyCreate: (auth, data) => dispatch(onRequestProcess(namespace, hostArgs, auth, data, onVerifyCreate)),
     })
 )(ButtonVerifyCreate);
 

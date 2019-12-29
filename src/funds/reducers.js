@@ -22,23 +22,23 @@ const initialErrors = {
 };
 
 export const fundsReducer = (state=initialState(initialData, initialErrors), action) => {
-	const namespace = 'funds';
+	const NAMESPACE = 'funds';
 	let stateCopy;
 
     switch (action.type) {  
-        case `${namespace}/${CHANGE_CODE}`:
+        case `${NAMESPACE}/${CHANGE_CODE}`:
         	stateCopy = {...state};
 	        stateCopy.data.code = action.payload.code;
 			stateCopy.uiux.allowSave = true;
             return stateCopy;
   
-        case `${namespace}/${CHANGE_NAME}`:
+        case `${NAMESPACE}/${CHANGE_NAME}`:
         	stateCopy = {...state};
 			stateCopy.data.name = action.payload.name;
 			stateCopy.uiux.allowSave = true;
             return stateCopy;
 
 		default:
-			return baseFormReducer(namespace, state, action)
+			return baseFormReducer(NAMESPACE, state, action)
     };
 };

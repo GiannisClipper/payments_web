@@ -33,36 +33,36 @@ const initialErrors = {
 };
 
 export const usersReducer = (state=initialState(initialData, initialErrors), action) => {
-    const namespace = 'users';
+    const NAMESPACE = 'users';
     let stateCopy;
 
     switch (action.type) {
-        case `${namespace}/${CHANGE_USERNAME}`:
+        case `${NAMESPACE}/${CHANGE_USERNAME}`:
         	stateCopy = {...state};
 			stateCopy.data.username = action.payload.username;
 			stateCopy.uiux.allowSave = true;
             return stateCopy;
 
-        case `${namespace}/${CHANGE_PASSWORD}`:
+        case `${NAMESPACE}/${CHANGE_PASSWORD}`:
             stateCopy = {...state};
             stateCopy.data.password = action.payload.password;
             stateCopy.uiux.allowSave = true;
             return stateCopy;
       
-        case `${namespace}/${CHANGE_PASSWORD2}`:
+        case `${NAMESPACE}/${CHANGE_PASSWORD2}`:
             stateCopy = {...state};
             stateCopy.data.password2 = action.payload.password2;
             stateCopy.uiux.allowSave = true;
             return stateCopy;
           
-        case `${namespace}/${CHANGE_EMAIL}`:
+        case `${NAMESPACE}/${CHANGE_EMAIL}`:
             stateCopy = {...state};
             stateCopy.data.email = action.payload.email;
             stateCopy.uiux.allowSave = true;
             return stateCopy;
         
 		default:
-			return baseFormReducer(namespace, state, action)
+			return baseFormReducer(NAMESPACE, state, action)
     };
 };
 
@@ -74,11 +74,11 @@ const initialAuth = {
 };
 
 export const authReducer = (state=initialAuth, action) => {
-    const namespace = 'users';
+    const NAMESPACE = 'users';
 	let stateCopy;
 
     switch (action.type) {
-        case `${namespace}/${SIGNIN}`:
+        case `${NAMESPACE}/${SIGNIN}`:
         	stateCopy = {...state};
 			stateCopy.user = {
                 id: action.payload.user.id,
@@ -91,7 +91,7 @@ export const authReducer = (state=initialAuth, action) => {
 
             return stateCopy;
 
-        case `${namespace}/${SIGNOUT}`:
+        case `${NAMESPACE}/${SIGNOUT}`:
             stateCopy = {...state};
             stateCopy.token.key = null;
             if (stateCopy.user)

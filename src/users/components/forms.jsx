@@ -28,42 +28,42 @@ import { HOST_ARGS } from '../../root/constants.js';
 // --- --- --- --- --- --- --- --- ---
 
 export const UsersForm = ({namespace, mode}) => {
-    const props = {namespace};
 
     return (mode === 'CREATE')?(
         <div className='form'>
-            <MappedDivInputs {...props} />
-            <DivCreateMenu namespace={namespace} hostArgs={HOST_ARGS.CREATE_USER} />
+            <MappedDivInputs namespace={namespace} />
+            <DivCreateMenu namespace={namespace} hostArgs={HOST_ARGS.CREATE_USERS} />
         </div>
 
     ):(mode === 'RETRIEVE')?(
         <div className='form'>
-            <MappedDivInputs {...props} />
-            <DivRetrieveMenu {...props} />
+            <MappedDivInputs namespace={namespace} />
+            <DivRetrieveMenu namespace={namespace} />
         </div>
 
     ):(mode === 'UPDATE')?(
         <div className='form'>
-            <MappedDivInputs {...props} />
-            <DivUpdateMenu {...props} />
+            <MappedDivInputs namespace={namespace} />
+            <DivUpdateMenu namespace={namespace} />
         </div>
 
     ):(mode === 'DELETE')?(
         <div className='form'>
-            <MappedDivInputs {...props} />
-            <DivDeleteMenu {...props} />
+            <MappedDivInputs namespace={namespace} />
+            <DivDeleteMenu namespace={namespace} />
         </div>
 
     ):(
         <div className='form'>
-            <MappedDivInputs {...props} />
-            <DivFormMenu {...props} />
+            <MappedDivInputs namespace={namespace} />
+            <DivFormMenu namespace={namespace} />
         </div>
     );
 };
 
 export const SignupForm = ({namespace, onSelectCreate}) => {
-    onSelectCreate(namespace);
+
+    onSelectCreate(namespace);  // To enable create operation
 
     return (
         <div className='form'>
@@ -74,7 +74,8 @@ export const SignupForm = ({namespace, onSelectCreate}) => {
 };
 
 export const SigninForm = ({namespace, onSelectRetrieve}) => {
-    onSelectRetrieve(namespace);
+
+    onSelectRetrieve(namespace);  // To enable retrieve operation
 
     return (
         <div className='form'>
@@ -85,13 +86,14 @@ export const SigninForm = ({namespace, onSelectRetrieve}) => {
 };
 
 export const SignoutForm = ({namespace, auth, onSignout}) => {
+
     if (auth.user && auth.user.id)
         onSignout();
 
     return (
         <div className='form'>
             Επιτυχής αποσύνδεση χρήστη ({(auth.user && auth.user.username)?auth.user.username:''})
-            <MappedButtonGoHome {...{namespace}} />
+            <MappedButtonGoHome namespace={namespace} />
         </div>
     );
 };
