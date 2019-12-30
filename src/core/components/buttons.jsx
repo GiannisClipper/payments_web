@@ -4,70 +4,70 @@ import { useHistory } from "react-router-dom";
 
 // --- --- --- --- --- --- --- --- ---
 
-export const ButtonSelectCreate = ({onSelectCreate}) => {
+export const ButtonSelectCreate = ({onSelect}) => {
     return (
         <button
-            onClick={() => onSelectCreate()}
+            onClick={() => onSelect()}
         >Νέα εγγραφή</button>
     );
 };
 
-export const ButtonSelectRetrieve = ({onSelectRetrieve}) => {
+export const ButtonSelectRetrieve = ({onSelect}) => {
     return (
         <button
-            onClick={() => onSelectRetrieve()}
+            onClick={() => onSelect()}
         >Αναζήτηση</button>
     );
 };
 
-export const ButtonSelectUpdate = ({id, onSelectUpdate}) => {
+export const ButtonSelectUpdate = ({onSelect}) => {
     return (
         <button
-            onClick={() => onSelectUpdate(id)}
+            onClick={() => onSelect()}
         >Τροποποίηση</button>
     );
 };
 
-export const ButtonSelectDelete = ({id, onSelectDelete}) => {
+export const ButtonSelectDelete = ({onSelect}) => {
     return (
         <button
-            onClick={() => onSelectDelete(id)}
+            onClick={() => onSelect()}
         >Διαγραφή</button>
     );
 };
 
 // --- --- --- --- --- --- --- --- ---
 
-export const ButtonVerifyCreate = ({auth, data, allowSave, onVerifyCreate}) => {
+export const ButtonRequestCreate = ({auth, data, allowRequest, onRequest}) => {
     return (
         <button
-            onClick={() => onVerifyCreate(auth, data)}
-            disabled={!allowSave}
+            onClick={() => onRequest(auth, data)}
+            disabled={!allowRequest}
         >Αποθήκευση</button>
     );
 };
 
-export const ButtonVerifyRetrieve = ({auth, data, onVerifyRetrieve}) => {
+export const ButtonRequestRetrieve = ({auth, data, onRequest}) => {
     return (
         <button
-            onClick={() => onVerifyRetrieve(auth, data)}
+            onClick={() => onRequest(auth, data)}
         >Αναζήτηση</button>
     );
 };
 
-export const ButtonVerifyUpdate = ({auth, data, allowSave, onVerifyUpdate}) => {
+export const ButtonRequestUpdate = ({auth, data, allowRequest, onRequest}) => {
     return (
         <button
-            onClick={() => onVerifyUpdate(auth, data)}
-            disabled={!allowSave}
+            onClick={() => onRequest(auth, data)}
+            disabled={!allowRequest}
         >Αποθήκευση</button>
     );
 };
 
-export const ButtonVerifyDelete = ({auth, data, onVerifyDelete}) => {
+export const ButtonRequestDelete = ({auth, data, onRequest}) => {
     return (
         <button
-            onClick={() => onVerifyDelete(auth, data)}
+            onClick={() => onRequest(auth, data)}
         >Επιβεβαίωση</button>
     );
 };

@@ -43,7 +43,7 @@ export const MappedInputName = connect(
 
 export const MappedDivInputs = connect(
     (state, {namespace}) => ({
-        errors: state[namespace].errors,
+        errors: state[namespace].errors.errors,
     }),
 )(DivInputs);
 

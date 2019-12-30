@@ -16,12 +16,7 @@ const initialData = {
 	name: '..',
 };
 
-const initialErrors = {
-	code: '', 
-	name: '',
-};
-
-export const fundsReducer = (state=initialState(initialData, initialErrors), action) => {
+export const fundsReducer = (state=initialState(initialData), action) => {
 	const NAMESPACE = 'funds';
 	let stateCopy;
 
@@ -29,13 +24,13 @@ export const fundsReducer = (state=initialState(initialData, initialErrors), act
         case `${NAMESPACE}/${CHANGE_CODE}`:
         	stateCopy = {...state};
 	        stateCopy.data.code = action.payload.code;
-			stateCopy.uiux.allowSave = true;
+			stateCopy.uiux.allowRequest = true;
             return stateCopy;
   
         case `${NAMESPACE}/${CHANGE_NAME}`:
         	stateCopy = {...state};
 			stateCopy.data.name = action.payload.name;
-			stateCopy.uiux.allowSave = true;
+			stateCopy.uiux.allowRequest = true;
             return stateCopy;
 
 		default:

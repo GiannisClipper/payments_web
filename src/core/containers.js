@@ -10,10 +10,10 @@ import {
     ButtonSelectUpdate,
     ButtonSelectDelete,
 
-    ButtonVerifyCreate,
-    ButtonVerifyRetrieve,
-    ButtonVerifyUpdate,
-    ButtonVerifyDelete,
+    ButtonRequestCreate,
+    ButtonRequestRetrieve,
+    ButtonRequestUpdate,
+    ButtonRequestDelete,
 
     ButtonCloseData,
     ButtonCloseForm,
@@ -27,16 +27,18 @@ import {
     onSelectDelete,
 
     onRequestProcess,
-    onVerifyCreate,
-    onVerifyRetrieve,
-    onVerifyUpdate,
-    onVerifyDelete,
+    onSuccessCreate,
+    onSuccessRetrieve,
+    onSuccessUpdate,
+    onSuccessDelete,
 
     onCloseData,
     onCloseForm,
     onGoHome,
 } from './actions.js';
 
+// --- --- --- --- --- --- --- --- ---
+// Inputs
 // --- --- --- --- --- --- --- --- ---
 
 export const MappedInputId = connect(
@@ -46,83 +48,89 @@ export const MappedInputId = connect(
 )(InputId);
 
 // --- --- --- --- --- --- --- --- ---
+// Buttons to select
+// --- --- --- --- --- --- --- --- ---
 
 export const MappedButtonSelectCreate = connect(
     state => ({}),
     (dispatch, {namespace}) => ({
-        onSelectCreate: () => dispatch(onSelectCreate(namespace)),
+        onSelect: () => dispatch(onSelectCreate(namespace)),
     })
 )(ButtonSelectCreate);
 
 export const MappedButtonSelectRetrieve = connect(
     state => ({}),
     (dispatch, {namespace}) => ({
-        onSelectRetrieve: () => dispatch(onSelectRetrieve(namespace)),
+        onSelect: () => dispatch(onSelectRetrieve(namespace)),
     })
 )(ButtonSelectRetrieve);
 
 export const MappedButtonSelectUpdate = connect(
     state => ({}),
     (dispatch, {namespace}) => ({
-        onSelectUpdate: id => dispatch(onSelectUpdate(namespace, id)),
+        onSelect: id => dispatch(onSelectUpdate(namespace, id)),
     })
 )(ButtonSelectUpdate);
 
 export const MappedButtonSelectDelete = connect(
     state => ({}),
     (dispatch, {namespace}) => ({
-        onSelectDelete: id => dispatch(onSelectDelete(namespace, id)),
+        onSelect: id => dispatch(onSelectDelete(namespace, id)),
     })
 )(ButtonSelectDelete);
 
 // --- --- --- --- --- --- --- --- ---
+// Buttons to request
+// --- --- --- --- --- --- --- --- ---
 
-export const MappedButtonVerifyCreate = connect(
+export const MappedButtonRequestCreate = connect(
     (state, {namespace, hostArgs}) => ({
         auth: state.auth,
         data: state[namespace].data,
-        allowSave: state[namespace].uiux.allowSave,
+        allowRequest: state[namespace].uiux.allowRequest,
         isLoading: state[namespace].uiux.isLoading,
     }),
     (dispatch, {namespace, hostArgs}) => ({
-        onVerifyCreate: (auth, data) => dispatch(onRequestProcess(namespace, hostArgs, auth, data, onVerifyCreate)),
+        onRequest: (auth, data) => dispatch(onRequestProcess(namespace, hostArgs, auth, data, onSuccessCreate)),
     })
-)(ButtonVerifyCreate);
+)(ButtonRequestCreate);
 
-export const MappedButtonVerifyRetrieve = connect(
+export const MappedButtonRequestRetrieve = connect(
     (state, {namespace, hostArgs}) => ({
         auth: state.auth,
         data: state[namespace].data,
         isLoading: state[namespace].uiux.isLoading,
     }),
     (dispatch, {namespace, hostArgs}) => ({
-        onVerifyRetrieve: (auth, data) => dispatch(onVerifyRetrieve(namespace, hostArgs, auth, data)),
+        onRequest: (auth, data) => dispatch(onSuccessRetrieve(namespace, hostArgs, auth, data)),
     })
-)(ButtonVerifyRetrieve);
+)(ButtonRequestRetrieve);
 
-export const MappedButtonVerifyUpdate = connect(
+export const MappedButtonRequestUpdate = connect(
     (state, {namespace}) => ({
         auth: state.auth,
         data: state[namespace].data,
-        allowSave: state[namespace].uiux.allowSave,
+        allowRequest: state[namespace].uiux.allowRequest,
         isLoading: state[namespace].uiux.isLoading,
     }),
     (dispatch, {namespace}) => ({
-        onVerifyUpdate: (auth, data) => dispatch(onVerifyUpdate(namespace, auth, data)),
+        onRequest: (auth, data) => dispatch(onSuccessUpdate(namespace, auth, data)),
     })
-)(ButtonVerifyUpdate);
+)(ButtonRequestUpdate);
 
-export const MappedButtonVerifyDelete = connect(
+export const MappedButtonRequestDelete = connect(
     (state, {namespace}) => ({
         auth: state.auth,
         data: state[namespace].data,
         isLoading: state[namespace].uiux.isLoading,
     }),
     (dispatch, {namespace}) => ({
-        onVerifyDelete: (auth, data) => dispatch(onVerifyDelete(namespace, auth, data)),
+        onRequest: (auth, data) => dispatch(onSuccessDelete(namespace, auth, data)),
     })
-)(ButtonVerifyDelete);
+)(ButtonRequestDelete);
 
+// --- --- --- --- --- --- --- --- ---
+// Buttons to close 
 // --- --- --- --- --- --- --- --- ---
 
 export const MappedButtonCloseData = connect(

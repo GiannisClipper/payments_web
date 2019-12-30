@@ -8,7 +8,7 @@ export const request = async (url, method, token=null, data={}) => {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': token.key?`${token.prefix} ${token.key}`:'',
+            'Authorization': (token && token.key)?`${token.prefix} ${token.key}`:'',
         },
     };
 

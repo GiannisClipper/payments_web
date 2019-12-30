@@ -9,5 +9,6 @@ const LABELS = {
 module.exports = {
     CHANGE_CODE,
     CHANGE_NAME,
+
     LABELS,
 };

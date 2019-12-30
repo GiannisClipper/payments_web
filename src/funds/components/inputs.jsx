@@ -50,7 +50,7 @@ export const DivInputs = ({errors, namespace}) => {
 
     return (
         <div className='edit'>
-            <span className='message'>{errors.detail?errors.detail:''}</span>
+            <span className='message'>{errors?errors:''}</span>
             <MappedInputId {...props} />
             <MappedInputCode {...props} />
             <MappedInputName {...props} />

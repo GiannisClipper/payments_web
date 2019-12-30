@@ -3,14 +3,15 @@ import {
     SELECT_RETRIEVE,
     SELECT_UPDATE,
     SELECT_DELETE,
+
+    SUCCESS_CREATE,
+    SUCCESS_RETRIEVE,
+    SUCCESS_UPDATE,
+    SUCCESS_DELETE,
+
+    CLOSE_DATA,
     CLOSE_FORM,
     GO_HOME,
-
-    VERIFY_CREATE,
-    VERIFY_RETRIEVE,
-    VERIFY_UPDATE,
-    VERIFY_DELETE,
-    CLOSE_DATA,
 
     BEFORE_REQUEST,
     AFTER_RESPONSE,
@@ -66,7 +67,7 @@ export const onGoHome = (namespace, history) => {
 
 // --- --- --- --- --- --- --- --- ---
 
-export const onRequestProcess = (namespace, hostArgs, auth, data, onVerify) => {
+export const onRequestProcess = (namespace, hostArgs, auth, data, onSuccess) => {
     return dispatch => {
         dispatch(onBeforeRequest(namespace));
         dispatch(
@@ -75,29 +76,30 @@ export const onRequestProcess = (namespace, hostArgs, auth, data, onVerify) => {
                 if (hostArgs.jsonKey)
                     data = {[hostArgs.jsonKey]: data}
 
-                let response = await request(hostArgs.url, hostArgs.method, auth.token, data);
+                let response = await request(hostArgs.url, hostArgs.method, auth?auth.token:null, data);
 
                 data = response.data;
                 console.log('data1', data);
                 if (response.status >= 200 && response.status <= 299) {
                     // Rename `jsonKey` to a generic namespace
-                    if (hostArgs.jsonKey && data[hostArgs.jsonKey] !== undefined)
+                    if (hostArgs.jsonKey && data[hostArgs.jsonKey] !== undefined) {
                         data.data = data[hostArgs.jsonKey];
                         delete data[hostArgs.jsonKey];
+                    };
 
-                    alert('onsuccess' + data);
+                    ////alert('onsuccess' + data);
                     dispatch(onAfterResponse(namespace));
                     dispatch(onDataResponse(namespace));
-                    if (onVerify)
-                        dispatch(onVerify(namespace, data));
+                    dispatch(onSuccess(namespace, data));
 
                 } else {
                     // Rename `jsonKey` to a generic namespace
-                    if (hostArgs.jsonKey && data[hostArgs.jsonKey] !== undefined)
+                    if (hostArgs.jsonKey && data[hostArgs.jsonKey] !== undefined) {
                         data.errors = data[hostArgs.jsonKey];
                         delete data[hostArgs.jsonKey];
+                    };
 
-                    alert('onfail' + data);
+                    ////alert('onfail' + data);
                     dispatch(onAfterResponse(namespace));
                     dispatch(onErrorsResponse(namespace, data));
                 };
@@ -108,80 +110,33 @@ export const onRequestProcess = (namespace, hostArgs, auth, data, onVerify) => {
     };
 };
 
-/*export const onVerifyCreate = (namespace, hostArgs, auth, data) => {
-    return dispatch => {
-        dispatch(onBeforeRequest(namespace));
-        dispatch(
-            async () => {
-                await request(hostArgs, auth.token, data,
-                    (status, data) => {
-                        alert('onsuccess' + data);
-                        dispatch(onRespondData(data));
-                        dispatch(onAfterResponse(namespace));
-                    },
-                    (status, message) => {
-                        alert('onfail' + message);
-                        dispatch(onAfterResponse(namespace));
-                        dispatch(onRespondErrors(namespace, message));
-                    }
-                );
-                dispatch(onTest(namespace));
-            }
-        );
-    };
-};
-
-export const onVerifyRetrieve = (namespace, hostArgs, auth, data) => {
-    return dispatch => {
-        dispatch(onBeforeRequest(namespace));
-        dispatch(
-            async () => {
-                await request(hostArgs, auth.token, data,
-                    (status, data) => {
-                        alert('onsuccess' + data);
-                        dispatch(onDataResponse(data));
-                        //dispatch(onSignin(data.user, data.token));
-                        dispatch(onAfterResponse(namespace));
-                    },
-                    (status, message) => {
-                        alert('onfail' + message);
-                        dispatch(onAfterResponse(namespace));
-                        dispatch(onErrorsResponse(namespace, message));
-                    }        
-                );
-            }
-        );
-    };
-};
-*/
-
 // --- --- --- --- --- --- --- --- ---
 
-export const onVerifyCreate = namespace => {
+export const onSuccessCreate = (namespace, data) => {
     return {
-        type: `${namespace}/${VERIFY_CREATE}`,
-        payload: {},
+        type: `${namespace}/${SUCCESS_CREATE}`,
+        payload: {...data},
     };
 }
 
-export const onVerifyRetrieve = namespace => {
+export const onSuccessRetrieve = (namespace, data) => {
     return {
-        type: `${namespace}/${VERIFY_RETRIEVE}`,
-        payload: {},
+        type: `${namespace}/${SUCCESS_RETRIEVE}`,
+        payload: {...data},
     };
 }
 
-export const onVerifyUpdate = (namespace, id) => {
+export const onSuccessUpdate = (namespace, data) => {
     return {
-        type: `${namespace}/${VERIFY_UPDATE}`,
-        payload: {id},
+        type: `${namespace}/${SUCCESS_UPDATE}`,
+        payload: {...data},
     }
 }
 
-export const onVerifyDelete = (namespace, id) => {
+export const onSuccessDelete = (namespace, data) => {
     return {
-        type: `${namespace}/${VERIFY_DELETE}`,
-        payload: {id},
+        type: `${namespace}/${SUCCESS_DELETE}`,
+        payload: {...data},
     }
 }
 
@@ -218,6 +173,6 @@ export const onDataResponse = (namespace, data) => {
 export const onErrorsResponse = (namespace, errors) => {
     return {
         type: `${namespace}/${ERRORS_RESPONSE}`,
-        payload: {errors},
+        payload: errors,
     };
 }

@@ -36,8 +36,9 @@ export const InputPassword = ({value, errors, allowEdit, onChangePassword}) => {
             <input
                 value={value}
                 onChange={event => onChangePassword(event.target.value)}
-               disabled={!allowEdit}
+                disabled={!allowEdit}
             />
+            <span className='message'>{errors?errors.toString():''}</span>
         </div>
     );
 };
@@ -51,6 +52,7 @@ export const InputPassword2 = ({value, errors, allowEdit, onChangePassword2}) =>
                 onChange={event => onChangePassword2(event.target.value)}
                 disabled={!allowEdit}
             />
+            <span className='message'>{errors?errors.toString():''}</span>
         </div>
     );
 };
@@ -64,6 +66,7 @@ export const InputEmail = ({value, errors, allowEdit, onChangeEmail}) => {
                 onChange={event => onChangeEmail(event.target.value)}
                 disabled={!allowEdit}
             />
+            <span className='message'>{errors?errors.toString():''}</span>
         </div>
     );
 };
@@ -75,7 +78,7 @@ export const DivInputs = ({errors, namespace}) => {
 
     return (
         <div className='edit'>
-            <span className='message'>{'Error message place'}</span>
+            <span className='message'>{errors?errors:''}</span>
             <MappedInputId {...props} />
             <MappedInputUsername {...props}/>
             <MappedInputPassword {...props}/>
@@ -90,7 +93,7 @@ export const DivSignupInputs = ({errors, namespace}) => {
 
     return (
         <div className='edit'>
-            <span className='message'>{'Error message place'}</span>
+            <span className='message'>{errors?errors:''}</span>
             <MappedInputUsername {...props}/>
             <MappedInputPassword {...props}/>
             <MappedInputPassword2 {...props}/>
@@ -104,7 +107,7 @@ export const DivSigninInputs = ({errors, namespace}) => {
 
     return (
         <div className='edit'>
-            <span className='message'>{'Error message place'}</span>
+            <span className='message'>{errors?errors:''}</span>
             <MappedInputUsername {...props}/>
             <MappedInputPassword {...props}/>
         </div>

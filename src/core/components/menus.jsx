@@ -6,10 +6,10 @@ import {
     MappedButtonSelectUpdate,
     MappedButtonSelectDelete,
 
-    MappedButtonVerifyCreate,
-    MappedButtonVerifyRetrieve,
-    MappedButtonVerifyUpdate,
-    MappedButtonVerifyDelete,
+    MappedButtonRequestCreate,
+    MappedButtonRequestRetrieve,
+    MappedButtonRequestUpdate,
+    MappedButtonRequestDelete,
 
     MappedButtonCloseData,
     MappedButtonCloseForm,
@@ -42,7 +42,7 @@ export const DivItemMenu = props => {
 export const DivCreateMenu = props => {
     return (
         <div>
-            <MappedButtonVerifyCreate {...props} />
+            <MappedButtonRequestCreate {...props} />
             <MappedButtonCloseData {...props} />
         </div>
     );
@@ -51,7 +51,7 @@ export const DivCreateMenu = props => {
 export const DivUpdateMenu = props => {
     return (
         <div>
-            <MappedButtonVerifyUpdate {...props} />
+            <MappedButtonRequestUpdate {...props} />
             <MappedButtonCloseData {...props} />
         </div>
     );
@@ -60,7 +60,7 @@ export const DivUpdateMenu = props => {
 export const DivRetrieveMenu = props => {
     return (
         <div>
-            <MappedButtonVerifyRetrieve {...props} />
+            <MappedButtonRequestRetrieve {...props} />
             <MappedButtonCloseData {...props} />
         </div>
     );
@@ -69,7 +69,7 @@ export const DivRetrieveMenu = props => {
 export const DivDeleteMenu = props => {
     return (
         <div>
-            <MappedButtonVerifyDelete {...props} />
+            <MappedButtonRequestDelete {...props} />
             <MappedButtonCloseData {...props} />
         </div>
     );

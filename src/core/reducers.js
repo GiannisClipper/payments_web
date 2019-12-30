@@ -1,15 +1,15 @@
 import { 
     SELECT_CREATE,
-    VERIFY_CREATE,
+    SUCCESS_CREATE,
 
     SELECT_RETRIEVE,
-    VERIFY_RETRIEVE,
+    SUCCESS_RETRIEVE,
 
     SELECT_UPDATE,
-    VERIFY_UPDATE,
+    SUCCESS_UPDATE,
 
     SELECT_DELETE,
-    VERIFY_DELETE,
+    SUCCESS_DELETE,
 
 	CLOSE_DATA,
 	CLOSE_FORM,
@@ -26,7 +26,7 @@ import {
 
 const initialUiux = {
 	mode: null,
-	allowSave: null,
+	allowRequest: null,
 	allowEdit: null,
 	isLoading: null,
 };
@@ -34,24 +34,20 @@ const initialUiux = {
 const initialData = {
 };
 
-const initialErrors = {
-};
-
-export const initialState = (initialData, initialErrors) => {
+export const initialState = initialData => {
 	return {
 		initialUiux: initialUiux,
 		initialData: initialData,
-		initialErrors: initialErrors,
 
 		uiux: {...initialUiux},
 		data: {...initialData},
-		errors: {...initialErrors},
+		errors: {},
 	
 		items: {},
 	};
 };
 
-export const baseFormReducer = (namespace, state=initialState(initialData, initialErrors), action) => {
+export const baseFormReducer = (namespace, state=initialState(initialData), action) => {
 	let stateCopy;
 
     switch (action.type) {
@@ -59,47 +55,47 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
         	stateCopy = {...state};
 			stateCopy.uiux.mode = 'CREATE';
 			stateCopy.uiux.allowEdit = true;
-			stateCopy.uiux.allowSave = false;
+			stateCopy.uiux.allowRequest = false;
 			return stateCopy;
 
 		case `${namespace}/${SELECT_RETRIEVE}`:
 			stateCopy = {...state};
 			stateCopy.uiux.mode = 'RETRIEVE';
 			stateCopy.uiux.allowEdit = true;
-			stateCopy.uiux.allowSave = false;
+			stateCopy.uiux.allowRequest = false;
 			return stateCopy;
 	
 		case `${namespace}/${SELECT_UPDATE}`:
 			stateCopy = {...state};
 			stateCopy.uiux.mode = 'UPDATE';
 			stateCopy.uiux.allowEdit = true;
-			stateCopy.uiux.allowSave = false;
+			stateCopy.uiux.allowRequest = false;
 			return stateCopy;
 	
 		case `${namespace}/${SELECT_DELETE}`:
 			stateCopy = {...state};
 			stateCopy.uiux.mode = 'DELETE';
 			stateCopy.uiux.allowEdit = false;
-			stateCopy.uiux.allowSave = false;
+			stateCopy.uiux.allowRequest = false;
 			return stateCopy;
 	
-		case `${namespace}/${VERIFY_CREATE}`:
+		case `${namespace}/${SUCCESS_CREATE}`:
 			stateCopy = {...state};
-			stateCopy.data = {...action.payload.data};
-//			if (action.payload.data.id)
-//				stateCopy.items.push({data: {...stateCopy.data}});
+			stateCopy.data = {...stateCopy.initialData, ...action.payload.data};
 			return stateCopy;
 	
-		case `${namespace}/${VERIFY_RETRIEVE}`:
+		case `${namespace}/${SUCCESS_RETRIEVE}`:
 			return state;
 	  
-        case `${namespace}/${VERIFY_UPDATE}`:
+        case `${namespace}/${SUCCESS_UPDATE}`:
         	stateCopy = {...state};
+			stateCopy.data = {...action.payload.data};
 			stateCopy.items[action.payload.data.id] = {...stateCopy.data};
 			return stateCopy;
   
-	    case `${namespace}/${VERIFY_DELETE}`:
+	    case `${namespace}/${SUCCESS_DELETE}`:
         	stateCopy = {...state};
+			stateCopy.data = {...stateCopy.initialData};
 			delete stateCopy.items[action.payload.data.id];
 			return stateCopy;
 
@@ -107,14 +103,14 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 			stateCopy = {...state};
 			stateCopy.uiux = {...stateCopy.initialUiux};
 			stateCopy.data = {...stateCopy.initialData};
-			stateCopy.errors = {...stateCopy.initialErrors};
+			stateCopy.errors = {};
 			return stateCopy;
 	
 	    case `${namespace}/${CLOSE_FORM}`:
 			stateCopy = {...state};
 			stateCopy.uiux = {...stateCopy.initialUiux};
 			stateCopy.data = {...stateCopy.initialData};
-			stateCopy.errors = {...stateCopy.initialErrors};
+			stateCopy.errors = {};
 			stateCopy.items = {};
 			return stateCopy;
 
@@ -125,7 +121,7 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 		case `${namespace}/${BEFORE_REQUEST}`:
 			stateCopy = {...state};
 			stateCopy.uiux.allowEdit = false;
-			stateCopy.uiux.allowSave = false;
+			stateCopy.uiux.allowRequest = false;
 			stateCopy.uiux.isLoading = true;
 			return stateCopy;
 
@@ -137,12 +133,22 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 
 		case `${namespace}/${DATA_RESPONSE}`:
 			stateCopy = {...state};
-			stateCopy.errors = {...stateCopy.initialErrors};
+			stateCopy.errors = {};
 			return stateCopy;
 
 		case `${namespace}/${ERRORS_RESPONSE}`:
 			stateCopy = {...state};
-			stateCopy.errors = {...stateCopy.initialErrors, ...action.payload.errors.errors};
+
+			// Enclose non field errors in an `errors` key
+			if (typeof(action.payload.errors) === 'string')
+				action.payload.errors = {'errors': action.payload.errors};
+			let nonFieldErrors = [];
+			const fieldKeys = Object.keys(stateCopy.data);
+			Object.keys(action.payload.errors).forEach(x => !fieldKeys.includes(x)?nonFieldErrors.push(action.payload.errors[x]):null);
+			Object.keys(action.payload.errors).forEach(x => !fieldKeys.includes(x)?delete action.payload.errors[x]:null);
+			action.payload.errors.errors = nonFieldErrors;
+
+			stateCopy.errors = {...action.payload.errors};
 			return stateCopy;
 	
 		default:

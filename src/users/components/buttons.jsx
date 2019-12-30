@@ -1,10 +1,10 @@
 import React from 'react';
 
-export const ButtonSignup = ({auth, data, allowSave, isLoading, onVerifyCreate}) => {
+export const ButtonSignup = ({auth, data, allowRequest, isLoading, onRequest}) => {
     return (
         <button
-            onClick={() => onVerifyCreate(auth, data)}
-            disabled={!allowSave}
+            onClick={() => onRequest(auth, data)}
+            disabled={!allowRequest}
         >
             {(isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
             Υποβολή
@@ -12,11 +12,11 @@ export const ButtonSignup = ({auth, data, allowSave, isLoading, onVerifyCreate})
     );
 };
 
-export const ButtonSignin = ({auth, data, allowSave, isLoading, onVerifyRetrieve}) => {
+export const ButtonSignin = ({auth, data, allowRequest, isLoading, onRequest}) => {
     return (
         <button
-            onClick={() => onVerifyRetrieve(auth, data)}
-            disabled={!allowSave}
+            onClick={() => onRequest(auth, data)}
+            disabled={!allowRequest}
         >
             {(isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
             Είσοδος
