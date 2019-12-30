@@ -7,10 +7,14 @@ const CHANGE_PASSWORD2 = 'CHANGE_PASSWORD2';
 const CHANGE_EMAIL = 'CHANGE_EMAIL';
 
 const LABELS = {
-    USERNAME: 'ΟΝΟΜΑ ΧΡΗΣΤΗ',
-    PASSWORD: 'ΚΩΔΙΚΟΣ ΕΙΣΟΔΟΥ',
-    PASSWORD2: 'ΕΠΑΝΑΛΗΨΗ ΚΩΔΙΚΟΥ',
-    EMAIL: 'EMAIL',
+    FORM_USERS_TITLE: 'ΧΡΗΣΤΕΣ',
+    FORM_SIGNUP_TITLE: 'ΕΓΓΡΑΦΗ ΧΡΗΣΤΗ',
+    FORM_SIGNIN_TITLE: 'ΣΥΝΔΕΣΗ ΧΡΗΣΤΗ',
+    FORM_SIGNOUT_TITLE: 'ΑΠΟΣΥΝΔΕΣΗ ΧΡΗΣΤΗ',
+    INPUT_USERNAME: 'ΟΝΟΜΑ ΧΡΗΣΤΗ',
+    INPUT_PASSWORD: 'ΚΩΔΙΚΟΣ ΕΙΣΟΔΟΥ',
+    INPUT_PASSWORD2: 'ΕΠΑΝΑΛΗΨΗ ΚΩΔΙΚΟΥ',
+    INPUT_EMAIL: 'EMAIL',
 };
 
 module.exports = {

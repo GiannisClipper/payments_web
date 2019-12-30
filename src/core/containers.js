@@ -136,14 +136,14 @@ export const MappedButtonRequestDelete = connect(
 export const MappedButtonCloseData = connect(
     state => ({}),
     (dispatch, {namespace}) => ({
-        onCloseData: () => dispatch(onCloseData(namespace)),
+        onClose: () => dispatch(onCloseData(namespace)),
     })
 )(ButtonCloseData);
 
 export const MappedButtonCloseForm = connect(
     state => ({}),
     (dispatch, {namespace}) => ({
-        onCloseForm: () => dispatch(onCloseForm(namespace)),
+        onClose: () => dispatch(onCloseForm(namespace)),
         onGoHome: history => dispatch(onGoHome(namespace, history)),
     })
 )(ButtonCloseForm);

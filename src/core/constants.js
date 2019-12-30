@@ -23,7 +23,21 @@ const DATA_RESPONSE = 'DATA_RESPONSE';
 const ERRORS_RESPONSE = 'ERRORS_RESPONSE';
 
 const LABELS = {
-    ID: 'ID',
+    BUTTON_SELECT_CREATE: 'ΝΕΑ ΕΓΓΡΑΦΗ',
+    BUTTON_SELECT_RETRIEVE: 'ΑΝΑΖΗΤΗΣΗ',
+    BUTTON_SELECT_UPDATE: 'ΕΠΕΞΕΡΓΑΣΙΑ',
+    BUTTON_SELECT_DELETE: 'ΔΙΑΓΡΑΦΗ',
+
+    BUTTON_REQUEST_CREATE: 'ΑΠΟΘΗΚΕΥΣΗ',
+    BUTTON_REQUEST_RETRIEVE: 'ΑΝΑΖΗΤΗΣΗ',
+    BUTTON_REQUEST_UPDATE: 'ΑΠΟΘΗΚΕΥΣΗ',
+    BUTTON_REQUEST_DELETE: 'ΕΠΙΒΕΒΑΙΩΣΗ',
+
+    BUTTON_CLOSE_DATA: 'ΚΛΕΙΣΙΜΟ',
+    BUTTON_CLOSE_FORM: 'ΚΛΕΙΣΙΜΟ',
+    BUTTON_GO_HOME: 'ΑΡΧΙΚΗ ΟΘΟΝΗ',
+
+    INPUT_ID: 'ID',
 }
 
 module.exports = {

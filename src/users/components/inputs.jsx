@@ -18,7 +18,7 @@ import { LABELS } from '../constants.js';
 export const InputUsername = ({value, errors, allowEdit, onChangeUsername}) => {
     return (
         <div className='field'>
-            <span className='label'>{LABELS.USERNAME}</span>
+            <span className='label'>{LABELS.INPUT_USERNAME}</span>
             <input
                 value={value}
                 onChange={event => onChangeUsername(event.target.value)}
@@ -32,7 +32,7 @@ export const InputUsername = ({value, errors, allowEdit, onChangeUsername}) => {
 export const InputPassword = ({value, errors, allowEdit, onChangePassword}) => {
     return (
         <div className='field'>
-            <span className='label'>{LABELS.PASSWORD}</span>
+            <span className='label'>{LABELS.INPUT_PASSWORD}</span>
             <input
                 value={value}
                 onChange={event => onChangePassword(event.target.value)}
@@ -46,7 +46,7 @@ export const InputPassword = ({value, errors, allowEdit, onChangePassword}) => {
 export const InputPassword2 = ({value, errors, allowEdit, onChangePassword2}) => {
     return (
         <div className='field'>
-            <span className='label'>{LABELS.PASSWORD2}</span>
+            <span className='label'>{LABELS.INPUT_PASSWORD2}</span>
             <input
                 value={value}
                 onChange={event => onChangePassword2(event.target.value)}
@@ -60,7 +60,7 @@ export const InputPassword2 = ({value, errors, allowEdit, onChangePassword2}) =>
 export const InputEmail = ({value, errors, allowEdit, onChangeEmail}) => {
     return (
         <div className='field'>
-            <span className='label'>{LABELS.EMAIL}</span>
+            <span className='label'>{LABELS.INPUT_EMAIL}</span>
             <input
                 value={value}
                 onChange={event => onChangeEmail(event.target.value)}
