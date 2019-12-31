@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { LABELS } from '../constants.js';
+
 export const ButtonSignup = ({auth, data, allowRequest, isLoading, onRequest}) => {
     return (
         <button
@@ -7,7 +9,7 @@ export const ButtonSignup = ({auth, data, allowRequest, isLoading, onRequest}) =
             disabled={!allowRequest}
         >
             {(isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
-            Υποβολή
+            {LABELS.BUTTON_SIGNUP}
         </button>
     );
 };
@@ -19,7 +21,7 @@ export const ButtonSignin = ({auth, data, allowRequest, isLoading, onRequest}) =
             disabled={!allowRequest}
         >
             {(isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
-            Είσοδος
+            {LABELS.BUTTON_SIGNIN}
         </button>
     );
 };

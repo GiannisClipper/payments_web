@@ -40,37 +40,49 @@ export const ButtonSelectDelete = ({onSelect}) => {
 
 // --- --- --- --- --- --- --- --- ---
 
-export const ButtonRequestCreate = ({auth, data, allowRequest, onRequest}) => {
+export const ButtonRequestCreate = ({auth, data, allowRequest, isLoading, onRequest}) => {
     return (
         <button
             onClick={() => onRequest(auth, data)}
             disabled={!allowRequest}
-        >{LABELS.BUTTON_REQUEST_CREATE}</button>
+        >
+            {(isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
+            {LABELS.BUTTON_REQUEST_CREATE}
+        </button>
     );
 };
 
-export const ButtonRequestRetrieve = ({auth, data, onRequest}) => {
+export const ButtonRequestRetrieve = ({auth, data, isLoading, onRequest}) => {
     return (
         <button
             onClick={() => onRequest(auth, data)}
-        >{LABELS.BUTTON_REQUEST_RETRIEVE}</button>
+        >
+            {(isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
+            {LABELS.BUTTON_REQUEST_RETRIEVE}
+        </button>
     );
 };
 
-export const ButtonRequestUpdate = ({auth, data, allowRequest, onRequest}) => {
+export const ButtonRequestUpdate = ({auth, data, allowRequest, isLoading, onRequest}) => {
     return (
         <button
             onClick={() => onRequest(auth, data)}
             disabled={!allowRequest}
-        >{LABELS.BUTTON_REQUEST_UPDATE}</button>
+        >
+            {(isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
+            {LABELS.BUTTON_REQUEST_UPDATE}
+        </button>
     );
 };
 
-export const ButtonRequestDelete = ({auth, data, onRequest}) => {
+export const ButtonRequestDelete = ({auth, data, isLoading, onRequest}) => {
     return (
         <button
             onClick={() => onRequest(auth, data)}
-        >{LABELS.BUTTON_REQUEST_DELETE}</button>
+        >
+            {(isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
+            {LABELS.BUTTON_REQUEST_DELETE}
+        </button>
     );
 };
 
@@ -80,7 +92,7 @@ export const ButtonCloseData = ({onClose}) => {
     return (
         <button
             onClick={() => onClose()}
-        >{LABELS.BUTTON_CLOSE_DATA}</button>
+        >{LABELS.BUTTON_CLOSE_MODE}</button>
     );
 };
 

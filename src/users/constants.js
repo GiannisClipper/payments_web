@@ -11,6 +11,10 @@ const LABELS = {
     FORM_SIGNUP_TITLE: 'ΕΓΓΡΑΦΗ ΧΡΗΣΤΗ',
     FORM_SIGNIN_TITLE: 'ΣΥΝΔΕΣΗ ΧΡΗΣΤΗ',
     FORM_SIGNOUT_TITLE: 'ΑΠΟΣΥΝΔΕΣΗ ΧΡΗΣΤΗ',
+
+    BUTTON_SIGNUP: 'ΕΓΓΡΑΦΗ',
+    BUTTON_SIGNIN: 'ΣΥΝΔΕΣΗ',
+
     INPUT_USERNAME: 'ΟΝΟΜΑ ΧΡΗΣΤΗ',
     INPUT_PASSWORD: 'ΚΩΔΙΚΟΣ ΕΙΣΟΔΟΥ',
     INPUT_PASSWORD2: 'ΕΠΑΝΑΛΗΨΗ ΚΩΔΙΚΟΥ',

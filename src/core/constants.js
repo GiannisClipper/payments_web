@@ -13,7 +13,7 @@ const SUCCESS_RETRIEVE = 'SUCCESS_RETRIEVE';
 const SUCCESS_UPDATE = 'SUCCESS_UPDATE';
 const SUCCESS_DELETE = 'SUCCESS_DELETE';
 
-const CLOSE_DATA = 'CLOSE_FORM';
+const CLOSE_MODE = 'CLOSE_MODE';
 const CLOSE_FORM = 'CLOSE_FORM';
 const GO_HOME = 'GO_HOME';
 
@@ -33,7 +33,7 @@ const LABELS = {
     BUTTON_REQUEST_UPDATE: 'ΑΠΟΘΗΚΕΥΣΗ',
     BUTTON_REQUEST_DELETE: 'ΕΠΙΒΕΒΑΙΩΣΗ',
 
-    BUTTON_CLOSE_DATA: 'ΚΛΕΙΣΙΜΟ',
+    BUTTON_CLOSE_MODE: 'ΚΛΕΙΣΙΜΟ',
     BUTTON_CLOSE_FORM: 'ΚΛΕΙΣΙΜΟ',
     BUTTON_GO_HOME: 'ΑΡΧΙΚΗ ΟΘΟΝΗ',
 
@@ -56,7 +56,7 @@ module.exports = {
     SUCCESS_UPDATE,
     SUCCESS_DELETE,
 
-    CLOSE_DATA,
+    CLOSE_MODE,
     CLOSE_FORM,
     GO_HOME,
 

@@ -67,15 +67,15 @@ export const MappedButtonSelectRetrieve = connect(
 
 export const MappedButtonSelectUpdate = connect(
     state => ({}),
-    (dispatch, {namespace}) => ({
-        onSelect: id => dispatch(onSelectUpdate(namespace, id)),
+    (dispatch, {namespace, id}) => ({
+        onSelect: () => dispatch(onSelectUpdate(namespace, id)),
     })
 )(ButtonSelectUpdate);
 
 export const MappedButtonSelectDelete = connect(
     state => ({}),
-    (dispatch, {namespace}) => ({
-        onSelect: id => dispatch(onSelectDelete(namespace, id)),
+    (dispatch, {namespace, id}) => ({
+        onSelect: () => dispatch(onSelectDelete(namespace, id)),
     })
 )(ButtonSelectDelete);
 
@@ -102,19 +102,25 @@ export const MappedButtonRequestRetrieve = connect(
         isLoading: state[namespace].uiux.isLoading,
     }),
     (dispatch, {namespace, hostArgs}) => ({
-        onRequest: (auth, data) => dispatch(onSuccessRetrieve(namespace, hostArgs, auth, data)),
+        onRequest: (auth, data) => dispatch(onRequestProcess(namespace, hostArgs, auth, data, onSuccessRetrieve)),
     })
 )(ButtonRequestRetrieve);
+
+const changedData = (oldData, newData) => {  // Because backend triggers duplication errors in update operation 
+    let retval = {...newData};
+    Object.keys(retval).forEach(x => (x !== 'id' && oldData[x] === newData[x])?delete retval[x]:null);
+    return retval;
+};
 
 export const MappedButtonRequestUpdate = connect(
     (state, {namespace}) => ({
         auth: state.auth,
-        data: state[namespace].data,
+        data: changedData(state[namespace].items.data[state[namespace].data.id], state[namespace].data),
         allowRequest: state[namespace].uiux.allowRequest,
         isLoading: state[namespace].uiux.isLoading,
     }),
-    (dispatch, {namespace}) => ({
-        onRequest: (auth, data) => dispatch(onSuccessUpdate(namespace, auth, data)),
+    (dispatch, {namespace, hostArgs}) => ({
+        onRequest: (auth, data) => dispatch(onRequestProcess(namespace, hostArgs, auth, data, onSuccessUpdate)),
     })
 )(ButtonRequestUpdate);
 
@@ -124,8 +130,8 @@ export const MappedButtonRequestDelete = connect(
         data: state[namespace].data,
         isLoading: state[namespace].uiux.isLoading,
     }),
-    (dispatch, {namespace}) => ({
-        onRequest: (auth, data) => dispatch(onSuccessDelete(namespace, auth, data)),
+    (dispatch, {namespace, hostArgs}) => ({
+        onRequest: (auth, data) => dispatch(onRequestProcess(namespace, hostArgs, auth, data, onSuccessDelete)),
     })
 )(ButtonRequestDelete);
 

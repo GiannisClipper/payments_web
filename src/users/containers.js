@@ -5,10 +5,13 @@ import {
     InputPassword,
     InputPassword2,
     InputEmail,
+} from './components/inputs.jsx';
+
+import {
     DivInputs,
     DivSignupInputs,
     DivSigninInputs,
-} from './components/inputs.jsx';
+} from './components/groups.jsx';
 
 import {
     ButtonSignup,
@@ -87,7 +90,7 @@ export const MappedInputEmail = connect(
 )(InputEmail);
 
 // --- --- --- --- --- --- --- --- ---
-// Grouped inputs
+// Groups
 // --- --- --- --- --- --- --- --- ---
 
 export const MappedDivInputs = connect(

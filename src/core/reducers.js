@@ -11,7 +11,7 @@ import {
     SELECT_DELETE,
     SUCCESS_DELETE,
 
-	CLOSE_DATA,
+	CLOSE_MODE,
 	CLOSE_FORM,
 	GO_HOME,
 
@@ -43,13 +43,16 @@ export const initialState = initialData => {
 		data: {...initialData},
 		errors: {},
 	
-		items: {},
+		items: {
+			data: {}, 
+			order: [],
+		},
 	};
 };
 
 export const baseFormReducer = (namespace, state=initialState(initialData), action) => {
 	let stateCopy;
-
+	console.log('actiotn.type>>>', action.type);
     switch (action.type) {
         case `${namespace}/${SELECT_CREATE}`:
         	stateCopy = {...state};
@@ -67,6 +70,7 @@ export const baseFormReducer = (namespace, state=initialState(initialData), acti
 	
 		case `${namespace}/${SELECT_UPDATE}`:
 			stateCopy = {...state};
+			stateCopy.data = {...stateCopy.initialData, ...stateCopy.items.data[action.payload.id]};
 			stateCopy.uiux.mode = 'UPDATE';
 			stateCopy.uiux.allowEdit = true;
 			stateCopy.uiux.allowRequest = false;
@@ -74,32 +78,46 @@ export const baseFormReducer = (namespace, state=initialState(initialData), acti
 	
 		case `${namespace}/${SELECT_DELETE}`:
 			stateCopy = {...state};
+			stateCopy.data = {...stateCopy.initialData, ...stateCopy.items.data[action.payload.id]};
 			stateCopy.uiux.mode = 'DELETE';
 			stateCopy.uiux.allowEdit = false;
-			stateCopy.uiux.allowRequest = false;
+			stateCopy.uiux.allowRequest = true;
 			return stateCopy;
 	
 		case `${namespace}/${SUCCESS_CREATE}`:
 			stateCopy = {...state};
-			stateCopy.data = {...stateCopy.initialData, ...action.payload.data};
+			let itemsCopy = {...state.items};  // To refresh components properly
+			itemsCopy.data[action.payload.data.id] = {...action.payload.data};
+			itemsCopy.order.push = action.payload.data.id;
+			stateCopy.items = {...itemsCopy};
+			stateCopy.data = {...stateCopy.initialData};
+			stateCopy.uiux.mode = null;
 			return stateCopy;
 	
 		case `${namespace}/${SUCCESS_RETRIEVE}`:
-			return state;
+			stateCopy = {...state};
+			stateCopy.items.data = {};
+			stateCopy.items.order = [];
+			action.payload.data.forEach(x => stateCopy.items.data[x.id] = x);
+			action.payload.data.forEach(x => stateCopy.items.order.push(x.id));
+			stateCopy.uiux.mode = null;
+			return stateCopy;
 	  
         case `${namespace}/${SUCCESS_UPDATE}`:
         	stateCopy = {...state};
 			stateCopy.data = {...action.payload.data};
-			stateCopy.items[action.payload.data.id] = {...stateCopy.data};
+			stateCopy.items.data[action.payload.data.id] = {...stateCopy.data};
 			return stateCopy;
   
 	    case `${namespace}/${SUCCESS_DELETE}`:
         	stateCopy = {...state};
+			stateCopy.items.order = stateCopy.items.order.filter(x => x !== action.payload.data.id);
+			delete stateCopy.items.data[action.payload.data.id];
 			stateCopy.data = {...stateCopy.initialData};
-			delete stateCopy.items[action.payload.data.id];
+			stateCopy.uiux.mode = null;
 			return stateCopy;
 
-		case `${namespace}/${CLOSE_DATA}`:
+		case `${namespace}/${CLOSE_MODE}`:
 			stateCopy = {...state};
 			stateCopy.uiux = {...stateCopy.initialUiux};
 			stateCopy.data = {...stateCopy.initialData};
@@ -111,7 +129,9 @@ export const baseFormReducer = (namespace, state=initialState(initialData), acti
 			stateCopy.uiux = {...stateCopy.initialUiux};
 			stateCopy.data = {...stateCopy.initialData};
 			stateCopy.errors = {};
-			stateCopy.items = {};
+			stateCopy.items.data = {};
+			stateCopy.items.order = [];
+			console.log('items>>>', stateCopy.items);
 			return stateCopy;
 
 		case `${namespace}/${GO_HOME}`:
@@ -139,14 +159,16 @@ export const baseFormReducer = (namespace, state=initialState(initialData), acti
 		case `${namespace}/${ERRORS_RESPONSE}`:
 			stateCopy = {...state};
 
-			// Enclose non field errors in an `errors` key
+			// Place non field errors in an `errors` key
 			if (typeof(action.payload.errors) === 'string')
 				action.payload.errors = {'errors': action.payload.errors};
-			let nonFieldErrors = [];
-			const fieldKeys = Object.keys(stateCopy.data);
-			Object.keys(action.payload.errors).forEach(x => !fieldKeys.includes(x)?nonFieldErrors.push(action.payload.errors[x]):null);
-			Object.keys(action.payload.errors).forEach(x => !fieldKeys.includes(x)?delete action.payload.errors[x]:null);
-			action.payload.errors.errors = nonFieldErrors;
+			else {
+				let nonFieldErrors = [];
+				const fieldKeys = Object.keys(stateCopy.data);
+				Object.keys(action.payload.errors).forEach(x => !fieldKeys.includes(x)?nonFieldErrors.push(action.payload.errors[x]):null);
+				Object.keys(action.payload.errors).forEach(x => !fieldKeys.includes(x)?delete action.payload.errors[x]:null);
+				action.payload.errors['errors'] = nonFieldErrors;
+			};
 
 			stateCopy.errors = {...action.payload.errors};
 			return stateCopy;

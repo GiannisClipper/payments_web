@@ -3,8 +3,12 @@ import { connect } from 'react-redux';
 import {
     InputCode,
     InputName,
-    DivInputs,
 } from './components/inputs.jsx';
+
+import { 
+    DivInputs,
+    DivItems,
+} from './components/groups.jsx';
 
 import {
     FundsForm,
@@ -15,6 +19,8 @@ import {
 	onChangeName,
 } from './actions.js';
 
+// --- --- --- --- --- --- --- --- ---
+// Inputs
 // --- --- --- --- --- --- --- --- ---
 
 export const MappedInputCode = connect(
@@ -40,13 +46,25 @@ export const MappedInputName = connect(
 )(InputName);
 
 // --- --- --- --- --- --- --- --- ---
+// Groups
+// --- --- --- --- --- --- --- --- ---
 
 export const MappedDivInputs = connect(
     (state, {namespace}) => ({
         errors: state[namespace].errors.errors,
     }),
+    ({})
 )(DivInputs);
 
+export const MappedDivItems = connect(
+    (state, {namespace, items}) => ({
+        items: state[namespace].items,
+    }),
+    ({})
+)(DivItems);
+
+// --- --- --- --- --- --- --- --- ---
+// Forms
 // --- --- --- --- --- --- --- --- ---
 
 export const MappedFundsForm = connect(

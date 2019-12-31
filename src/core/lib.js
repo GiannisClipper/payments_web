@@ -17,7 +17,7 @@ export const request = async (url, method, token=null, data={}) => {
         Object.assign(args, {body: JSON.stringify(data)});
 
     // Do request
-    console.log('fetch url args>>>', url, args);
+    console.log('Request url args>>>', url, args);
 
     try {
         let res = await fetch(url, args);
