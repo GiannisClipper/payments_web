@@ -23,6 +23,7 @@ export const request = async (url, method, token=null, data={}) => {
         let res = await fetch(url, args);
         data = await res.json();
         return {status: res.status, data: data};
+
     } catch(err) {
         return {status: err.status, data: err.message};
     };

@@ -20,7 +20,7 @@ store.subscribe(() => console.log('store update:', store.getState()));
 ReactDOM.render(
     <Provider store={store}>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-        <App />
+        <App mode='authenticated'/>
     </Provider>, 
     document.getElementById("root")
 );

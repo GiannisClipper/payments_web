@@ -101,7 +101,7 @@ export const MappedDivInputs = connect(
 
 export const MappedDivSignupInputs = connect(
     (state, {namespace}) => ({
-        errors: state[namespace].errors.erros,
+        errors: state[namespace].errors.errors,
     }),
 )(DivSignupInputs);
 
@@ -171,9 +171,10 @@ export const MappedSigninForm = connect(
 
 export const MappedSignoutForm = connect(
     state => ({
+        namespace: 'users',
         auth: state.auth,
     }),
     dispatch => ({
-        onSignout: () => dispatch(onSignout()),
+        onSignout: namespace => dispatch(onSignout(namespace)),
     })
 )(SignoutForm);

@@ -86,10 +86,8 @@ export const baseFormReducer = (namespace, state=initialState(initialData), acti
 	
 		case `${namespace}/${SUCCESS_CREATE}`:
 			stateCopy = {...state};
-			let itemsCopy = {...state.items};  // To refresh components properly
-			itemsCopy.data[action.payload.data.id] = {...action.payload.data};
-			itemsCopy.order.push = action.payload.data.id;
-			stateCopy.items = {...itemsCopy};
+			stateCopy.items.data[action.payload.data.id] = {...action.payload.data};
+			stateCopy.items.order = stateCopy.items.order.concat(action.payload.data.id);
 			stateCopy.data = {...stateCopy.initialData};
 			stateCopy.uiux.mode = null;
 			return stateCopy;
@@ -110,9 +108,11 @@ export const baseFormReducer = (namespace, state=initialState(initialData), acti
 			return stateCopy;
   
 	    case `${namespace}/${SUCCESS_DELETE}`:
-        	stateCopy = {...state};
-			stateCopy.items.order = stateCopy.items.order.filter(x => x !== action.payload.data.id);
-			delete stateCopy.items.data[action.payload.data.id];
+			stateCopy = {...state};
+			console.log(action.payload);
+			let orderPos = stateCopy.items.order.indexOf(action.payload.id);
+			stateCopy.items.order.splice(orderPos, 1);
+			delete stateCopy.items.data[action.payload.id];
 			stateCopy.data = {...stateCopy.initialData};
 			stateCopy.uiux.mode = null;
 			return stateCopy;
@@ -160,7 +160,9 @@ export const baseFormReducer = (namespace, state=initialState(initialData), acti
 			stateCopy = {...state};
 
 			// Place non field errors in an `errors` key
-			if (typeof(action.payload.errors) === 'string')
+			if (typeof(action.payload) === 'string')
+				action.payload = {'errors': {'errors': action.payload}};
+			else if (typeof(action.payload.errors) === 'string')
 				action.payload.errors = {'errors': action.payload.errors};
 			else {
 				let nonFieldErrors = [];

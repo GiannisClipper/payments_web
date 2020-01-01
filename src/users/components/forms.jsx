@@ -97,7 +97,7 @@ export const SigninForm = ({namespace, onSelectRetrieve}) => {
 export const SignoutForm = ({namespace, auth, onSignout}) => {
 
     if (auth.user && auth.user.id)
-        onSignout();
+        onSignout(namespace);
 
     return (
         <div className='form signout'>

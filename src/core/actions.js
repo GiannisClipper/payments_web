@@ -57,48 +57,50 @@ export const onSelectDelete = (namespace, id) => {
 // onRequest...
 // --- --- --- --- --- --- --- --- ---
 
-export const onRequestProcess = (namespace, hostArgs, auth, data, onSuccess) => {
+export const onRequestProcess = (namespace, hostArgs, auth, reqData, onSuccess) => {
     return dispatch => {
         dispatch(onBeforeRequest(namespace));
         dispatch(
             async () => {
-                const id = data.id;
+                const id = reqData.id;
+                hostArgs = {...hostArgs}
 
-                // Replace `id` in url if demanded
+                // Replace `id` in url if should be
                 if (hostArgs.url.includes('<:id>'))
                     hostArgs.url = hostArgs.url.replace('<:id>', id);
 
                 // Place data in `reqDataKey`-namespace
                 if (hostArgs.reqDataKey)
-                    data = {[hostArgs.reqDataKey]: data}
+                    reqData = {[hostArgs.reqDataKey]: reqData}
 
-                let response = await request(hostArgs.url, hostArgs.method, auth?auth.token:null, data);
+                let response = await request(hostArgs.url, hostArgs.method, auth?auth.token:null, reqData);
 
-                data = response.data;
-                console.log('Response data with `resDataKey`)>>>', data);
+                let resData = response.data;
+                console.log('Response data with `resDataKey`)>>>', resData);
 
                 if (response.status >= 200 && response.status <= 299) {
                     // Rename `resDataKey`-namespace to a generic one
-                    if (hostArgs.resDataKey && data[hostArgs.resDataKey] !== undefined) {
-                        data.data = data[hostArgs.resDataKey];
-                        delete data[hostArgs.resDataKey];
+                    if (hostArgs.resDataKey && resData[hostArgs.resDataKey] !== undefined) {
+                        resData.data = resData[hostArgs.resDataKey];
+                        delete resData[hostArgs.resDataKey];
                     };
-                    console.log('Response data without `resDataKey`)>>>', data);
+                    console.log('Response data without `resDataKey`)>>>', resData);
 
                     dispatch(onAfterResponse(namespace));
                     dispatch(onDataResponse(namespace));
-                    dispatch(onSuccess(namespace, data, id));
+                    dispatch(onSuccess(namespace, resData, id));
 
                 } else {
+                    alert(response.status);
                     // Rename `resDataKey`-namespace to a generic one
-                    if (hostArgs.resDataKey && data[hostArgs.resDataKey] !== undefined) {
-                        data.errors = data[hostArgs.resDataKey];
-                        delete data[hostArgs.resDataKey];
+                    if (hostArgs.resDataKey && resData[hostArgs.resDataKey] !== undefined) {
+                        resData.errors = resData[hostArgs.resDataKey];
+                        delete resData[hostArgs.resDataKey];
                     };
-                    console.log('Response data without `resDataKey`)>>>', data);
+                    console.log('Response data without `resDataKey`)>>>', resData);
 
                     dispatch(onAfterResponse(namespace));
-                    dispatch(onErrorsResponse(namespace, data));
+                    dispatch(onErrorsResponse(namespace, resData));
                 };
             }
         );
@@ -159,7 +161,7 @@ export const onSuccessUpdate = (namespace, data) => {
 };
 
 export const onSuccessDelete = (namespace, data, id) => {
-    data.data = {id};  // Because backend sends an empty data object in delete operation
+    data = {id};  // Because backend sends an empty data object in delete operation
     return {
         type: `${namespace}/${SUCCESS_DELETE}`,
         payload: {...data},

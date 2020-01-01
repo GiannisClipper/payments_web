@@ -21,21 +21,26 @@ import {
 
 const Home = () => <div>Home</div>
 
-const App = () => (
+const App = ({mode}) => (
 	<BrowserRouter>
-		<div>
-			<NavBar />
+		<NavBar mode={mode} />
+
+		{(mode === 'authenticated')?(
 			<Switch>
 				<Route exact path='/' component={Home} />
 				<Route path='/payments' component={Payments} />
 				<Route path='/genres' component={Genres} />
 				<Route path='/funds' component={MappedFundsForm} />
 				<Route path='/users' component={NavTabUsers} />
-				<Route path='/signup' component={MappedSignupForm} />
-				<Route path='/signin' component={MappedSigninForm} />
 				<Route path='/signout' component={MappedSignoutForm} />
 			</Switch>
-		</div>
+		):(
+			<Switch>
+				<Route exact path='/' component={Home} />
+				<Route path='/signup' component={MappedSignupForm} />
+				<Route path='/signin' component={MappedSigninForm} />
+			</Switch>
+		)}
 	</BrowserRouter>
 );
 

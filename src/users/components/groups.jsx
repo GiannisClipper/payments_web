@@ -15,7 +15,7 @@ import { LABELS } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const DivInputs = ({errors, namespace}) => {
+export const DivInputs = ({namespace, errors}) => {
     const props = {namespace};
 
     return (
@@ -30,7 +30,7 @@ export const DivInputs = ({errors, namespace}) => {
     );
 };
 
-export const DivSignupInputs = ({errors, namespace}) => {
+export const DivSignupInputs = ({namespace, errors}) => {
     const props = {namespace};
 
     return (
@@ -44,7 +44,7 @@ export const DivSignupInputs = ({errors, namespace}) => {
     );
 };
 
-export const DivSigninInputs = ({errors, namespace}) => {
+export const DivSigninInputs = ({namespace, errors}) => {
     const props = {namespace};
 
     return (

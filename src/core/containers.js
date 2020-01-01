@@ -106,7 +106,7 @@ export const MappedButtonRequestRetrieve = connect(
     })
 )(ButtonRequestRetrieve);
 
-const changedData = (oldData, newData) => {  // Because backend triggers duplication errors in update operation 
+const onlyChangedData = (oldData, newData) => {  // Because backend triggers duplication errors when resending same field values 
     let retval = {...newData};
     Object.keys(retval).forEach(x => (x !== 'id' && oldData[x] === newData[x])?delete retval[x]:null);
     return retval;
@@ -115,7 +115,7 @@ const changedData = (oldData, newData) => {  // Because backend triggers duplica
 export const MappedButtonRequestUpdate = connect(
     (state, {namespace}) => ({
         auth: state.auth,
-        data: changedData(state[namespace].items.data[state[namespace].data.id], state[namespace].data),
+        data: onlyChangedData(state[namespace].items.data[state[namespace].data.id], state[namespace].data),
         allowRequest: state[namespace].uiux.allowRequest,
         isLoading: state[namespace].uiux.isLoading,
     }),
