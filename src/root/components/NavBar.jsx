@@ -1,22 +1,23 @@
 import React from 'react';
+
 import NavTab from './NavTab.jsx';
 
-const NavBar = ({mode}) => {
+import { LABELS } from '../constants.js';
+
+const NavBar = ({auth}) => {
 	return (
-		(mode === 'authenticated')?(
+		auth.token.key?(
 			<div>
-			<NavTab to='/' label='HOME' />
-			<NavTab to='/payments' label='PAYMENTS' />
-			<NavTab to='/genres' label='GENRES' />
-			<NavTab to='/funds' label='FUNDS' />
-			<NavTab to='/users' label='USERS' />
-			<NavTab to='/signout' label='SIGNOUT' />
+			<NavTab label={LABELS.MENU_USERS} to='/users' />
+			<NavTab label={LABELS.MENU_FUNDS} to='/funds' />
+			<NavTab label={LABELS.MENU_GENRES} to='/genres' />
+			<NavTab label={LABELS.MENU_PAYMENTS} to='/payments' />
+			<NavTab label={LABELS.MENU_SIGNOUT} to='/signout' />
 			</div>
 		):(
 			<div>
-			<NavTab to='/' label='HOME' />
-			<NavTab to='/signup' label='SIGNUP' />
-			<NavTab to='/signin' label='SIGNIN' />
+			<NavTab label={LABELS.MENU_SIGNUP} to='/signup' />
+			<NavTab label={LABELS.MENU_SIGNIN} to='/signin' />
 			</div>
 		)
 	)

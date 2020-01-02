@@ -70,6 +70,7 @@ try {user = JSON.parse(localStorage.getItem('user'))} catch {};
 const initialAuth = {
     token: {prefix: TOKEN_PREFIX, key: tokenKey},
     user: {...user},
+    message: null,
 };
 
 export const authReducer = (state=initialAuth, action) => {
@@ -96,6 +97,8 @@ export const authReducer = (state=initialAuth, action) => {
             stateCopy.token.key = null;
             if (stateCopy.user)
                 stateCopy.user.id = null;
+
+            stateCopy.message = action.payload.message;
 
             if (localStorage.getItem('tokenKey', null))
                 localStorage.removeItem('tokenKey');

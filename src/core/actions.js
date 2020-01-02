@@ -21,6 +21,8 @@ import {
 
 import { request } from '../core/lib.js';
 
+import { onSignout } from '../users/actions.js';
+
 // --- --- --- --- --- --- --- --- ---
 // onSelect...
 // --- --- --- --- --- --- --- --- ---
@@ -88,7 +90,8 @@ export const onRequestProcess = (namespace, hostArgs, auth, reqData, onSuccess) 
 
                     dispatch(onAfterResponse(namespace));
                     dispatch(onDataResponse(namespace));
-                    dispatch(onSuccess(namespace, resData, id));
+                    if (onSuccess)
+                        dispatch(onSuccess(namespace, resData, id));
 
                 } else {
                     alert(response.status);
@@ -101,6 +104,10 @@ export const onRequestProcess = (namespace, hostArgs, auth, reqData, onSuccess) 
 
                     dispatch(onAfterResponse(namespace));
                     dispatch(onErrorsResponse(namespace, resData));
+
+                    if ([401, 403].includes(response.status))
+                        dispatch(onSignout('users', resData.errors.toString()));
+
                 };
             }
         );

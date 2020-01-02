@@ -175,6 +175,6 @@ export const MappedSignoutForm = connect(
         auth: state.auth,
     }),
     dispatch => ({
-        onSignout: namespace => dispatch(onSignout(namespace)),
+        onSignout: (namespace, message) => dispatch(onSignout(namespace, message)),
     })
 )(SignoutForm);

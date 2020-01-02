@@ -14,10 +14,6 @@ import {
 } from './menus.jsx';
 
 import {
-    MappedButtonGoHome,
-} from '../../core/containers.js';
-
-import {
     MappedDivInputs,
     MappedDivSignupInputs,
     MappedDivSigninInputs,
@@ -96,16 +92,11 @@ export const SigninForm = ({namespace, onSelectRetrieve}) => {
 
 export const SignoutForm = ({namespace, auth, onSignout}) => {
 
-    if (auth.user && auth.user.id)
-        onSignout(namespace);
+    const message = `Αποσύνδεση χρήστη (${auth.user.username})`;
 
-    return (
-        <div className='form signout'>
-            <div className='title'>{LABELS.FORM_SIGNOUT_TITLE}</div>
-            Επιτυχής αποσύνδεση χρήστη ({(auth.user && auth.user.username)?auth.user.username:''})
-            <MappedButtonGoHome namespace={namespace} />
-        </div>
-    );
+    onSignout(namespace, message);
+
+    return (<></>);
 };
 
 // --- --- --- --- --- --- --- --- ---

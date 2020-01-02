@@ -58,9 +58,9 @@ export const onSignin = (namespace, data) => {
     };
 };
 
-export const onSignout = namespace => {
+export const onSignout = (namespace, message) => {
     return {
         type: `${namespace}/${SUCCESS_SIGNOUT}`,
-		payload: {},
+		payload: {message},
     };
 };
