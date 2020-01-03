@@ -21,13 +21,13 @@ import { LABELS, HOST_ARGS } from '../../root/constants.js';
 
 export const GenresForm = ({namespace, mode}) => {
 
-    const name = 'genres';
+    const name = namespace;
     const title = LABELS.MENU_GENRES;
 
     return (mode === 'CREATE')?(
         <FormInMode 
             name = {name}
-            mode = {mode.toLowerCase()}
+            mode = {mode}
             title = {title}
             MappedDivModeData = {MappedDivInputs}
             DivModeMenu = {DivCreateMenu}

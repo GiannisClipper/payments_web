@@ -1,4 +1,5 @@
-import { usersReducer, authReducer } from '../users/reducers.js';
+import { usersReducer } from '../users/reducers.js';
+import { authReducer } from '../auth/reducers.js';
 import { fundsReducer } from '../funds/reducers.js';
 import { genresReducer } from '../genres/reducers.js';
 

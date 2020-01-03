@@ -1,4 +1,5 @@
 import { 
+	NAMESPACE,
 	CHANGE_CODE,
 	CHANGE_NAME,
 } from "./constants.js";
@@ -17,7 +18,6 @@ const initialData = {
 };
 
 export const fundsReducer = (state=initialState(initialData), action) => {
-	const NAMESPACE = 'funds';
 	let stateCopy;
 
     switch (action.type) {  
@@ -35,5 +35,5 @@ export const fundsReducer = (state=initialState(initialData), action) => {
 
 		default:
 			return baseFormReducer(NAMESPACE, state, action)
-    };
-};
+    }
+}

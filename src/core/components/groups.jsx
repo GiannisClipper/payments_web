@@ -35,13 +35,11 @@ export class DivItems extends React.Component {
 
         return (
             <div className='data'>
-                <div className='labels'>
+                <span className='labels'>
                     {labels.map(label => (
-                        <li key={key++}>
-                            <span>{label}</span>
-                        </li>
+                        <span key={key++}>{label}</span>
                     ))}
-                </div>
+                </span>
                 <ul className='items'>
                     {items.order.map(id => (
                         <li key={id}>

@@ -1,12 +1,11 @@
 import React from 'react';
 
-import {
-    DivItemMenu,
-} from '../../core/components/menus.jsx';
+import { 
+    DivInputs as CoreDivInputs,
+    DivItems as CoreDivItems
+} from '../../core/components/groups.jsx';
 
-import {
-    MappedInputId,
-} from '../../core/containers.js';
+import { MappedInputId } from '../../core/containers.js';
 
 import {
     MappedInputCode,
@@ -19,35 +18,44 @@ import { LABELS } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const DivInputs = ({namespace, errors}) => {
+export const DivInputs = ({namespace, message}) => {
+
+    const MappedInputs = [
+        MappedInputId,
+        MappedInputCode,
+        MappedInputName
+    ];
+
     return (
-        <div className='edit'>
-            <span className='message'>{errors?errors:''}</span>
-            <MappedInputId {...{namespace}} />
-            <MappedInputCode {...{namespace}} />
-            <MappedInputName {...{namespace}} />
-        </div>
-    );
-};
+        <CoreDivInputs 
+            namespace={namespace}
+            MappedInputs={MappedInputs}
+            message={message} 
+        />
+    )
+}
 
 export const DivItems = ({namespace, items}) => {
+
+    const labels = [
+        CORE_LABELS.INPUT_ID,
+        LABELS.INPUT_CODE,
+        LABELS.INPUT_NAME
+    ];
+
+    const fields = [
+        'id',
+        'code',
+        'name'
+    ];
+
     return (
-        <div className='list'>
-            <div className='labels'>
-                <span>({CORE_LABELS.INPUT_ID})</span>
-                <span>{LABELS.INPUT_CODE}</span>
-                <span>{LABELS.INPUT_NAME}</span>
-            </div>
-            <ul className='data'>
-                {items.order.map(id => (
-                <li key={id}>
-                    <span>({items.data[id].id})</span>
-                    <span>{items.data[id].code}</span>
-                    <span>{items.data[id].name}</span>
-                    <DivItemMenu {...{namespace, id}} />
-                </li>
-                ))}
-            </ul>
-        </div>
-    );
-};
+        <CoreDivItems
+            namespace={namespace}
+            labels={labels} 
+            fields={fields} 
+            items={items} 
+        />
+    )
+}
+

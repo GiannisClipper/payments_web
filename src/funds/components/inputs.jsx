@@ -1,33 +1,33 @@
 import React from 'react';
 
+import { InputString } from '../../core/components/inputs.jsx';
+
 import { LABELS } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const InputCode = ({value, errors, allowEdit, onChangeCode}) => {
+export const InputCode = ({value, message, allowEdit, onChange}) => {
     return (
-        <div className='field'>
-            <span className='label'>{LABELS.INPUT_CODE}</span>
-            <input
-                value={value}
-                onChange={event => onChangeCode(event.target.value)}
-                disabled={!allowEdit}
-            />
-            <span className='message'>{errors?errors.toString():''}</span>
-        </div>
-    );
-};
+        <InputString 
+            name = 'code'
+            label = {LABELS.INPUT_CODE}
+            value = {value}
+            message = {message}
+            allowEdit = {allowEdit}
+            onChange = {onChange}
+        />
+    )
+}
 
-export const InputName = ({value, errors, allowEdit, onChangeName}) => {
+export const InputName = ({value, message, allowEdit, onChange}) => {
     return (
-        <div className='field'>
-            <span className='label'>{LABELS.INPUT_NAME}</span>
-            <input 
-                value={value}
-                onChange={event => onChangeName(event.target.value)}
-                disabled={!allowEdit}
-            />
-            <span className='message'>{errors?errors.toString():''}</span>
-        </div>
-    );
-};
+        <InputString 
+            name = 'name'
+            label = {LABELS.INPUT_NAME}
+            value = {value}
+            message = {message}
+            allowEdit = {allowEdit}
+            onChange = {onChange}
+        />
+    )
+}
