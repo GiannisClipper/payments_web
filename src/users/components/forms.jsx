@@ -8,16 +8,7 @@ import {
     DivDeleteMenu,
 } from '../../core/components/menus.jsx';
 
-import {
-    DivSignupMenu,
-    DivSigninMenu,
-} from './menus.jsx';
-
-import {
-    MappedDivInputs,
-    MappedDivSignupInputs,
-    MappedDivSigninInputs,
-} from '../containers.js';
+import { MappedDivInputs } from '../containers.js';
 
 import { LABELS } from '../constants.js';
 
@@ -61,42 +52,5 @@ export const UsersForm = ({namespace, mode}) => {
             <MappedDivInputs namespace={namespace} />
             <DivFormMenu namespace={namespace} />
         </div>
-    );
-};
-
-export const SignupForm = ({namespace, onSelectCreate}) => {
-
-    onSelectCreate(namespace);  // To enable create operation
-
-    return (
-        <div className='form signup'>
-            <div className='title'>{LABELS.FORM_SIGNUP_TITLE}</div>
-            <MappedDivSignupInputs namespace={namespace} />
-            <DivSignupMenu namespace={namespace} hostArgs={HOST_ARGS.SIGNUP} />
-        </div>
-    );
-};
-
-export const SigninForm = ({namespace, onSelectRetrieve}) => {
-
-    onSelectRetrieve(namespace);  // To enable retrieve operation
-
-    return (
-        <div className='form signin'>
-            <div className='title'>{LABELS.FORM_SIGNIN_TITLE}</div>
-            <MappedDivSigninInputs namespace={namespace} />
-            <DivSigninMenu namespace={namespace} hostArgs={HOST_ARGS.SIGNIN} />
-        </div>
-    );
-};
-
-export const SignoutForm = ({namespace, auth, onSignout}) => {
-
-    const message = `Αποσύνδεση χρήστη (${auth.user.username})`;
-
-    onSignout(namespace, message);
-
-    return (<></>);
-};
-
-// --- --- --- --- --- --- --- --- ---
+    )
+}

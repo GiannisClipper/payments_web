@@ -12,12 +12,11 @@ import { MappedGenresForm } from '../../genres/containers.js';
 
 import NavTabUsers from './NavTabUsers.jsx';
 
-import { MappedSignupForm, MappedSigninForm, MappedSignoutForm } from '../../users/containers.js';
-
-
-//const Home = () => <App />
+import { MappedSignupForm, MappedSigninForm, MappedSignoutForm } from '../../auth/containers.js';
 
 const App = ({auth}) => {
+
+	let key = 0;
 
 	let welcome = [
 		'Καλωσορίσατε στην εφαρμογή! Προχωρήστε σε ΣΥΝΔΕΣΗ ΧΡΗΣΤΗ',
@@ -48,14 +47,14 @@ const App = ({auth}) => {
 					<Route path='/signin' component={MappedSigninForm} />
 					<div className='welcome'>
 						{welcome.map(x => (
-							<div>{x}</div>
+							<div key={key++}>{x}</div>
 						))}
 					</div>
 
 				</Switch>
 			)}
 		</BrowserRouter>
-		);
-};
+		)
+}
 
 export default App;
