@@ -40,10 +40,24 @@ const HOST_ARGS = {
     },
 
     RETRIEVE_USERS: {
+        url: `${ORIGIN}/users/all-list`,
+        method: METHODS.GET,
+        reqDataKey: null,
+        resDataKey: DATA_KEYS.USERS,
     },
+
     UPDATE_USERS: {
+        url: `${ORIGIN}/users/<:id>/`,
+        method: METHODS.PATCH,
+        reqDataKey: DATA_KEYS.USER,
+        resDataKey: DATA_KEYS.USER,
     },
+
     DELETE_USERS: {
+        url: `${ORIGIN}/users/<:id>/`,
+        method: METHODS.DELETE,
+        reqDataKey: DATA_KEYS.USER,
+        resDataKey: DATA_KEYS.USER,
     },
 
     CREATE_FUNDS: {

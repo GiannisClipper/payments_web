@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { FormInMode } from '../../core/components/forms.jsx';
+
 import {
     DivFormMenu,
     DivCreateMenu,
@@ -8,49 +10,72 @@ import {
     DivDeleteMenu,
 } from '../../core/components/menus.jsx';
 
-import { MappedDivInputs } from '../containers.js';
+import {
+    MappedDivInputs,
+    MappedDivItems,
+} from '../containers.js';
 
-import { LABELS } from '../constants.js';
-
-import { HOST_ARGS } from '../../root/constants.js';
+import { LABELS, HOST_ARGS } from '../../root/constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
 export const UsersForm = ({namespace, mode}) => {
 
+    const name = namespace;
+    const title = LABELS.MENU_USERS;
+
     return (mode === 'CREATE')?(
-        <div className='form users create'>
-            <div className='title'>{LABELS.FORM_USERS_TITLE}</div>
-            <MappedDivInputs namespace={namespace} />
-            <DivCreateMenu namespace={namespace} hostArgs={HOST_ARGS.CREATE_USERS} />
-        </div>
+        <FormInMode 
+            name = {name}
+            mode = {mode}
+            title = {title}
+            MappedDivModeData = {MappedDivInputs}
+            DivModeMenu = {DivCreateMenu}
+            namespace = {namespace}
+            hostArgs = {HOST_ARGS.CREATE_USERS}
+        />
 
     ):(mode === 'RETRIEVE')?(
-        <div className='form users retrieve'>
-            <div className='title'>{LABELS.FORM_USERS_TITLE}</div>
-            <MappedDivInputs namespace={namespace} />
-            <DivRetrieveMenu namespace={namespace} />
-        </div>
+        <FormInMode 
+            name = {name}
+            mode = {mode}
+            title = {title}
+            MappedDivModeData = {MappedDivInputs}
+            DivModeMenu = {DivRetrieveMenu}
+            namespace = {namespace}
+            hostArgs = {HOST_ARGS.RETRIEVE_USERS}
+        />
 
     ):(mode === 'UPDATE')?(
-        <div className='form users update'>
-            <div className='title'>{LABELS.FORM_USERS_TITLE}</div>
-            <MappedDivInputs namespace={namespace} />
-            <DivUpdateMenu namespace={namespace} />
-        </div>
+        <FormInMode 
+            name = {name}
+            mode = {mode}
+            title = {title}
+            MappedDivModeData = {MappedDivInputs}
+            DivModeMenu = {DivUpdateMenu}
+            namespace = {namespace}
+            hostArgs = {HOST_ARGS.UPDATE_USERS}
+        />
 
     ):(mode === 'DELETE')?(
-        <div className='form users delete'>
-            <div className='title'>{LABELS.FORM_USERS_TITLE}</div>
-            <MappedDivInputs namespace={namespace} />
-            <DivDeleteMenu namespace={namespace} />
-        </div>
+        <FormInMode 
+            name = {name}
+            mode = {mode}
+            title = {title}
+            MappedDivModeData = {MappedDivInputs}
+            DivModeMenu = {DivDeleteMenu}
+            namespace = {namespace}
+            hostArgs = {HOST_ARGS.DELETE_USERS}
+        />
 
     ):(
-        <div className='form users list'>
-            <div className='title'>{LABELS.FORM_USERS_TITLE}</div>
-            <MappedDivInputs namespace={namespace} />
-            <DivFormMenu namespace={namespace} />
-        </div>
-    )
+        <FormInMode 
+            name = {name}
+            mode = 'list'
+            title = {title}
+            MappedDivModeData = {MappedDivItems}
+            DivModeMenu = {DivFormMenu}
+            namespace = {namespace}
+        />
+    );
 }

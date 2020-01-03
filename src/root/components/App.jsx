@@ -4,15 +4,17 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import NavBar from './NavBar.jsx';
 
-import Payments from './Payments.jsx';
+import { MappedSignupForm, MappedSigninForm, MappedSignoutForm } from '../../auth/containers.js';
+
+import { MappedUsersForm } from '../../users/containers.js';
 
 import { MappedFundsForm } from '../../funds/containers.js';
 
 import { MappedGenresForm } from '../../genres/containers.js';
 
-import NavTabUsers from './NavTabUsers.jsx';
+import Payments from './Payments.jsx';
 
-import { MappedSignupForm, MappedSigninForm, MappedSignoutForm } from '../../auth/containers.js';
+import NavTabUsers from './NavTabUsers.jsx';
 
 const App = ({auth}) => {
 
@@ -35,23 +37,24 @@ const App = ({auth}) => {
 
 			{auth.token.key?(
 				<Switch>
-					<Route path='/payments' component={Payments} />
-					<Route path='/genres' component={MappedGenresForm} />
+					<Route path='/users' component={MappedUsersForm} />
 					<Route path='/funds' component={MappedFundsForm} />
-					<Route path='/users' component={NavTabUsers} />
+					<Route path='/genres' component={MappedGenresForm} />
+					<Route path='/payments' component={Payments} />
 					<Route path='/signout' component={MappedSignoutForm} />
 				</Switch>
 			):(
+				<>
 				<Switch>
 					<Route path='/signup' component={MappedSignupForm} />
 					<Route path='/signin' component={MappedSigninForm} />
-					<div className='welcome'>
-						{welcome.map(x => (
-							<div key={key++}>{x}</div>
-						))}
-					</div>
-
 				</Switch>
+				<div className='welcome'>
+					{welcome.map(x => (
+						<div key={key++}>{x}</div>
+					))}
+				</div>
+				</>
 			)}
 		</BrowserRouter>
 		)

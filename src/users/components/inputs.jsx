@@ -1,61 +1,61 @@
 import React from 'react';
 
+import { InputString } from '../../core/components/inputs.jsx';
+
 import { LABELS } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const InputUsername = ({value, errors, allowEdit, onChangeUsername}) => {
+export const InputUsername = ({value, message, allowEdit, onChange}) => {
     return (
-        <div className='field'>
-            <span className='label'>{LABELS.INPUT_USERNAME}</span>
-            <input
-                value={value}
-                onChange={event => onChangeUsername(event.target.value)}
-                disabled={!allowEdit}
-            />
-            <span className='message'>{errors?errors.toString():''}</span>
-        </div>
-    );
-};
+        <InputString 
+            name = 'username'
+            label = {LABELS.INPUT_USERNAME}
+            value = {value}
+            message = {message}
+            allowEdit = {allowEdit}
+            onChange = {onChange}
+        />
+    )
+}
 
-export const InputPassword = ({value, errors, allowEdit, onChangePassword}) => {
+export const InputPassword = ({value, message, allowEdit, onChange}) => {
     return (
-        <div className='field'>
-            <span className='label'>{LABELS.INPUT_PASSWORD}</span>
-            <input
-                value={value}
-                onChange={event => onChangePassword(event.target.value)}
-                disabled={!allowEdit}
-            />
-            <span className='message'>{errors?errors.toString():''}</span>
-        </div>
-    );
-};
+        <InputString 
+            name = 'password'
+            label = {LABELS.INPUT_PASSWORD}
+            value = {value}
+            message = {message}
+            allowEdit = {allowEdit}
+            onChange = {onChange}
+        />
+    )
+}
 
-export const InputPassword2 = ({value, errors, allowEdit, onChangePassword2}) => {
+export const InputPassword2 = ({value, message, allowEdit, onChange}) => {
     return (
-        <div className='field'>
-            <span className='label'>{LABELS.INPUT_PASSWORD2}</span>
-            <input
-                value={value}
-                onChange={event => onChangePassword2(event.target.value)}
-                disabled={!allowEdit}
-            />
-            <span className='message'>{errors?errors.toString():''}</span>
-        </div>
-    );
-};
+        <InputString 
+            name = 'password2'
+            label = {LABELS.INPUT_PASSWORD2}
+            value = {value}
+            message = {message}
+            allowEdit = {allowEdit}
+            onChange = {onChange}
+        />
+    )
+}
 
-export const InputEmail = ({value, errors, allowEdit, onChangeEmail}) => {
+export const InputEmail = ({value, message, allowEdit, onChange}) => {
     return (
-        <div className='field'>
-            <span className='label'>{LABELS.INPUT_EMAIL}</span>
-            <input
-                value={value}
-                onChange={event => onChangeEmail(event.target.value)}
-                disabled={!allowEdit}
-            />
-            <span className='message'>{errors?errors.toString():''}</span>
-        </div>
-    );
-};
+        <InputString 
+            name = 'email'
+            label = {LABELS.INPUT_EMAIL}
+            value = {value}
+            message = {message}
+            allowEdit = {allowEdit}
+            onChange = {onChange}
+        />
+    )
+}
+
+// --- --- --- --- --- --- --- --- ---

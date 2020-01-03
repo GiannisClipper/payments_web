@@ -1,5 +1,14 @@
 import { connect } from 'react-redux';
 
+import { NAMESPACE } from './constants.js';
+
+import { GenresForm } from './components/forms.jsx';
+
+import { 
+    DivInputs,
+    DivItems,
+} from './components/groups.jsx';
+
 import {
     InputCode,
     InputName,
@@ -10,14 +19,35 @@ import {
 	onChangeName,
 } from './actions.js';
 
-import { 
-    DivInputs,
-    DivItems,
-} from './components/groups.jsx';
+// --- --- --- --- --- --- --- --- ---
+// Forms
+// --- --- --- --- --- --- --- --- ---
 
-import { GenresForm } from './components/forms.jsx';
+export const MappedGenresForm = connect(
+    state => ({
+        namespace: NAMESPACE,
+        mode: state[NAMESPACE].uiux.mode,
+    }),
+    ({})
+)(GenresForm);
 
-import { NAMESPACE } from './constants.js';
+// --- --- --- --- --- --- --- --- ---
+// Groups
+// --- --- --- --- --- --- --- --- ---
+
+export const MappedDivInputs = connect(
+    (state, {namespace}) => ({
+        message: state[namespace].errors.errors,
+    }),
+    ({})
+)(DivInputs);
+
+export const MappedDivItems = connect(
+    (state, {namespace, items}) => ({
+        items: state[namespace].items,
+    }),
+    ({})
+)(DivItems);
 
 // --- --- --- --- --- --- --- --- ---
 // Inputs
@@ -44,33 +74,3 @@ export const MappedInputName = connect(
         onChange: value => dispatch(onChangeName(namespace, value)),
     })
 )(InputName);
-
-// --- --- --- --- --- --- --- --- ---
-// Groups
-// --- --- --- --- --- --- --- --- ---
-
-export const MappedDivInputs = connect(
-    (state, {namespace}) => ({
-        message: state[namespace].errors.errors,
-    }),
-    ({})
-)(DivInputs);
-
-export const MappedDivItems = connect(
-    (state, {namespace, items}) => ({
-        items: state[namespace].items,
-    }),
-    ({})
-)(DivItems);
-
-// --- --- --- --- --- --- --- --- ---
-// Forms
-// --- --- --- --- --- --- --- --- ---
-
-export const MappedGenresForm = connect(
-    state => ({
-        namespace: NAMESPACE,
-        mode: state[NAMESPACE].uiux.mode,
-    }),
-    ({})
-)(GenresForm);
