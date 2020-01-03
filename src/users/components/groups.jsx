@@ -11,8 +11,6 @@ import {
     MappedInputEmail,
 } from '../containers.js';
 
-import { LABELS } from '../constants.js';
-
 // --- --- --- --- --- --- --- --- ---
 
 export const DivInputs = ({namespace, errors}) => {

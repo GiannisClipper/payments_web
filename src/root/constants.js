@@ -13,6 +13,8 @@ const DATA_KEYS = {
     USER: 'user',
     FUND: 'fund',
     FUNDS: 'funds',
+    GENRE: 'genre',
+    GENRES: 'genres',
 };
 
 const HOST_ARGS = {
@@ -71,6 +73,35 @@ const HOST_ARGS = {
         reqDataKey: DATA_KEYS.FUND,
         resDataKey: DATA_KEYS.FUND,
     },
+
+    CREATE_GENRES: {
+        url: `${ORIGIN}/genres/`,
+        method: METHODS.POST,
+        reqDataKey: DATA_KEYS.GENRE,
+        resDataKey: DATA_KEYS.GENRE,
+    },
+
+    RETRIEVE_GENRES: {
+        url: `${ORIGIN}/genres/list`,
+        method: METHODS.GET,
+        reqDataKey: null,
+        resDataKey: DATA_KEYS.GENRES,
+    },
+
+    UPDATE_GENRES: {
+        url: `${ORIGIN}/genres/<:id>/`,
+        method: METHODS.PATCH,
+        reqDataKey: DATA_KEYS.GENRE,
+        resDataKey: DATA_KEYS.GENRE,
+    },
+
+    DELETE_GENRES: {
+        url: `${ORIGIN}/genres/<:id>/`,
+        method: METHODS.DELETE,
+        reqDataKey: DATA_KEYS.GENRE,
+        resDataKey: DATA_KEYS.GENRE,
+    },
+
 };
 
 const LABELS = {

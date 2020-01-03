@@ -106,7 +106,7 @@ export const onRequestProcess = (namespace, hostArgs, auth, reqData, onSuccess) 
                     dispatch(onErrorsResponse(namespace, resData));
 
                     if ([401, 403].includes(response.status))
-                        dispatch(onSignout('users', resData.errors.toString()));
+                        dispatch(onSignout('users', resData.errors.errors.toString()));
 
                 };
             }

@@ -8,15 +8,11 @@ import Payments from './Payments.jsx';
 
 import { MappedFundsForm } from '../../funds/containers.js';
 
-import Genres from './Genres.jsx';
+import { MappedGenresForm } from '../../genres/containers.js';
 
 import NavTabUsers from './NavTabUsers.jsx';
 
-import { 
-	MappedSignupForm,
-	MappedSigninForm,
-	MappedSignoutForm,
-} from '../../users/containers.js';
+import { MappedSignupForm, MappedSigninForm, MappedSignoutForm } from '../../users/containers.js';
 
 
 //const Home = () => <App />
@@ -41,7 +37,7 @@ const App = ({auth}) => {
 			{auth.token.key?(
 				<Switch>
 					<Route path='/payments' component={Payments} />
-					<Route path='/genres' component={Genres} />
+					<Route path='/genres' component={MappedGenresForm} />
 					<Route path='/funds' component={MappedFundsForm} />
 					<Route path='/users' component={NavTabUsers} />
 					<Route path='/signout' component={MappedSignoutForm} />
