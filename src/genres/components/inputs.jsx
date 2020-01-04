@@ -32,13 +32,13 @@ export const InputName = ({value, message, allowEdit, onChange}) => {
     )
 }
 
-export const InputIsIncome = ({value, message, allowEdit, onChange}) => {
+export const InputIsIncoming = ({value, message, allowEdit, onChange}) => {
     return (
         <InputValue
             type = 'radio'
-            name = 'is_income'
-            label = {LABELS.INPUT_IS_INCOME}
-            subLabels = {[LABELS.INPUT_IS_INCOME_TRUE, LABELS.INPUT_IS_INCOME_FALSE]}
+            name = 'is_incoming'
+            label = {LABELS.INPUT_IS_INCOMING}
+            subLabels = {[LABELS.INPUT_IS_INCOMING_TRUE, LABELS.INPUT_IS_INCOMING_FALSE]}
             value = {value.toString()}
             values = {['true', 'false']}
             message = {message}

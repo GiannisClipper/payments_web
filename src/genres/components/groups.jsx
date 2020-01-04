@@ -10,7 +10,7 @@ import { MappedInputId } from '../../core/containers.js';
 import {
     MappedInputCode,
     MappedInputName,
-    MappedInputIsIncome,
+    MappedInputIsIncoming,
 } from '../containers.js';
 
 import { LABELS as CORE_LABELS } from '../../core/constants.js';
@@ -25,7 +25,7 @@ export const DivInputs = ({namespace, message}) => {
         MappedInputId,
         MappedInputCode,
         MappedInputName,
-        MappedInputIsIncome,
+        MappedInputIsIncoming,
     ];
 
     return (
@@ -50,7 +50,7 @@ export const DivItems = ({namespace, items}) => {
         'id',
         'code',
         'name',
-        'is_income'
+        'is_incoming'
     ];
 
     return (

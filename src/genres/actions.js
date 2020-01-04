@@ -18,9 +18,9 @@ export const onChangeName = (namespace, name) => {
     }
 }
 
-export const onChangeIsIncome = (namespace, is_income) => {
+export const onChangeIsIncoming = (namespace, is_incoming) => {
     return {
         type: `${namespace}/${CHANGE_IS_INCOME}`,
-		payload: {is_income},
+		payload: {is_incoming},
     }
 }

@@ -16,10 +16,10 @@ import {
 
 const initialData = {
 	id: '',
-    username: 'Username...',
-	password: 'Password...', 
-	password2: 'Password2...', 
-	email: 'Email...', 
+    username: '',
+	password: '', 
+	password2: '', 
+	email: '', 
 };
 
 export const usersReducer = (state=initialState(initialData), action) => {

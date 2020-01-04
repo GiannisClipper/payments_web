@@ -27,7 +27,7 @@ const App = ({auth}) => {
 		welcome = [
 			auth.message,
 			'Απαιτείται εκ νέου ΣΥΝΔΕΣΗ ΧΡΗΣΤΗ...'
-		]
+		];
 
 	return (
 		<BrowserRouter>

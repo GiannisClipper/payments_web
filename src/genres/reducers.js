@@ -15,8 +15,8 @@ import {
 const initialData = {
 	id: '',
 	code: '',
-	name: 'G..',
-	is_income: false,
+	name: '',
+	is_incoming: false,
 };
 
 export const genresReducer = (state=initialState(initialData), action) => {
@@ -37,7 +37,7 @@ export const genresReducer = (state=initialState(initialData), action) => {
 
 		case `${NAMESPACE}/${CHANGE_IS_INCOME}`:
 			stateCopy = {...state};
-			stateCopy.data.is_income = action.payload.is_income === 'true'?true:false;
+			stateCopy.data.is_incoming = action.payload.is_incoming=== 'true'?true:false;
 			stateCopy.uiux.allowRequest = true;
 			return stateCopy;
 	
