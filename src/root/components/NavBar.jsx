@@ -1,10 +1,10 @@
 import React from 'react';
 
-import NavTab from './NavTab.jsx';
+import { NavLink } from 'react-router-dom';
 
 import { LABELS } from '../constants.js';
 
-const NavBar = ({auth}) => {
+export const NavBar = ({auth}) => {
 	return (
 		auth.token.key?(
 			<div>
@@ -21,6 +21,38 @@ const NavBar = ({auth}) => {
 			</div>
 		)
 	)
-};
+}
 
-export default NavBar
+const NavTab = props => {
+    const activeStyle = {
+        color: 'orange',
+        fontWeight: 'bold'
+    };
+
+    const navStyle = {
+        color: 'green',
+        margin: '10px'
+    };
+
+    return (
+        <NavLink style={navStyle} activeStyle={activeStyle} to={props.to}>
+            {props.label}
+        </NavLink>
+    )
+}
+
+/*import { Switch, Route } from 'react-router-dom';
+import Users from './Users.jsx';
+
+const CurrentUser = () => <div>CurrentUser</div>
+const UsersById = (props) => <div>UsersById {props.match.params.id}</div>
+
+const NavTabUsers = (props) => {
+	return (
+        <Switch>
+            <Route exact path={props.match.url} component={Users} /> 
+            <Route exact path='/users/current' component={CurrentUser} />
+            <Route exact path='/users/:id' component={UsersById} />
+        </Switch>
+    )
+}*/

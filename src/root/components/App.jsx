@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import NavBar from './NavBar.jsx';
+import { NavBar } from './NavBar.jsx';
 
 import { MappedSignupForm, MappedSigninForm, MappedSignoutForm } from '../../auth/containers.js';
 
@@ -13,8 +13,6 @@ import { MappedFundsForm } from '../../funds/containers.js';
 import { MappedGenresForm } from '../../genres/containers.js';
 
 import Payments from './Payments.jsx';
-
-import NavTabUsers from './NavTabUsers.jsx';
 
 const App = ({auth}) => {
 
@@ -53,6 +51,7 @@ const App = ({auth}) => {
 					{welcome.map(x => (
 						<div key={key++}>{x}</div>
 					))}
+					{(welcome = [], '')}
 				</div>
 				</>
 			)}

@@ -10,9 +10,7 @@ import {
     MappedDivSigninInputs,
 } from '../containers.js';
 
-import { LABELS } from '../constants.js';
-
-import { HOST_ARGS } from '../../root/constants.js';
+import { LABELS, HOST_ARGS } from '../../root/constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
@@ -22,7 +20,7 @@ export const SignupForm = ({namespace, onSelectCreate}) => {
 
     return (
         <div className='form signup'>
-            <div className='title'>{LABELS.FORM_SIGNUP_TITLE}</div>
+            <div className='title'>{LABELS.MENU_SIGNUP}</div>
             <MappedDivSignupInputs namespace={namespace} />
             <DivSignupMenu namespace={namespace} hostArgs={HOST_ARGS.SIGNUP} />
         </div>
@@ -35,7 +33,7 @@ export const SigninForm = ({namespace, onSelectRetrieve}) => {
     console.log(namespace);
     return (
         <div className='form signin'>
-            <div className='title'>{LABELS.FORM_SIGNIN_TITLE}</div>
+            <div className='title'>{LABELS.MENU_SIGNIN}</div>
             <MappedDivSigninInputs namespace={namespace} />
             <DivSigninMenu namespace={namespace} hostArgs={HOST_ARGS.SIGNIN} />
         </div>

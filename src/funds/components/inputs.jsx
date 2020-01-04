@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { InputString } from '../../core/components/inputs.jsx';
+import { InputValue } from '../../core/components/inputs.jsx';
 
 import { LABELS } from '../constants.js';
 
@@ -8,7 +8,7 @@ import { LABELS } from '../constants.js';
 
 export const InputCode = ({value, message, allowEdit, onChange}) => {
     return (
-        <InputString 
+        <InputValue 
             name = 'code'
             label = {LABELS.INPUT_CODE}
             value = {value}
@@ -21,7 +21,7 @@ export const InputCode = ({value, message, allowEdit, onChange}) => {
 
 export const InputName = ({value, message, allowEdit, onChange}) => {
     return (
-        <InputString 
+        <InputValue 
             name = 'name'
             label = {LABELS.INPUT_NAME}
             value = {value}

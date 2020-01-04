@@ -12,11 +12,13 @@ import {
 import {
     InputCode,
     InputName,
+    InputIsIncome,
 } from './components/inputs.jsx';
 
 import {
 	onChangeCode,
-	onChangeName,
+    onChangeName,
+    onChangeIsIncome,
 } from './actions.js';
 
 // --- --- --- --- --- --- --- --- ---
@@ -74,3 +76,15 @@ export const MappedInputName = connect(
         onChange: value => dispatch(onChangeName(namespace, value)),
     })
 )(InputName);
+
+export const MappedInputIsIncome = connect(
+    (state, {namespace}) => ({
+        value: state[namespace].data.is_income,
+        message: state[namespace].errors.is_income,
+        allowEdit: state[namespace].uiux.allowEdit,
+    }),
+    (dispatch, {namespace}) => ({
+        onChange: value => dispatch(onChangeIsIncome(namespace, value)),
+    })
+)(InputIsIncome);
+
