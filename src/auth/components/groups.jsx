@@ -9,28 +9,26 @@ import {
 
 // --- --- --- --- --- --- --- --- ---
 
-export const DivSignupInputs = ({namespace, errors}) => {
-    const props = {namespace};
+export const DivSignupInputs = ({errors}) => {
 
     return (
         <div className='edit'>
             <span className='message'>{errors?errors:''}</span>
-            <MappedInputUsername {...props}/>
-            <MappedInputPassword {...props}/>
-            <MappedInputPassword2 {...props}/>
-            <MappedInputEmail {...props}/>
+            <MappedInputUsername />
+            <MappedInputPassword />
+            <MappedInputPassword2 />
+            <MappedInputEmail />
         </div>
     )
 }
 
 export const DivSigninInputs = ({namespace, errors}) => {
-    const props = {namespace};
 
     return (
         <div className='edit'>
             <span className='message'>{errors?errors:''}</span>
-            <MappedInputUsername {...props}/>
-            <MappedInputPassword {...props}/>
+            <MappedInputUsername />
+            <MappedInputPassword />
         </div>
     )
 }

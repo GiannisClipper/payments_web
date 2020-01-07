@@ -1,31 +1,28 @@
-import {
-    SUCCESS_SIGNIN,
-    SUCCESS_SIGNOUT,
-} from './constants.js';
+import { ACTIONS } from './constants.js';
 
-import {
-    onSuccessCreate,
-} from '../core/actions.js';
+import { NAMESPACE } from '../users/constants.js';
+
+import { onSuccessCreate } from '../core/actions.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const onSignup = (namespace, data) => {
+export const onSignup = data => {
     return dispatch => {
-        dispatch(onSuccessCreate(namespace, data));
-        dispatch(onSignin(namespace, data));
+        dispatch(onSuccessCreate(NAMESPACE, data));
+        dispatch(onSignin(data));
     }
 }
 
-export const onSignin = (namespace, data) => {
+export const onSignin = data => {
     return {
-        type: `${namespace}/${SUCCESS_SIGNIN}`,
+        type: `${NAMESPACE}/${ACTIONS.SUCCESS_SIGNIN}`,
 		payload: {...data},
     }
 }
 
-export const onSignout = (namespace, message) => {
+export const onSignout = (auth, message) => {
     return {
-        type: `${namespace}/${SUCCESS_SIGNOUT}`,
+        type: `${NAMESPACE}/${ACTIONS.SUCCESS_SIGNOUT}`,
 		payload: {message},
     }
 }

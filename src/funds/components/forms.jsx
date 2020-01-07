@@ -15,35 +15,37 @@ import {
     MappedDivItems,
 } from '../containers.js';
 
+import { NAMESPACE } from '../constants.js';
+
 import { LABELS, HOST_ARGS } from '../../root/constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const FundsForm = ({namespace, mode}) => {
+export const FundsForm = ({mode}) => {
 
-    const name = namespace;
+    const name = NAMESPACE;
     const title = LABELS.MENU_FUNDS;
 
     return (mode === 'CREATE')?(
-        <FormInMode 
+        <FormInMode
             name = {name}
             mode = {mode}
             title = {title}
             MappedDivModeData = {MappedDivInputs}
             DivModeMenu = {DivCreateMenu}
-            namespace = {namespace}
             hostArgs = {HOST_ARGS.CREATE_FUNDS}
+            namespace = {NAMESPACE}
         />
 
     ):(mode === 'RETRIEVE')?(
-        <FormInMode 
+        <FormInMode
             name = {name}
             mode = {mode}
             title = {title}
             MappedDivModeData = {MappedDivInputs}
             DivModeMenu = {DivRetrieveMenu}
-            namespace = {namespace}
             hostArgs = {HOST_ARGS.RETRIEVE_FUNDS}
+            namespace = {NAMESPACE}
         />
 
     ):(mode === 'UPDATE')?(
@@ -53,8 +55,8 @@ export const FundsForm = ({namespace, mode}) => {
             title = {title}
             MappedDivModeData = {MappedDivInputs}
             DivModeMenu = {DivUpdateMenu}
-            namespace = {namespace}
             hostArgs = {HOST_ARGS.UPDATE_FUNDS}
+            namespace = {NAMESPACE}
         />
 
     ):(mode === 'DELETE')?(
@@ -64,8 +66,8 @@ export const FundsForm = ({namespace, mode}) => {
             title = {title}
             MappedDivModeData = {MappedDivInputs}
             DivModeMenu = {DivDeleteMenu}
-            namespace = {namespace}
             hostArgs = {HOST_ARGS.DELETE_FUNDS}
+            namespace = {NAMESPACE}
         />
 
     ):(
@@ -75,7 +77,7 @@ export const FundsForm = ({namespace, mode}) => {
             title = {title}
             MappedDivModeData = {MappedDivItems}
             DivModeMenu = {DivFormMenu}
-            namespace = {namespace}
+            namespace = {NAMESPACE}
         />
     )
 }

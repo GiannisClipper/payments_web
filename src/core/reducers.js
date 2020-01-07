@@ -1,24 +1,4 @@
-import { 
-    SELECT_CREATE,
-    SELECT_RETRIEVE,
-    SELECT_UPDATE,
-    SELECT_DELETE,
-
-	SUCCESS_CREATE,
-	SUCCESS_RETRIEVE,
-	SUCCESS_UPDATE,
-	SUCCESS_DELETE,
-
-	CLOSE_MODE,
-	CLOSE_FORM,
-	GO_HOME,
-
-    BEFORE_REQUEST,
-    AFTER_RESPONSE,
-    DATA_RESPONSE,
-    ERRORS_RESPONSE,
-
-} from "./constants.js";
+import { ACTIONS } from "./constants.js";
 
 // --- --- --- --- --- --- --- --- ---
 
@@ -27,6 +7,7 @@ const initialUiux = {
 	allowRequest: null,
 	allowEdit: null,
 	isLoading: null,
+	popup: null,
 };
 
 const initialData = {
@@ -52,21 +33,21 @@ export const baseFormReducer = (namespace, state=initialState(initialData), acti
 	let stateCopy;
 	console.log('actiotn.type>>>', action.type);
     switch (action.type) {
-        case `${namespace}/${SELECT_CREATE}`:
+        case `${namespace}/${ACTIONS.SELECT_CREATE}`:
         	stateCopy = {...state};
 			stateCopy.uiux.mode = 'CREATE';
 			stateCopy.uiux.allowEdit = true;
 			stateCopy.uiux.allowRequest = false;
 			return stateCopy;
 
-		case `${namespace}/${SELECT_RETRIEVE}`:
+		case `${namespace}/${ACTIONS.SELECT_RETRIEVE}`:
 			stateCopy = {...state};
 			stateCopy.uiux.mode = 'RETRIEVE';
 			stateCopy.uiux.allowEdit = true;
 			stateCopy.uiux.allowRequest = false;
 			return stateCopy;
 	
-		case `${namespace}/${SELECT_UPDATE}`:
+		case `${namespace}/${ACTIONS.SELECT_UPDATE}`:
 			stateCopy = {...state};
 			stateCopy.data = {...stateCopy.initialData, ...stateCopy.items.data[action.payload.id]};
 			stateCopy.uiux.mode = 'UPDATE';
@@ -74,7 +55,7 @@ export const baseFormReducer = (namespace, state=initialState(initialData), acti
 			stateCopy.uiux.allowRequest = false;
 			return stateCopy;
 	
-		case `${namespace}/${SELECT_DELETE}`:
+		case `${namespace}/${ACTIONS.SELECT_DELETE}`:
 			stateCopy = {...state};
 			stateCopy.data = {...stateCopy.initialData, ...stateCopy.items.data[action.payload.id]};
 			stateCopy.uiux.mode = 'DELETE';
@@ -82,7 +63,7 @@ export const baseFormReducer = (namespace, state=initialState(initialData), acti
 			stateCopy.uiux.allowRequest = true;
 			return stateCopy;
 	
-		case `${namespace}/${SUCCESS_CREATE}`:
+		case `${namespace}/${ACTIONS.SUCCESS_CREATE}`:
 			stateCopy = {...state};
 			stateCopy.items.data[action.payload.data.id] = {...action.payload.data};
 			stateCopy.items.order = stateCopy.items.order.concat(action.payload.data.id);
@@ -90,7 +71,7 @@ export const baseFormReducer = (namespace, state=initialState(initialData), acti
 			stateCopy.uiux.mode = null;
 			return stateCopy;
 	
-		case `${namespace}/${SUCCESS_RETRIEVE}`:
+		case `${namespace}/${ACTIONS.SUCCESS_RETRIEVE}`:
 			stateCopy = {...state};
 			stateCopy.items.data = {};
 			stateCopy.items.order = [];
@@ -99,13 +80,13 @@ export const baseFormReducer = (namespace, state=initialState(initialData), acti
 			stateCopy.uiux.mode = null;
 			return stateCopy;
 	  
-        case `${namespace}/${SUCCESS_UPDATE}`:
+        case `${namespace}/${ACTIONS.SUCCESS_UPDATE}`:
         	stateCopy = {...state};
 			stateCopy.data = {...action.payload.data};
 			stateCopy.items.data[action.payload.data.id] = {...stateCopy.data};
 			return stateCopy;
   
-	    case `${namespace}/${SUCCESS_DELETE}`:
+	    case `${namespace}/${ACTIONS.SUCCESS_DELETE}`:
 			stateCopy = {...state};
 			console.log(action.payload);
 			let orderPos = stateCopy.items.order.indexOf(action.payload.id);
@@ -115,14 +96,14 @@ export const baseFormReducer = (namespace, state=initialState(initialData), acti
 			stateCopy.uiux.mode = null;
 			return stateCopy;
 
-		case `${namespace}/${CLOSE_MODE}`:
+		case `${namespace}/${ACTIONS.CLOSE_MODE}`:
 			stateCopy = {...state};
 			stateCopy.uiux = {...stateCopy.initialUiux};
 			stateCopy.data = {...stateCopy.initialData};
 			stateCopy.errors = {};
 			return stateCopy;
 	
-	    case `${namespace}/${CLOSE_FORM}`:
+	    case `${namespace}/${ACTIONS.CLOSE_FORM}`:
 			stateCopy = {...state};
 			stateCopy.uiux = {...stateCopy.initialUiux};
 			stateCopy.data = {...stateCopy.initialData};
@@ -132,29 +113,29 @@ export const baseFormReducer = (namespace, state=initialState(initialData), acti
 			console.log('items>>>', stateCopy.items);
 			return stateCopy;
 
-		case `${namespace}/${GO_HOME}`:
+		case `${namespace}/${ACTIONS.GO_HOME}`:
 			action.payload.history.push('/')
 			return state;
 
-		case `${namespace}/${BEFORE_REQUEST}`:
+		case `${namespace}/${ACTIONS.BEFORE_REQUEST}`:
 			stateCopy = {...state};
 			stateCopy.uiux.allowEdit = false;
 			stateCopy.uiux.allowRequest = false;
 			stateCopy.uiux.isLoading = true;
 			return stateCopy;
 
-		case `${namespace}/${AFTER_RESPONSE}`:
+		case `${namespace}/${ACTIONS.AFTER_RESPONSE}`:
 			stateCopy = {...state};
 			stateCopy.uiux.allowEdit = true;
 			stateCopy.uiux.isLoading = false;
 			return stateCopy;
 
-		case `${namespace}/${DATA_RESPONSE}`:
+		case `${namespace}/${ACTIONS.DATA_RESPONSE}`:
 			stateCopy = {...state};
 			stateCopy.errors = {};
 			return stateCopy;
 
-		case `${namespace}/${ERRORS_RESPONSE}`:
+		case `${namespace}/${ACTIONS.ERRORS_RESPONSE}`:
 			stateCopy = {...state};
 
 			// Place non field errors in an `errors` key

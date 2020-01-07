@@ -16,7 +16,7 @@ import {
 
 import {
 	onChangeCode,
-	onChangeName,
+    onChangeName,
 } from './actions.js';
 
 // --- --- --- --- --- --- --- --- ---
@@ -36,15 +36,15 @@ export const MappedFundsForm = connect(
 // --- --- --- --- --- --- --- --- ---
 
 export const MappedDivInputs = connect(
-    (state, {namespace}) => ({
-        message: state[namespace].errors.errors,
+    state => ({
+        message: state[NAMESPACE].errors.errors,
     }),
     ({})
 )(DivInputs);
 
 export const MappedDivItems = connect(
-    (state, {namespace, items}) => ({
-        items: state[namespace].items,
+    (state, {items}) => ({
+        items: state[NAMESPACE].items,
     }),
     ({})
 )(DivItems);
@@ -54,23 +54,23 @@ export const MappedDivItems = connect(
 // --- --- --- --- --- --- --- --- ---
 
 export const MappedInputCode = connect(
-    (state, {namespace}) => ({
-        value: state[namespace].data.code,
-        message: state[namespace].errors.code,
-        allowEdit: state[namespace].uiux.allowEdit,
+    state => ({
+        value: state[NAMESPACE].data.code,
+        message: state[NAMESPACE].errors.code,
+        allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
-    (dispatch, {namespace}) => ({
-        onChange: value => dispatch(onChangeCode(namespace, value)),
+    dispatch => ({
+        onChange: value => dispatch(onChangeCode(NAMESPACE, value)),
     })
 )(InputCode);
 
 export const MappedInputName = connect(
-    (state, {namespace}) => ({
-        value: state[namespace].data.name,
-        message: state[namespace].errors.name,
-        allowEdit: state[namespace].uiux.allowEdit,
+    state => ({
+        value: state[NAMESPACE].data.name,
+        message: state[NAMESPACE].errors.name,
+        allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
-    (dispatch, {namespace}) => ({
-        onChange: value => dispatch(onChangeName(namespace, value)),
+    dispatch => ({
+        onChange: value => dispatch(onChangeName(NAMESPACE, value)),
     })
 )(InputName);

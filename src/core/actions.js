@@ -1,23 +1,4 @@
-import {
-    SELECT_CREATE,
-    SELECT_RETRIEVE,
-    SELECT_UPDATE,
-    SELECT_DELETE,
-
-    BEFORE_REQUEST,
-    AFTER_RESPONSE,
-    DATA_RESPONSE,
-    ERRORS_RESPONSE,
-
-    SUCCESS_CREATE,
-    SUCCESS_RETRIEVE,
-    SUCCESS_UPDATE,
-    SUCCESS_DELETE,
-
-    CLOSE_MODE,
-    CLOSE_FORM,
-    GO_HOME,
-} from './constants.js';
+import { ACTIONS } from './constants.js';
 
 import { request } from '../core/lib.js';
 
@@ -29,28 +10,28 @@ import { onSignout } from '../auth/actions.js';
 
 export const onSelectCreate = namespace => {
     return {
-        type: `${namespace}/${SELECT_CREATE}`,
+        type: `${namespace}/${ACTIONS.SELECT_CREATE}`,
         payload: {},
     }
 }
 
 export const onSelectRetrieve = namespace => {
     return {
-        type: `${namespace}/${SELECT_RETRIEVE}`,
+        type: `${namespace}/${ACTIONS.SELECT_RETRIEVE}`,
         payload: {},
     }
 }
 
 export const onSelectUpdate = (namespace, id) => {
     return {
-        type: `${namespace}/${SELECT_UPDATE}`,
+        type: `${namespace}/${ACTIONS.SELECT_UPDATE}`,
         payload: {id},
     }
 }
 
 export const onSelectDelete = (namespace, id) => {
     return {
-        type: `${namespace}/${SELECT_DELETE}`,
+        type: `${namespace}/${ACTIONS.SELECT_DELETE}`,
         payload: {id},
     }
 }
@@ -116,28 +97,28 @@ export const onRequestProcess = (namespace, hostArgs, auth, reqData, onSuccess) 
 
 export const onBeforeRequest = namespace => {
     return {
-        type: `${namespace}/${BEFORE_REQUEST}`,
+        type: `${namespace}/${ACTIONS.BEFORE_REQUEST}`,
         payload: {},
     }
 }
 
 export const onAfterResponse = namespace => {
     return {
-        type: `${namespace}/${AFTER_RESPONSE}`,
+        type: `${namespace}/${ACTIONS.AFTER_RESPONSE}`,
         payload: {},
     }
 }
 
 export const onDataResponse = (namespace, data) => {
     return {
-        type: `${namespace}/${DATA_RESPONSE}`,
+        type: `${namespace}/${ACTIONS.DATA_RESPONSE}`,
         payload: {data},
     }
 }
 
 export const onErrorsResponse = (namespace, errors) => {
     return {
-        type: `${namespace}/${ERRORS_RESPONSE}`,
+        type: `${namespace}/${ACTIONS.ERRORS_RESPONSE}`,
         payload: errors,
     }
 }
@@ -148,21 +129,21 @@ export const onErrorsResponse = (namespace, errors) => {
 
 export const onSuccessCreate = (namespace, data) => {
     return {
-        type: `${namespace}/${SUCCESS_CREATE}`,
+        type: `${namespace}/${ACTIONS.SUCCESS_CREATE}`,
         payload: {...data},
     }
 }
 
 export const onSuccessRetrieve = (namespace, data) => {
     return {
-        type: `${namespace}/${SUCCESS_RETRIEVE}`,
+        type: `${namespace}/${ACTIONS.SUCCESS_RETRIEVE}`,
         payload: {...data},
     }
 }
 
 export const onSuccessUpdate = (namespace, data) => {
     return {
-        type: `${namespace}/${SUCCESS_UPDATE}`,
+        type: `${namespace}/${ACTIONS.SUCCESS_UPDATE}`,
         payload: {...data},
     }
 }
@@ -170,7 +151,7 @@ export const onSuccessUpdate = (namespace, data) => {
 export const onSuccessDelete = (namespace, data, id) => {
     data = {id};  // Because backend sends an empty data object in delete operation
     return {
-        type: `${namespace}/${SUCCESS_DELETE}`,
+        type: `${namespace}/${ACTIONS.SUCCESS_DELETE}`,
         payload: {...data},
     }
 }
@@ -181,21 +162,21 @@ export const onSuccessDelete = (namespace, data, id) => {
 
 export const onCloseData = namespace => {
     return {
-        type: `${namespace}/${CLOSE_MODE}`,
+        type: `${namespace}/${ACTIONS.CLOSE_MODE}`,
         payload: {},
     }
 }
 
 export const onCloseForm = namespace => {
     return {
-        type: `${namespace}/${CLOSE_FORM}`,
+        type: `${namespace}/${ACTIONS.CLOSE_FORM}`,
         payload: {},
     }
 }
 
 export const onGoHome = (namespace, history) => {
     return {
-        type: `${namespace}/${GO_HOME}`,
+        type: `${namespace}/${ACTIONS.GO_HOME}`,
         payload: {history},
     }
 }

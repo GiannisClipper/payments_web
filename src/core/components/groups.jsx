@@ -43,7 +43,15 @@ export class DivItems extends React.Component {
                 <ul className='items'>
                     {items.order.map(id => (
                         <li key={id}>
-                            {fields.map(field => (<span key={key++}>{items.data[id][field]}</span>))}
+                            {fields.map(field => 
+                                !items.data[id][field]?
+                                    (<span key={key++}></span>)
+                                :typeof field !== 'object'?
+                                    (<span key={key++}>{items.data[id][field]}</span>)
+                                :
+                                    field[Object.keys(field)[0]].map(subField =>
+                                        (<span key={key++}>{items.data[id][field][subField]}</span>))
+                            )}
                             <DivItemMenu {...{namespace, id}} />
                         </li>
                     ))}

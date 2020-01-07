@@ -1,7 +1,6 @@
 import { 
 	NAMESPACE,
-	CHANGE_CODE,
-	CHANGE_NAME,
+	ACTIONS,
 } from "./constants.js";
 
 import {
@@ -21,13 +20,13 @@ export const fundsReducer = (state=initialState(initialData), action) => {
 	let stateCopy;
 
     switch (action.type) {  
-        case `${NAMESPACE}/${CHANGE_CODE}`:
+        case `${NAMESPACE}/${ACTIONS.CHANGE_CODE}`:
         	stateCopy = {...state};
 	        stateCopy.data.code = action.payload.code;
 			stateCopy.uiux.allowRequest = true;
             return stateCopy;
   
-        case `${NAMESPACE}/${CHANGE_NAME}`:
+        case `${NAMESPACE}/${ACTIONS.CHANGE_NAME}`:
         	stateCopy = {...state};
 			stateCopy.data.name = action.payload.name;
 			stateCopy.uiux.allowRequest = true;

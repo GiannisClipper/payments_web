@@ -2,10 +2,7 @@ import { TOKEN_PREFIX } from '../root/constants.js';
 
 import { NAMESPACE } from '../users/constants.js';
 
-import {
-    SUCCESS_SIGNIN,
-    SUCCESS_SIGNOUT,
-} from './constants.js';
+import { ACTIONS } from './constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
@@ -25,7 +22,7 @@ export const authReducer = (state=initialState, action) => {
 	let stateCopy;
 
     switch (action.type) {
-        case `${NAMESPACE}/${SUCCESS_SIGNIN}`:
+        case `${NAMESPACE}/${ACTIONS.SUCCESS_SIGNIN}`:
             console.log('sigin payload>>>', action.payload);
             stateCopy = {...state};
 			stateCopy.user = {
@@ -39,7 +36,7 @@ export const authReducer = (state=initialState, action) => {
 
             return stateCopy;
 
-        case `${NAMESPACE}/${SUCCESS_SIGNOUT}`:
+        case `${NAMESPACE}/${ACTIONS.SUCCESS_SIGNOUT}`:
             stateCopy = {...state};
             stateCopy.token.key = null;
             if (stateCopy.user)

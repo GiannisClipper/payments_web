@@ -13,12 +13,18 @@ import {
     InputCode,
     InputName,
     InputIsIncoming,
+    InputFund,
 } from './components/inputs.jsx';
+
+import {
+    ButtonSelectRetrieveFund
+} from './components/buttons.jsx';
 
 import {
 	onChangeCode,
     onChangeName,
     onChangeIsIncoming,
+    onSelectRetrieveFund,
 } from './actions.js';
 
 // --- --- --- --- --- --- --- --- ---
@@ -27,7 +33,6 @@ import {
 
 export const MappedGenresForm = connect(
     state => ({
-        namespace: NAMESPACE,
         mode: state[NAMESPACE].uiux.mode,
     }),
     ({})
@@ -38,15 +43,15 @@ export const MappedGenresForm = connect(
 // --- --- --- --- --- --- --- --- ---
 
 export const MappedDivInputs = connect(
-    (state, {namespace}) => ({
-        message: state[namespace].errors.errors,
+    state => ({
+        message: state[NAMESPACE].errors.errors,
     }),
     ({})
 )(DivInputs);
 
 export const MappedDivItems = connect(
-    (state, {namespace, items}) => ({
-        items: state[namespace].items,
+    (state, {items}) => ({
+        items: state[NAMESPACE].items,
     }),
     ({})
 )(DivItems);
@@ -56,35 +61,54 @@ export const MappedDivItems = connect(
 // --- --- --- --- --- --- --- --- ---
 
 export const MappedInputCode = connect(
-    (state, {namespace}) => ({
-        value: state[namespace].data.code,
-        message: state[namespace].errors.code,
-        allowEdit: state[namespace].uiux.allowEdit,
+    state => ({
+        value: state[NAMESPACE].data.code,
+        message: state[NAMESPACE].errors.code,
+        allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
-    (dispatch, {namespace}) => ({
-        onChange: value => dispatch(onChangeCode(namespace, value)),
+    dispatch => ({
+        onChange: value => dispatch(onChangeCode(NAMESPACE, value)),
     })
 )(InputCode);
 
 export const MappedInputName = connect(
-    (state, {namespace}) => ({
-        value: state[namespace].data.name,
-        message: state[namespace].errors.name,
-        allowEdit: state[namespace].uiux.allowEdit,
+    state => ({
+        value: state[NAMESPACE].data.name,
+        message: state[NAMESPACE].errors.name,
+        allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
-    (dispatch, {namespace}) => ({
-        onChange: value => dispatch(onChangeName(namespace, value)),
+    dispatch => ({
+        onChange: value => dispatch(onChangeName(NAMESPACE, value)),
     })
 )(InputName);
 
 export const MappedInputIsIncoming = connect(
-    (state, {namespace}) => ({
-        value: state[namespace].data.is_incoming,
-        message: state[namespace].errors.is_incoming,
-        allowEdit: state[namespace].uiux.allowEdit,
+    state => ({
+        value: state[NAMESPACE].data.is_incoming,
+        message: state[NAMESPACE].errors.is_incoming,
+        allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
-    (dispatch, {namespace}) => ({
-        onChange: value => dispatch(onChangeIsIncoming(namespace, value)),
+    dispatch => ({
+        onChange: value => dispatch(onChangeIsIncoming(NAMESPACE, value)),
     })
 )(InputIsIncoming);
+
+export const MappedInputFund = connect(
+    state => ({
+        value: (x => x?x.id + x.name:'')(state[NAMESPACE].data.fund),
+        message: state[NAMESPACE].errors.fund,
+    }),
+    ({})
+)(InputFund);
+
+// --- --- --- --- --- --- --- --- ---
+// Buttons
+// --- --- --- --- --- --- --- --- ---
+
+export const MappedButtonSelectRetrieveFund = connect(
+    state => ({}),
+    dispatch => ({
+        onSelect: () => dispatch(onSelectRetrieveFund(NAMESPACE)),
+    })
+)(ButtonSelectRetrieveFund);
 

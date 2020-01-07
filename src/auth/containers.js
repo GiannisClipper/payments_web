@@ -35,30 +35,25 @@ import {
 // --- --- --- --- --- --- --- --- ---
 
 export const MappedSignupForm = connect(
-    state => ({
-        namespace: NAMESPACE,
-    }),
+    state => ({}),
     dispatch => ({
-        onSelectCreate: namespace => dispatch(onSelectCreate(namespace)),
+        onSelectCreate: () => dispatch(onSelectCreate(NAMESPACE)),
     })
     )(SignupForm);
 
 export const MappedSigninForm = connect(
-    state => ({
-        namespace: NAMESPACE,
-    }),
+    state => ({}),
     dispatch => ({
-        onSelectRetrieve: namespace => dispatch(onSelectRetrieve(namespace)),
+        onSelectRetrieve: () => dispatch(onSelectRetrieve(NAMESPACE)),
     })
 )(SigninForm);
 
 export const MappedSignoutForm = connect(
     state => ({
-        namespace: NAMESPACE,
         auth: state.auth,
     }),
     dispatch => ({
-        onSignout: (namespace, auth, message) => dispatch(onSignout(namespace, auth, message)),
+        onSignout: (auth, message) => dispatch(onSignout(auth, message)),
     })
 )(SignoutForm);
 
@@ -67,14 +62,14 @@ export const MappedSignoutForm = connect(
 // --- --- --- --- --- --- --- --- ---
 
 export const MappedDivSignupInputs = connect(
-    (state, {namespace}) => ({
-        errors: state[namespace].errors.errors,
+    state => ({
+        errors: state[NAMESPACE].errors.errors,
     }),
 )(DivSignupInputs);
 
 export const MappedDivSigninInputs = connect(
-    (state, {namespace}) => ({
-        errors: state[namespace].errors.errors,
+    state => ({
+        errors: state[NAMESPACE].errors.errors,
     }),
 )(DivSigninInputs);
 
@@ -83,25 +78,25 @@ export const MappedDivSigninInputs = connect(
 // --- --- --- --- --- --- --- --- ---
 
 export const MappedButtonSignup = connect(
-    (state, {namespace, hostArgs}) => ({
+    (state, {hostArgs}) => ({
         auth: state.auth,
-        data: state[namespace].data,
-        allowRequest: state[namespace].uiux.allowRequest,
-        isLoading: state[namespace].uiux.isLoading,
+        data: state[NAMESPACE].data,
+        allowRequest: state[NAMESPACE].uiux.allowRequest,
+        isLoading: state[NAMESPACE].uiux.isLoading,
     }),
-    (dispatch, {namespace, hostArgs}) => ({
-        onRequest: (auth, data) => dispatch(onRequestProcess(namespace, hostArgs, null, data, onSignup)),
+    (dispatch, {hostArgs}) => ({
+        onRequest: (auth, data) => dispatch(onRequestProcess(NAMESPACE, hostArgs, null, data, onSignup)),
     })
 )(ButtonSignup);
 
 export const MappedButtonSignin = connect(
-    (state, {namespace, hostArgs}) => ({
+    (state, {hostArgs}) => ({
         auth: state.auth,
-        data: state[namespace].data,
-        allowRequest: state[namespace].uiux.allowRequest,
-        isLoading: state[namespace].uiux.isLoading,
+        data: state[NAMESPACE].data,
+        allowRequest: state[NAMESPACE].uiux.allowRequest,
+        isLoading: state[NAMESPACE].uiux.isLoading,
     }),
-    (dispatch, {namespace, hostArgs}) => ({
-        onRequest: (auth, data) => dispatch(onRequestProcess(namespace, hostArgs, null, data, onSignin)),
+    (dispatch, {hostArgs}) => ({
+        onRequest: (auth, data) => dispatch(onRequestProcess(NAMESPACE, hostArgs, null, data, onSignin)),
     })
 )(ButtonSignin);

@@ -16,11 +16,11 @@ import {
 
 import { LABELS as CORE_LABELS } from '../../core/constants.js';
 
-import { LABELS } from '../constants.js';
+import { NAMESPACE, LABELS } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const DivInputs = ({namespace, message}) => {
+export const DivInputs = ({message}) => {
 
     const MappedInputs = [
         MappedInputId,
@@ -32,14 +32,14 @@ export const DivInputs = ({namespace, message}) => {
 
     return (
         <CoreDivInputs 
-            namespace={namespace}
+            namespace={NAMESPACE}
             MappedInputs={MappedInputs}
             message={message} 
         />
     )
 }
 
-export const DivItems = ({namespace, items}) => {
+export const DivItems = ({items}) => {
 
     const labels = [
         CORE_LABELS.INPUT_ID,
@@ -59,7 +59,7 @@ export const DivItems = ({namespace, items}) => {
 
     return (
         <CoreDivItems
-            namespace={namespace}
+            namespace={NAMESPACE}
             labels={labels} 
             fields={fields} 
             items={items} 

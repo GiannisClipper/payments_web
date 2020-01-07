@@ -17,6 +17,8 @@ import {
 
 import { LABELS, HOST_ARGS } from '../../root/constants.js';
 
+import { NAMESPACE } from '../constants.js';
+
 // --- --- --- --- --- --- --- --- ---
 
 export const UsersForm = ({namespace, mode}) => {
@@ -31,8 +33,8 @@ export const UsersForm = ({namespace, mode}) => {
             title = {title}
             MappedDivModeData = {MappedDivInputs}
             DivModeMenu = {DivCreateMenu}
-            namespace = {namespace}
             hostArgs = {HOST_ARGS.CREATE_USERS}
+            namespace = {NAMESPACE}
         />
 
     ):(mode === 'RETRIEVE')?(
@@ -42,8 +44,8 @@ export const UsersForm = ({namespace, mode}) => {
             title = {title}
             MappedDivModeData = {MappedDivInputs}
             DivModeMenu = {DivRetrieveMenu}
-            namespace = {namespace}
             hostArgs = {HOST_ARGS.RETRIEVE_USERS}
+            namespace = {NAMESPACE}
         />
 
     ):(mode === 'UPDATE')?(
@@ -53,8 +55,8 @@ export const UsersForm = ({namespace, mode}) => {
             title = {title}
             MappedDivModeData = {MappedDivInputs}
             DivModeMenu = {DivUpdateMenu}
-            namespace = {namespace}
             hostArgs = {HOST_ARGS.UPDATE_USERS}
+            namespace = {NAMESPACE}
         />
 
     ):(mode === 'DELETE')?(
@@ -64,8 +66,8 @@ export const UsersForm = ({namespace, mode}) => {
             title = {title}
             MappedDivModeData = {MappedDivInputs}
             DivModeMenu = {DivDeleteMenu}
-            namespace = {namespace}
             hostArgs = {HOST_ARGS.DELETE_USERS}
+            namespace = {NAMESPACE}
         />
 
     ):(
@@ -75,7 +77,7 @@ export const UsersForm = ({namespace, mode}) => {
             title = {title}
             MappedDivModeData = {MappedDivItems}
             DivModeMenu = {DivFormMenu}
-            namespace = {namespace}
+            namespace = {NAMESPACE}
         />
     );
 }

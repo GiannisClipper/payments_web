@@ -1,18 +1,17 @@
 const NAMESPACE = 'auth';
 
-const SUCCESS_SIGNIN = 'SUCCESS_SIGNIN';
-const SUCCESS_SIGNOUT = 'SUCCESS_SIGNOUT';
-
 const LABELS = {
     BUTTON_SIGNUP: 'ΕΓΓΡΑΦΗ',
     BUTTON_SIGNIN: 'ΣΥΝΔΕΣΗ',
 };
 
+const ACTIONS = {
+    SUCCESS_SIGNIN: 'SUCCESS_SIGNIN',
+    SUCCESS_SIGNOUT: 'SUCCESS_SIGNOUT',
+};
+
 module.exports = {
     NAMESPACE,
-
-    SUCCESS_SIGNIN,
-    SUCCESS_SIGNOUT,
-
+    ACTIONS,
     LABELS,
-}
+};

@@ -25,8 +25,8 @@ export const DivFormMenu = props => {
             <MappedButtonSelectRetrieve {...props} />
             <MappedButtonCloseForm {...props} />
         </div>
-    );
-};
+    )
+}
 
 export const DivItemMenu = props => {
     return (
@@ -34,8 +34,8 @@ export const DivItemMenu = props => {
             <MappedButtonSelectUpdate {...props} />
             <MappedButtonSelectDelete {...props} />
         </div>
-    );
-};
+    )
+}
 
 // --- --- --- --- --- --- --- --- ---
 
@@ -45,8 +45,8 @@ export const DivCreateMenu = props => {
             <MappedButtonRequestCreate {...props} />
             <MappedButtonCloseData {...props} />
         </div>
-    );
-};
+    )
+}
 
 export const DivUpdateMenu = props => {
     return (
@@ -54,8 +54,8 @@ export const DivUpdateMenu = props => {
             <MappedButtonRequestUpdate {...props} />
             <MappedButtonCloseData {...props} />
         </div>
-    );
-};
+    )
+}
 
 export const DivRetrieveMenu = props => {
     return (
@@ -63,8 +63,8 @@ export const DivRetrieveMenu = props => {
             <MappedButtonRequestRetrieve {...props} />
             <MappedButtonCloseData {...props} />
         </div>
-    );
-};
+    )
+}
 
 export const DivDeleteMenu = props => {
     return (
@@ -72,5 +72,5 @@ export const DivDeleteMenu = props => {
             <MappedButtonRequestDelete {...props} />
             <MappedButtonCloseData {...props} />
         </div>
-    );
-};
+    )
+}

@@ -47,3 +47,14 @@ export const InputIsIncoming = ({value, message, allowEdit, onChange}) => {
         />
     )
 }
+
+export const InputFund = ({value, message}) => {
+    return (
+        <InputValue 
+            name = 'fund'
+            label = {LABELS.INPUT_FUND}
+            value = {value}
+            message = {message}
+        />
+    )
+}

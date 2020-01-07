@@ -29,7 +29,6 @@ import {
 
 export const MappedUsersForm = connect(
     state => ({
-        namespace: NAMESPACE,
         mode: state[NAMESPACE].uiux.mode,
     }), 
     dispatch => ({})
@@ -40,15 +39,15 @@ export const MappedUsersForm = connect(
 // --- --- --- --- --- --- --- --- ---
 
 export const MappedDivInputs = connect(
-    (state, {namespace}) => ({
-        message: state[namespace].errors.errors,
+    state => ({
+        message: state[NAMESPACE].errors.errors,
     }),
     ({})
 )(DivInputs);
 
 export const MappedDivItems = connect(
-    (state, {namespace, items}) => ({
-        items: state[namespace].items,
+    (state, {items}) => ({
+        items: state[NAMESPACE].items,
     }),
     ({})
 )(DivItems);
@@ -58,45 +57,45 @@ export const MappedDivItems = connect(
 // --- --- --- --- --- --- --- --- ---
 
 export const MappedInputUsername = connect(
-    (state, {namespace}) => ({
-        value: state[namespace].data.username,
-        message: state[namespace].errors.username,
-        allowEdit: state[namespace].uiux.allowEdit,
+    state => ({
+        value: state[NAMESPACE].data.username,
+        message: state[NAMESPACE].errors.username,
+        allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
-    (dispatch, {namespace}) => ({
-        onChange: value => dispatch(onChangeUsername(namespace, value)),
+    dispatch => ({
+        onChange: value => dispatch(onChangeUsername(NAMESPACE, value)),
     })
 )(InputUsername);
 
 export const MappedInputPassword = connect(
-    (state, {namespace}) => ({
-        value: state[namespace].data.password,
-        message: state[namespace].errors.password,
-        allowEdit: state[namespace].uiux.allowEdit,
+    state => ({
+        value: state[NAMESPACE].data.password,
+        message: state[NAMESPACE].errors.password,
+        allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
-    (dispatch, {namespace}) => ({
-        onChange: value => dispatch(onChangePassword(namespace, value)),
+    dispatch => ({
+        onChange: value => dispatch(onChangePassword(NAMESPACE, value)),
     })
 )(InputPassword);
 
 export const MappedInputPassword2 = connect(
-    (state, {namespace}) => ({
-        value: state[namespace].data.password2,
-        message: state[namespace].errors.password2,
-        allowEdit: state[namespace].uiux.allowEdit,
+    state => ({
+        value: state[NAMESPACE].data.password2,
+        message: state[NAMESPACE].errors.password2,
+        allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
-    (dispatch, {namespace}) => ({
-        onChange: value => dispatch(onChangePassword2(namespace, value)),
+    dispatch => ({
+        onChange: value => dispatch(onChangePassword2(NAMESPACE, value)),
     })
 )(InputPassword2);
 
 export const MappedInputEmail = connect(
-    (state, {namespace}) => ({
-        value: state[namespace].data.email,
-        message: state[namespace].errors.email,
-        allowEdit: state[namespace].uiux.allowEdit,
+    state => ({
+        value: state[NAMESPACE].data.email,
+        message: state[NAMESPACE].errors.email,
+        allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
-    (dispatch, {namespace}) => ({
-        onChange: value => dispatch(onChangeEmail(namespace, value)),
+    dispatch=> ({
+        onChange: value => dispatch(onChangeEmail(NAMESPACE, value)),
     })
 )(InputEmail);

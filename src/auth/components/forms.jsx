@@ -12,39 +12,41 @@ import {
 
 import { LABELS, HOST_ARGS } from '../../root/constants.js';
 
+import { NAMESPACE } from '../../users/constants.js';
+
 // --- --- --- --- --- --- --- --- ---
 
-export const SignupForm = ({namespace, onSelectCreate}) => {
+export const SignupForm = ({onSelectCreate}) => {
 
-    onSelectCreate(namespace);  // To enable create operation
+    onSelectCreate(NAMESPACE);  // To enable create operation
 
     return (
         <div className='form signup'>
             <div className='title'>{LABELS.MENU_SIGNUP}</div>
-            <MappedDivSignupInputs namespace={namespace} />
-            <DivSignupMenu namespace={namespace} hostArgs={HOST_ARGS.SIGNUP} />
+            <MappedDivSignupInputs />
+            <DivSignupMenu hostArgs={HOST_ARGS.SIGNUP} />
         </div>
     )
 }
 
-export const SigninForm = ({namespace, onSelectRetrieve}) => {
+export const SigninForm = ({onSelectRetrieve}) => {
 
-    onSelectRetrieve(namespace);  // To enable retrieve operation
-    console.log(namespace);
+    onSelectRetrieve(NAMESPACE);  // To enable retrieve operation
+
     return (
         <div className='form signin'>
             <div className='title'>{LABELS.MENU_SIGNIN}</div>
-            <MappedDivSigninInputs namespace={namespace} />
-            <DivSigninMenu namespace={namespace} hostArgs={HOST_ARGS.SIGNIN} />
+            <MappedDivSigninInputs />
+            <DivSigninMenu hostArgs={HOST_ARGS.SIGNIN} />
         </div>
     )
 }
 
-export const SignoutForm = ({namespace, auth, onSignout}) => {
+export const SignoutForm = ({auth, onSignout}) => {
 
     const message = `Αποσύνδεση χρήστη (${auth.user.username})`;
 
-    onSignout(namespace, message);
+    onSignout(NAMESPACE, message);
 
     return (<></>);
 }
