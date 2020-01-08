@@ -12,14 +12,11 @@ import {
     MappedInputName,
     MappedInputIsIncoming,
     MappedInputFund,
-    MappedButtonSelectRetrieveFund,
 } from '../containers.js';
 
 import { LABELS as CORE_LABELS } from '../../core/constants.js';
 
 import { NAMESPACE, LABELS } from '../constants.js';
-
-import { LABELS as FUND_LABELS } from '../../funds/constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
@@ -31,7 +28,6 @@ export const DivInputs = ({message}) => {
         MappedInputName,
         MappedInputIsIncoming,
         MappedInputFund,
-        MappedButtonSelectRetrieveFund,
     ];
 
     return (
@@ -50,7 +46,7 @@ export const DivItems = ({items}) => {
         LABELS.INPUT_CODE,
         LABELS.INPUT_NAME,
         LABELS.INPUT_IS_INCOMING,
-        FUND_LABELS.INPUT_FUND,
+        LABELS.INPUT_FUND,
     ];
 
     const fields = [

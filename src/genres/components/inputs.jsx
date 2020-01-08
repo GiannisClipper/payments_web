@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { InputValue } from '../../core/components/inputs.jsx';
+import { InputValue, InputRelated } from '../../core/components/inputs.jsx';
 
 import { LABELS } from '../constants.js';
 
@@ -48,13 +48,18 @@ export const InputIsIncoming = ({value, message, allowEdit, onChange}) => {
     )
 }
 
-export const InputFund = ({value, message}) => {
+export const InputFund = ({input, request, list, events}) => {
+
+    input.label = LABELS.INPUT_FUND;
+    request.label = '...';
+
     return (
-        <InputValue 
+        <InputRelated
             name = 'fund'
-            label = {LABELS.INPUT_FUND}
-            value = {value}
-            message = {message}
+            input = {input}
+            request = {request}
+            list = {list}
+            events = {events}
         />
     )
 }

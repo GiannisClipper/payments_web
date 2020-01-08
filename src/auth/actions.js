@@ -6,14 +6,14 @@ import { onSuccessCreate } from '../core/actions.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const onSignup = data => {
+export const onSignup = (namespace, data) => {  // onSuccess always returns namespace as 1st param
     return dispatch => {
         dispatch(onSuccessCreate(NAMESPACE, data));
         dispatch(onSignin(data));
     }
 }
 
-export const onSignin = data => {
+export const onSignin = (namespace, data) => {  // onSuccess always returns namespace as 1st param 
     return {
         type: `${NAMESPACE}/${ACTIONS.SUCCESS_SIGNIN}`,
 		payload: {...data},

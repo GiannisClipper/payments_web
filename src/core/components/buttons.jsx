@@ -70,6 +70,7 @@ export class ButtonRequest extends React.Component {
         const allowRequest = this.props.allowRequest;
         const isLoading = this.props.isLoading;
         const onRequest = this.props.onRequest;
+
         return (
             <button className={`button_request button_request_${name}`}
                 onClick={() => onRequest(auth, data)}

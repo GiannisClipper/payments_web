@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { DivRetrieveMenu } from './menus.jsx';
-
 export class FormInMode extends React.Component {
 
     render() {
@@ -23,24 +21,3 @@ export class FormInMode extends React.Component {
     }
 }
 
-export class RelatedForm extends React.Component {
-
-    render() {
-        const name = this.props.name?this.props.name.toLowerCase():'';
-        const title = this.props.title;
-        const MappedDivInputs = this.props.MappedDivInputs;
-        const MappedDivItems = this.props.MappedDivItems;
-        const namespace = this.props.namespace;
-        const hostArgs = this.props.hostArgs;
-
-        return (
-            <div className={`popup popup_${name}`}>
-                <div className='title'>{title}</div>
-                <MappedDivInputs namespace={namespace} />
-                <DivRetrieveMenu namespace={namespace} hostArgs={hostArgs} />
-                <MappedDivItems namespace={namespace} />
-            </div>
-        )
-        
-    }
-}

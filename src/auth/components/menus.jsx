@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { NAMESPACE } from '../../users/constants.js';
+
 import {
     MappedButtonCloseForm,
 } from '../../core/containers.js';
@@ -15,7 +17,7 @@ export const DivSignupMenu = props => {
     return (
         <div>
             <MappedButtonSignup {...props} />
-            <MappedButtonCloseForm {...props} />
+            <MappedButtonCloseForm namespace={NAMESPACE} />
         </div>
     );
 };
@@ -24,7 +26,7 @@ export const DivSigninMenu = props => {
     return (
         <div>
             <MappedButtonSignin {...props} />
-            <MappedButtonCloseForm {...props} />
+            <MappedButtonCloseForm namespace={NAMESPACE} />
         </div>
     );
 };

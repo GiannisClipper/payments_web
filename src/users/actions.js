@@ -1,31 +1,31 @@
-import { ACTIONS } from './constants.js';
+import { NAMESPACE, ACTIONS } from './constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const onChangeUsername = (namespace, username) => {
+export const onChangeUsername = username => {
     return {
-        type: `${namespace}/${ACTIONS.CHANGE_USERNAME}`,
+        type: `${NAMESPACE}/${ACTIONS.CHANGE_USERNAME}`,
 		payload: {username},
     }
 }
 
-export const onChangePassword = (namespace, password) => {
+export const onChangePassword = password => {
     return {
-        type: `${namespace}/${ACTIONS.CHANGE_PASSWORD}`,
+        type: `${NAMESPACE}/${ACTIONS.CHANGE_PASSWORD}`,
 		payload: {password},
     }
 }
 
-export const onChangePassword2 = (namespace, password2) => {
+export const onChangePassword2 = password2 => {
     return {
-        type: `${namespace}/${ACTIONS.CHANGE_PASSWORD2}`,
+        type: `${NAMESPACE}/${ACTIONS.CHANGE_PASSWORD2}`,
 		payload: {password2},
     }
 }
 
-export const onChangeEmail = (namespace, email) => {
+export const onChangeEmail = email => {
     return {
-        type: `${namespace}/${ACTIONS.CHANGE_EMAIL}`,
+        type: `${NAMESPACE}/${ACTIONS.CHANGE_EMAIL}`,
 		payload: {email},
     }
 }

@@ -63,7 +63,7 @@ export const MappedInputUsername = connect(
         allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
     dispatch => ({
-        onChange: value => dispatch(onChangeUsername(NAMESPACE, value)),
+        onChange: value => dispatch(onChangeUsername(value)),
     })
 )(InputUsername);
 
@@ -74,7 +74,7 @@ export const MappedInputPassword = connect(
         allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
     dispatch => ({
-        onChange: value => dispatch(onChangePassword(NAMESPACE, value)),
+        onChange: value => dispatch(onChangePassword(value)),
     })
 )(InputPassword);
 
@@ -85,7 +85,7 @@ export const MappedInputPassword2 = connect(
         allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
     dispatch => ({
-        onChange: value => dispatch(onChangePassword2(NAMESPACE, value)),
+        onChange: value => dispatch(onChangePassword2(value)),
     })
 )(InputPassword2);
 
@@ -96,6 +96,6 @@ export const MappedInputEmail = connect(
         allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
     dispatch=> ({
-        onChange: value => dispatch(onChangeEmail(NAMESPACE, value)),
+        onChange: value => dispatch(onChangeEmail(value)),
     })
 )(InputEmail);

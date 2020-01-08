@@ -22,7 +22,7 @@ export const DivSignupInputs = ({errors}) => {
     )
 }
 
-export const DivSigninInputs = ({namespace, errors}) => {
+export const DivSigninInputs = ({errors}) => {
 
     return (
         <div className='edit'>

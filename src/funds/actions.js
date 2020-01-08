@@ -1,15 +1,15 @@
-import { ACTIONS } from './constants.js';
+import { NAMESPACE, ACTIONS } from './constants.js';
 
-export const onChangeCode = (namespace, code) => {
+export const onChangeCode = code => {
     return {
-        type: `${namespace}/${ACTIONS.CHANGE_CODE}`,
+        type: `${NAMESPACE}/${ACTIONS.CHANGE_CODE}`,
 		payload: {code},
     }
 }
 
-export const onChangeName = (namespace, name) => {
+export const onChangeName = name => {
     return {
-        type: `${namespace}/${ACTIONS.CHANGE_NAME}`,
+        type: `${NAMESPACE}/${ACTIONS.CHANGE_NAME}`,
 		payload: {name},
     }
 }

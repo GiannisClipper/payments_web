@@ -13,13 +13,18 @@ const initialUiux = {
 const initialData = {
 };
 
-export const initialState = initialData => {
+const initialRelated = {
+};
+
+export const initialState = (initialData, initialRelated={}) => {
 	return {
 		initialUiux: initialUiux,
 		initialData: initialData,
+		initialRelated: initialRelated,
 
 		uiux: {...initialUiux},
 		data: {...initialData},
+		related: {...initialRelated},
 		errors: {},
 	
 		items: {
@@ -29,7 +34,7 @@ export const initialState = initialData => {
 	};
 };
 
-export const baseFormReducer = (namespace, state=initialState(initialData), action) => {
+export const baseFormReducer = (namespace, state=initialState(initialData, initialRelated), action) => {
 	let stateCopy;
 	console.log('actiotn.type>>>', action.type);
     switch (action.type) {

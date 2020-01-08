@@ -60,7 +60,7 @@ export const MappedInputCode = connect(
         allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
     dispatch => ({
-        onChange: value => dispatch(onChangeCode(NAMESPACE, value)),
+        onChange: value => dispatch(onChangeCode(value)),
     })
 )(InputCode);
 
@@ -71,6 +71,6 @@ export const MappedInputName = connect(
         allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
     dispatch => ({
-        onChange: value => dispatch(onChangeName(NAMESPACE, value)),
+        onChange: value => dispatch(onChangeName(value)),
     })
 )(InputName);

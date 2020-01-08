@@ -2,6 +2,8 @@ import React from 'react';
 
 import { LABELS } from '../constants.js';
 
+import { ButtonRequest } from './buttons.jsx';
+
 export class InputValue extends React.Component {
 
     render() {
@@ -11,6 +13,8 @@ export class InputValue extends React.Component {
         const value = this.props.value;
         const message = this.props.message;
         const onChange = this.props.onChange;
+        const onFocus = this.props.onFocus;
+        const onBlur = this.props.onBlur;
         const allowEdit = this.props.allowEdit;
         
         // Necessary when type === 'radio'
@@ -41,6 +45,8 @@ export class InputValue extends React.Component {
                         type={type?type:'text'}
                         value={value}
                         onChange={onChange?event => onChange(event.target.value):null}
+                        onFocus={onFocus?() => onFocus():null}
+                        onBlur={onBlur?() => onBlur():null}
                         disabled={!allowEdit}
                     />
                 )}
@@ -51,7 +57,59 @@ export class InputValue extends React.Component {
     }
 }
 
+export class InputRelated extends React.Component {
+
+    render() {
+        const name = this.props.name;
+        const input = this.props.input;
+        const request = this.props.request;
+        const list = this.props.list;
+        const events = this.props.events;
+
+        return (
+            <div className={`related related_${name}`}>
+                <span>
+                    <InputValue
+                        type = 'text'
+                        name = {name}
+                        label = {input.label}
+                        value = {input.value}
+                        message = {input.message}
+                        onChange = {events.onChange}
+                        onFocus = {events.onFocus}
+                        onBlur = {events.onBlur}     
+                        allowEdit = {input.allowEdit}
+                    />
+
+                    {input.allowEdit?(
+                        <ButtonRequest
+                            name = {name}
+                            label = {request.label}
+                            auth = {request.auth}
+                            data = {request.data}
+                            allowRequest = {true}
+                            onRequest = {events.onRequest}
+                            isLoading = {request.isLoading}
+                        />
+                    ):null}
+                </span>
+
+                {input.allowEdit?(
+                    <ul>
+                    {list.items.order.map(id => (
+                        <li key={id}>
+                            {`${list.items.data[id]['id']} ${list.items.data[id]['name']}`}
+                        </li>
+                    ))}
+                    </ul>
+                ):null}
+            </div>
+        )
+    }
+}
+
 export const InputId = ({value}) => {
+
     return (
         <InputValue 
             name = 'Id'
