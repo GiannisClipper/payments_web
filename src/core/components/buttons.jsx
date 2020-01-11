@@ -65,11 +65,11 @@ export class ButtonRequest extends React.Component {
     render() {
         const name = this.props.name;
         const label = this.props.label;
+        const allowRequest = this.props.allowRequest;
+        const onRequest = this.props.onRequest;
         const auth = this.props.auth;
         const data = this.props.data;
-        const allowRequest = this.props.allowRequest;
         const isLoading = this.props.isLoading;
-        const onRequest = this.props.onRequest;
 
         return (
             <button className={`button_request button_request_${name}`}
@@ -88,11 +88,11 @@ export const ButtonRequestCreate = ({auth, data, allowRequest, isLoading, onRequ
         <ButtonRequest
             name = 'create'
             label = {LABELS.BUTTON_REQUEST_CREATE}
+            allowRequest = {allowRequest}
+            onRequest = {onRequest}
             auth = {auth}
             data = {data}
-            allowRequest = {allowRequest}
             isLoading = {isLoading}
-            onRequest = {onRequest}
         />
     )
 }
@@ -102,11 +102,11 @@ export const ButtonRequestRetrieve = ({auth, data, isLoading, onRequest}) => {
         <ButtonRequest
             name = 'retrieve'
             label = {LABELS.BUTTON_REQUEST_RETRIEVE}
+            allowRequest = {true}
+            onRequest = {onRequest}
             auth = {auth}
             data = {data}
-            allowRequest = {true}
             isLoading = {isLoading}
-            onRequest = {onRequest}
         />
     )
 }
@@ -116,11 +116,11 @@ export const ButtonRequestUpdate = ({auth, data, allowRequest, isLoading, onRequ
         <ButtonRequest
             name = 'update'
             label = {LABELS.BUTTON_REQUEST_UPDATE}
+            allowRequest = {allowRequest}
+            onRequest = {onRequest}
             auth = {auth}
             data = {data}
-            allowRequest = {allowRequest}
             isLoading = {isLoading}
-            onRequest = {onRequest}
         />
     )
 }
@@ -130,11 +130,11 @@ export const ButtonRequestDelete = ({auth, data, isLoading, onRequest}) => {
         <ButtonRequest
             name = 'delete'
             label = {LABELS.BUTTON_REQUEST_DELETE}
+            allowRequest = {true}
+            onRequest = {onRequest}
             auth = {auth}
             data = {data}
-            allowRequest = {true}
             isLoading = {isLoading}
-            onRequest = {onRequest}
         />
     )
 }
@@ -146,8 +146,8 @@ export const ButtonCloseData = ({onClose}) => {
         <button
             onClick={() => onClose()}
         >{LABELS.BUTTON_CLOSE_MODE}</button>
-    );
-};
+    )
+}
 
 export const ButtonCloseForm = ({onClose, onGoHome}) => {
     let history = useHistory();
@@ -159,8 +159,8 @@ export const ButtonCloseForm = ({onClose, onGoHome}) => {
                 onGoHome(history);
             }}
         >{LABELS.BUTTON_CLOSE_FORM}</button>
-    );
-};
+    )
+}
 
 export const ButtonGoHome = ({onGoHome}) => {
     let history = useHistory();
@@ -169,5 +169,5 @@ export const ButtonGoHome = ({onGoHome}) => {
         <button
             onClick={() => onGoHome(history)}
         >{LABELS.BUTTON_GO_HOME}</button>
-    );
-};
+    )
+}

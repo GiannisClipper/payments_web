@@ -4,6 +4,59 @@ import { LABELS } from '../constants.js';
 
 import { ButtonRequest } from './buttons.jsx';
 
+import { MappedInputStringId } from '../containers.js';
+
+// --- --- --- --- --- --- --- --- ---
+
+export const LabelInput = ({value}) => {
+    return (
+        <span className='label'>{value}</span>
+    )
+}
+
+export const MessageInput = ({value}) => {
+    return (
+        <span className='message'>{value?value.toString():''}</span>  // Value may be object, so convert it to string
+    )
+}
+
+export const InputString = ({value, allowEdit, onChange, onFocus, onBlur}) => {
+    console.log('allowedit', allowEdit, 'value', value);
+    return (
+        <input 
+            value={value}
+            disabled={!allowEdit}
+            onChange={onChange?event => onChange(event.target.value):null}
+            onFocus={onFocus?() => onFocus():null}
+            onBlur={onBlur?() => onBlur():null}
+        />
+    )
+}
+
+export const InputRadio = ({name, labels, values, value, allowEdit, onChange}) => {
+    let key = 0;
+    return (
+        <span className='input_radio'>
+            values.map(x => (
+                <span key={key}>
+                    <input
+                        type='radio'
+                        name={name}
+                        value={values[key]}
+                        checked={values[key] === value?'checked':''}
+                        disabled={!allowEdit}
+                        onChange={onChange?event => onChange(event.target.value):null}
+                        id={`input_radio_${name}_${values[key]}`}
+                    />
+                    <label for={`input_radio_${name}_${values[key]}`}>
+                        {labels[key++]}
+                    </label>
+                </span>
+            ))
+        </span>
+    )
+}
+
 export class InputValue extends React.Component {
 
     render() {
@@ -108,13 +161,37 @@ export class InputRelated extends React.Component {
     }
 }
 
-export const InputId = ({value}) => {
+// --- --- --- --- --- --- --- --- ---
 
+export const GroupInput = ({name, label, input, message}) => {
     return (
-        <InputValue 
-            name = 'Id'
-            label = {LABELS.INPUT_ID}
-            value = {value}
+        <span className={`group_input group_input_${name}`}>
+            {label?label:null}
+            {input?input:null}
+            {message?message:null}
+        </span>
+    )
+}
+
+export const LabelInputId = () => {
+    return (
+        <LabelInput value={LABELS.INPUT_ID} />
+    )
+}
+
+export const InputStringId = ({value}) => {
+    return (
+        <InputString value = {value} />
+    )
+}
+
+export const GroupInputId = ({namespace}) => {
+    return (
+        <GroupInput
+            name='id'
+            label={<LabelInputId />}
+            input={<MappedInputStringId namespace={namespace} />}
+            message={null}
         />
     )
 }

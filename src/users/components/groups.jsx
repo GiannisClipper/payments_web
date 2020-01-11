@@ -5,7 +5,7 @@ import {
     DivItems as CoreDivItems
 } from '../../core/components/groups.jsx';
 
-import { MappedInputId } from '../../core/containers.js';
+import { GroupInputId } from '../../core/components/inputs.jsx';
 
 import {
     MappedInputUsername,
@@ -23,7 +23,7 @@ import { NAMESPACE, LABELS } from '../constants.js';
 export const DivInputs = ({message}) => {
 
     const MappedInputs = [
-        MappedInputId,
+        GroupInputId,
         MappedInputUsername,
         MappedInputPassword,
         MappedInputPassword2,

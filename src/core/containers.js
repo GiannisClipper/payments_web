@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import {
-    InputId,
+    InputStringId,
 } from './components/inputs.jsx';
 
 import {
@@ -41,11 +41,12 @@ import {
 // Inputs
 // --- --- --- --- --- --- --- --- ---
 
-export const MappedInputId = connect(
+export const MappedInputStringId = connect(
     (state, {namespace}) => ({
         value: state[namespace].data.id,
     }),
-)(InputId);
+    ({})
+)(InputStringId);
 
 // --- --- --- --- --- --- --- --- ---
 // Buttons to select

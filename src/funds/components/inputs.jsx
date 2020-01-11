@@ -1,33 +1,51 @@
 import React from 'react';
 
-import { InputValue } from '../../core/components/inputs.jsx';
+import { 
+    LabelInput,
+    GroupInput,
+} from '../../core/components/inputs.jsx';
+
+import {
+    MappedInputStringCode,
+    MappedInputStringName,
+    MappedMessageInputCode,
+    MappedMessageInputName,   
+} from '../containers.js';
 
 import { LABELS } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const InputCode = ({value, message, allowEdit, onChange}) => {
+export const LabelInputCode = () => {
     return (
-        <InputValue 
-            name = 'code'
-            label = {LABELS.INPUT_CODE}
-            value = {value}
-            message = {message}
-            allowEdit = {allowEdit}
-            onChange = {onChange}
+        <LabelInput value={LABELS.INPUT_CODE} />
+    )
+}
+
+export const LabelInputName = () => {
+    return (
+        <LabelInput value={LABELS.INPUT_NAME} />
+    )
+}
+
+export const GroupInputCode = () => {
+    return (
+        <GroupInput
+            name='code'
+            label={<LabelInputCode />}
+            input={<MappedInputStringCode />}
+            message={<MappedMessageInputCode />}
         />
     )
 }
 
-export const InputName = ({value, message, allowEdit, onChange}) => {
+export const GroupInputName = () => {
     return (
-        <InputValue 
-            name = 'name'
-            label = {LABELS.INPUT_NAME}
-            value = {value}
-            message = {message}
-            allowEdit = {allowEdit}
-            onChange = {onChange}
+        <GroupInput
+            name='name'
+            label={<LabelInputName />}
+            input={<MappedInputStringName />}
+            message={<MappedMessageInputName />}
         />
     )
 }

@@ -12,8 +12,11 @@ import {
 } from './components/groups.jsx';
 
 import {
-    InputCode,
-    InputName,
+    InputString,
+    MessageInput,
+} from '../core/components/inputs.jsx';
+
+import {
     InputIsIncoming,
     InputFund,
 } from './components/inputs.jsx';
@@ -63,7 +66,40 @@ export const MappedDivItems = connect(
 // Inputs
 // --- --- --- --- --- --- --- --- ---
 
-export const MappedInputCode = connect(
+export const MappedInputStringCode = connect(
+    state => ({
+        value: state[NAMESPACE].data.code,
+        allowEdit: state[NAMESPACE].uiux.allowEdit,
+    }),
+    dispatch => ({
+        onChange: value => dispatch(onChangeCode(value)),
+    })
+)(InputString);
+
+export const MappedInputStringName = connect(
+    state => ({
+        value: state[NAMESPACE].data.name,
+        allowEdit: state[NAMESPACE].uiux.allowEdit,
+    }),
+    dispatch => ({
+        onChange: value => dispatch(onChangeName(value)),
+    })
+)(InputString);
+
+export const MappedMessageInputCode = connect(
+    state => ({
+        message: state[NAMESPACE].errors.code,
+    }),
+)(MessageInput);
+
+export const MappedMessageInputName = connect(
+    state => ({
+        message: state[NAMESPACE].errors.name,
+    }),
+)(MessageInput);
+
+
+/*export const MappedInputCode = connect(
     state => ({
         value: state[NAMESPACE].data.code,
         message: state[NAMESPACE].errors.code,
@@ -84,7 +120,7 @@ export const MappedInputName = connect(
         onChange: value => dispatch(onChangeName(value)),
     })
 )(InputName);
-
+*/
 export const MappedInputIsIncoming = connect(
     state => ({
         value: state[NAMESPACE].data.is_incoming,

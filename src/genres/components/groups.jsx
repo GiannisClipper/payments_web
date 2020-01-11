@@ -5,11 +5,11 @@ import {
     DivItems as CoreDivItems
 } from '../../core/components/groups.jsx';
 
-import { MappedInputId } from '../../core/containers.js';
+import { GroupInputId } from '../../core/components/inputs.jsx';
 
 import {
-    MappedInputCode,
-    MappedInputName,
+    MappedInputStringCode,
+    MappedInputStringName,
     MappedInputIsIncoming,
     MappedInputFund,
 } from '../containers.js';
@@ -23,9 +23,9 @@ import { NAMESPACE, LABELS } from '../constants.js';
 export const DivInputs = ({message}) => {
 
     const MappedInputs = [
-        MappedInputId,
-        MappedInputCode,
-        MappedInputName,
+        GroupInputId,
+        MappedInputStringCode,
+        MappedInputStringName,
         MappedInputIsIncoming,
         MappedInputFund,
     ];

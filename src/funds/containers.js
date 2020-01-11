@@ -10,9 +10,9 @@ import {
 } from './components/groups.jsx';
 
 import {
-    InputCode,
-    InputName,
-} from './components/inputs.jsx';
+    InputString,
+    MessageInput,
+} from '../core/components/inputs.jsx';
 
 import {
 	onChangeCode,
@@ -53,24 +53,34 @@ export const MappedDivItems = connect(
 // Inputs
 // --- --- --- --- --- --- --- --- ---
 
-export const MappedInputCode = connect(
+export const MappedInputStringCode = connect(
     state => ({
         value: state[NAMESPACE].data.code,
-        message: state[NAMESPACE].errors.code,
         allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
     dispatch => ({
         onChange: value => dispatch(onChangeCode(value)),
     })
-)(InputCode);
+)(InputString);
 
-export const MappedInputName = connect(
+export const MappedInputStringName = connect(
     state => ({
         value: state[NAMESPACE].data.name,
-        message: state[NAMESPACE].errors.name,
         allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
     dispatch => ({
         onChange: value => dispatch(onChangeName(value)),
     })
-)(InputName);
+)(InputString);
+
+export const MappedMessageInputCode = connect(
+    state => ({
+        message: state[NAMESPACE].errors.code,
+    }),
+)(MessageInput);
+
+export const MappedMessageInputName = connect(
+    state => ({
+        message: state[NAMESPACE].errors.name,
+    }),
+)(MessageInput);

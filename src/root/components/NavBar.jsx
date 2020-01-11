@@ -6,7 +6,7 @@ import { LABELS } from '../constants.js';
 
 export const NavBar = ({auth}) => {
 	return (
-		auth.token.key?(
+		!auth.token.key?(
 			<div>
 			<NavTab label={LABELS.MENU_USERS} to='/users' />
 			<NavTab label={LABELS.MENU_FUNDS} to='/funds' />
