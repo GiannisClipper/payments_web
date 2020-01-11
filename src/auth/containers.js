@@ -9,9 +9,9 @@ import {
 } from './components/forms.jsx';
 
 import {
-    DivSignupInputs,
-    DivSigninInputs,
-} from './components/groups.jsx';
+    GroupSignupInputs,
+    GroupSigninInputs,
+} from './components/inputs.jsx';
 
 import {
     ButtonSignup,
@@ -61,17 +61,17 @@ export const MappedSignoutForm = connect(
 // Groups
 // --- --- --- --- --- --- --- --- ---
 
-export const MappedDivSignupInputs = connect(
+export const MappedGroupSignupInputs = connect(
     state => ({
         errors: state[NAMESPACE].errors.errors,
     }),
-)(DivSignupInputs);
+)(GroupSignupInputs);
 
-export const MappedDivSigninInputs = connect(
+export const MappedGroupSigninInputs = connect(
     state => ({
         errors: state[NAMESPACE].errors.errors,
     }),
-)(DivSigninInputs);
+)(GroupSigninInputs);
 
 // --- --- --- --- --- --- --- --- ---
 // Buttons

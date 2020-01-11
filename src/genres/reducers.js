@@ -47,7 +47,7 @@ export const genresReducer = (state=initialState(initialData, initialRelated), a
 
 		case `${NAMESPACE}/${ACTIONS.CHANGE_IS_INCOMING}`:
 			stateCopy = {...state};
-			stateCopy.data.is_incoming = action.payload.is_incoming=== 'true'?true:false;
+			stateCopy.data.is_incoming = action.payload.is_incoming;
 			stateCopy.uiux.allowRequest = true;
 			return stateCopy;
 

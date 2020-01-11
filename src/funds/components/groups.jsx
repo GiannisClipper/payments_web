@@ -1,16 +1,16 @@
 import React from 'react';
 
 import { 
-    DivInputs as CoreDivInputs,
-    DivItems as CoreDivItems
+    GroupInputs as CoreGroupInputs,
+    GroupItems as CoreGroupItems,
 } from '../../core/components/groups.jsx';
 
 import { GroupInputId } from '../../core/components/inputs.jsx';
 
 import {
-    MappedInputStringCode,
-    MappedInputStringName,
-} from '../containers.js';
+    GroupInputCode,
+    GroupInputName,
+} from './inputs.jsx';
 
 import { LABELS as CORE_LABELS } from '../../core/constants.js';
 
@@ -18,24 +18,24 @@ import { NAMESPACE, LABELS } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const DivInputs = ({message}) => {
+export const GroupInputs = ({message}) => {
 
-    const MappedInputs = [
+    const inputs = [
         GroupInputId,
-        MappedInputStringCode,
-        MappedInputStringName
+        GroupInputCode,
+        GroupInputName
     ];
 
     return (
-        <CoreDivInputs 
+        <CoreGroupInputs 
             namespace={NAMESPACE}
-            MappedInputs={MappedInputs}
+            inputs={inputs}
             message={message} 
         />
     )
 }
 
-export const DivItems = ({items}) => {
+export const GroupItems = ({items}) => {
 
     const labels = [
         CORE_LABELS.INPUT_ID,
@@ -50,7 +50,7 @@ export const DivItems = ({items}) => {
     ];
 
     return (
-        <CoreDivItems
+        <CoreGroupItems
             namespace={NAMESPACE}
             labels={labels} 
             fields={fields} 

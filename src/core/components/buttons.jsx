@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 import { LABELS } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
+// Button select...
+// --- --- --- --- --- --- --- --- ---
 
 export class ButtonSelect extends React.Component {
     render() {
@@ -59,6 +61,8 @@ export const ButtonSelectDelete = ({onSelect}) => {
     )
 }
 
+// --- --- --- --- --- --- --- --- ---
+// Button request...
 // --- --- --- --- --- --- --- --- ---
 
 export class ButtonRequest extends React.Component {
@@ -139,6 +143,8 @@ export const ButtonRequestDelete = ({auth, data, isLoading, onRequest}) => {
     )
 }
 
+// --- --- --- --- --- --- --- --- ---
+// Button close...
 // --- --- --- --- --- --- --- --- ---
 
 export const ButtonCloseData = ({onClose}) => {

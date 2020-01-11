@@ -20,10 +20,10 @@ export const MessageInput = ({value}) => {
     )
 }
 
-export const InputString = ({value, allowEdit, onChange, onFocus, onBlur}) => {
-    console.log('allowedit', allowEdit, 'value', value);
+export const InputString = ({type, value, allowEdit, onChange, onFocus, onBlur}) => {
     return (
         <input 
+            type={type?type:'text'}
             value={value}
             disabled={!allowEdit}
             onChange={onChange?event => onChange(event.target.value):null}
@@ -33,11 +33,18 @@ export const InputString = ({value, allowEdit, onChange, onFocus, onBlur}) => {
     )
 }
 
+export const InputHidden = props => {
+    return (
+        <InputString {...props} type='password' />
+    )
+}
+
 export const InputRadio = ({name, labels, values, value, allowEdit, onChange}) => {
+    console.log(name, labels, values, value)
     let key = 0;
     return (
         <span className='input_radio'>
-            values.map(x => (
+            {values.map(x => (
                 <span key={key}>
                     <input
                         type='radio'
@@ -52,7 +59,7 @@ export const InputRadio = ({name, labels, values, value, allowEdit, onChange}) =
                         {labels[key++]}
                     </label>
                 </span>
-            ))
+            ))}
         </span>
     )
 }

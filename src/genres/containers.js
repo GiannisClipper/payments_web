@@ -7,8 +7,8 @@ import { HOST_ARGS } from '../root/constants.js';
 import { GenresForm } from './components/forms.jsx';
 
 import { 
-    DivInputs,
-    DivItems,
+    GroupInputs,
+    GroupItems,
 } from './components/groups.jsx';
 
 import {
@@ -17,7 +17,7 @@ import {
 } from '../core/components/inputs.jsx';
 
 import {
-    InputIsIncoming,
+    InputRadioIsIncoming,
     InputFund,
 } from './components/inputs.jsx';
 
@@ -48,19 +48,19 @@ export const MappedGenresForm = connect(
 // Groups
 // --- --- --- --- --- --- --- --- ---
 
-export const MappedDivInputs = connect(
+export const MappedGroupInputs = connect(
     state => ({
         message: state[NAMESPACE].errors.errors,
     }),
     ({})
-)(DivInputs);
+)(GroupInputs);
 
-export const MappedDivItems = connect(
+export const MappedGroupItems = connect(
     (state, {items}) => ({
         items: state[NAMESPACE].items,
     }),
     ({})
-)(DivItems);
+)(GroupItems);
 
 // --- --- --- --- --- --- --- --- ---
 // Inputs
@@ -86,6 +86,17 @@ export const MappedInputStringName = connect(
     })
 )(InputString);
 
+export const MappedInputRadioIsIncoming = connect(
+    state => ({
+        value: state[NAMESPACE].data.is_incoming,
+        allowEdit: state[NAMESPACE].uiux.allowEdit,
+    }),
+    dispatch => ({
+        onChange: value => dispatch(onChangeIsIncoming(value)),
+    })
+)(InputRadioIsIncoming);
+
+
 export const MappedMessageInputCode = connect(
     state => ({
         message: state[NAMESPACE].errors.code,
@@ -99,38 +110,7 @@ export const MappedMessageInputName = connect(
 )(MessageInput);
 
 
-/*export const MappedInputCode = connect(
-    state => ({
-        value: state[NAMESPACE].data.code,
-        message: state[NAMESPACE].errors.code,
-        allowEdit: state[NAMESPACE].uiux.allowEdit,
-    }),
-    dispatch => ({
-        onChange: value => dispatch(onChangeCode(value)),
-    })
-)(InputCode);
 
-export const MappedInputName = connect(
-    state => ({
-        value: state[NAMESPACE].data.name,
-        message: state[NAMESPACE].errors.name,
-        allowEdit: state[NAMESPACE].uiux.allowEdit,
-    }),
-    dispatch => ({
-        onChange: value => dispatch(onChangeName(value)),
-    })
-)(InputName);
-*/
-export const MappedInputIsIncoming = connect(
-    state => ({
-        value: state[NAMESPACE].data.is_incoming,
-        message: state[NAMESPACE].errors.is_incoming,
-        allowEdit: state[NAMESPACE].uiux.allowEdit,
-    }),
-    dispatch => ({
-        onChange: value => dispatch(onChangeIsIncoming(value)),
-    })
-)(InputIsIncoming);
 
 export const MappedInputFund = connect(
     state => ({

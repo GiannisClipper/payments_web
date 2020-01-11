@@ -1,13 +1,15 @@
 import React from 'react';
 
-import {
-    DivSignupMenu,
-    DivSigninMenu,
-} from './menus.jsx';
+import { Form } from '../../core/components/forms.jsx';
 
 import {
-    MappedDivSignupInputs,
-    MappedDivSigninInputs,
+    GroupSignupButtons,
+    GroupSigninButtons,
+} from './buttons.jsx';
+
+import {
+    MappedGroupSignupInputs,
+    MappedGroupSigninInputs,
 } from '../containers.js';
 
 import { LABELS, HOST_ARGS } from '../../root/constants.js';
@@ -21,11 +23,15 @@ export const SignupForm = ({onSelectCreate}) => {
     onSelectCreate(NAMESPACE);  // To enable create operation
 
     return (
-        <div className='form signup'>
-            <div className='title'>{LABELS.MENU_SIGNUP}</div>
-            <MappedDivSignupInputs />
-            <DivSignupMenu hostArgs={HOST_ARGS.SIGNUP} />
-        </div>
+        <Form
+            namespace={NAMESPACE}
+            title={LABELS.MENU_SIGNUP}
+            mode={null}
+            hostArgs={HOST_ARGS.SIGNUP}
+    
+            GroupInputs={MappedGroupSignupInputs}
+            GroupButtons={GroupSignupButtons}
+        />
     )
 }
 
@@ -34,11 +40,15 @@ export const SigninForm = ({onSelectRetrieve}) => {
     onSelectRetrieve(NAMESPACE);  // To enable retrieve operation
 
     return (
-        <div className='form signin'>
-            <div className='title'>{LABELS.MENU_SIGNIN}</div>
-            <MappedDivSigninInputs />
-            <DivSigninMenu hostArgs={HOST_ARGS.SIGNIN} />
-        </div>
+        <Form
+            namespace={NAMESPACE}
+            title={LABELS.MENU_SIGNIN}
+            mode={null}
+            hostArgs={HOST_ARGS.SIGNIN}
+    
+            GroupInputs={MappedGroupSigninInputs}
+            GroupButtons={GroupSigninButtons}
+        />
     )
 }
 

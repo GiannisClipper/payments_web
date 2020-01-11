@@ -2,17 +2,19 @@ import React from 'react';
 
 import { 
     LabelInput,
+    InputRadio,
     GroupInput,
 } from '../../core/components/inputs.jsx';
 
 import {
     MappedInputStringCode,
     MappedInputStringName,
+    MappedInputRadioIsIncoming,
     MappedMessageInputCode,
-    MappedMessageInputName,   
+    MappedMessageInputName,
 } from '../containers.js';
 
-import { InputValue, InputRelated } from '../../core/components/inputs.jsx';
+import { InputRelated } from '../../core/components/inputs.jsx';
 
 import { LABELS } from '../constants.js';
 
@@ -27,6 +29,23 @@ export const LabelInputCode = () => {
 export const LabelInputName = () => {
     return (
         <LabelInput value={LABELS.INPUT_NAME} />
+    )
+}
+
+export const LabelInputIsIncoming = () => {
+    return (
+        <LabelInput value={LABELS.INPUT_IS_INCOMING} />
+    )
+}
+
+export const InputRadioIsIncoming = props => {
+    return (
+        <InputRadio
+            name='is_incoming'
+            values={['true', 'false']}
+            labels={[LABELS.INPUT_IS_INCOMING_TRUE, LABELS.INPUT_IS_INCOMING_FALSE]}
+            {...props}
+        />
     )
 }
 
@@ -48,6 +67,17 @@ export const GroupInputName = () => {
             label={<LabelInputName />}
             input={<MappedInputStringName />}
             message={<MappedMessageInputName />}
+        />
+    )
+}
+
+export const GroupInputIsIncoming = () => {
+    return (
+        <GroupInput
+            name='is_incoming'
+            label={<LabelInputIsIncoming />}
+            input={<MappedInputRadioIsIncoming />}
+            message={null}
         />
     )
 }
@@ -78,7 +108,7 @@ export const InputName = ({value, message, allowEdit, onChange}) => {
             onChange = {onChange}
         />
     )
-}*/
+}
 
 export const InputIsIncoming = ({value, message, allowEdit, onChange}) => {
     return (
@@ -94,7 +124,7 @@ export const InputIsIncoming = ({value, message, allowEdit, onChange}) => {
             onChange = {onChange}
         />
     )
-}
+}*/
 
 export const InputFund = ({input, request, list, events}) => {
 

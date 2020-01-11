@@ -162,4 +162,4 @@ export const MappedButtonGoHome = connect(
     })
 )(ButtonGoHome);
 
-// --- --- --- --- --- --- --- --- ---
+

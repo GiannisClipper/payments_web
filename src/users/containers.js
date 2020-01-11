@@ -5,16 +5,15 @@ import { NAMESPACE } from './constants.js';
 import { UsersForm } from './components/forms.jsx';
 
 import { 
-    DivInputs,
-    DivItems,
+    GroupInputs,
+    GroupItems,
 } from './components/groups.jsx';
 
 import {
-    InputUsername,
-    InputPassword,
-    InputPassword2,
-    InputEmail,
-} from './components/inputs.jsx';
+    InputString,
+    InputHidden,
+    MessageInput,
+} from '../core/components/inputs.jsx';
 
 import {
 	onChangeUsername,
@@ -38,64 +37,84 @@ export const MappedUsersForm = connect(
 // Groups
 // --- --- --- --- --- --- --- --- ---
 
-export const MappedDivInputs = connect(
+export const MappedGroupInputs = connect(
     state => ({
         message: state[NAMESPACE].errors.errors,
     }),
     ({})
-)(DivInputs);
+)(GroupInputs);
 
-export const MappedDivItems = connect(
+export const MappedGroupItems = connect(
     (state, {items}) => ({
         items: state[NAMESPACE].items,
     }),
     ({})
-)(DivItems);
+)(GroupItems);
 
 // --- --- --- --- --- --- --- --- ---
 // Inputs
 // --- --- --- --- --- --- --- --- ---
 
-export const MappedInputUsername = connect(
+export const MappedInputStringUsername = connect(
     state => ({
         value: state[NAMESPACE].data.username,
-        message: state[NAMESPACE].errors.username,
         allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
     dispatch => ({
         onChange: value => dispatch(onChangeUsername(value)),
     })
-)(InputUsername);
+)(InputString);
 
-export const MappedInputPassword = connect(
+export const MappedInputHiddenPassword = connect(
     state => ({
         value: state[NAMESPACE].data.password,
-        message: state[NAMESPACE].errors.password,
         allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
     dispatch => ({
         onChange: value => dispatch(onChangePassword(value)),
     })
-)(InputPassword);
+)(InputHidden);
 
-export const MappedInputPassword2 = connect(
+export const MappedInputHiddenPassword2 = connect(
     state => ({
         value: state[NAMESPACE].data.password2,
-        message: state[NAMESPACE].errors.password2,
         allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
     dispatch => ({
         onChange: value => dispatch(onChangePassword2(value)),
     })
-)(InputPassword2);
+)(InputHidden);
 
-export const MappedInputEmail = connect(
+export const MappedInputStringEmail = connect(
     state => ({
         value: state[NAMESPACE].data.email,
-        message: state[NAMESPACE].errors.email,
         allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
     dispatch=> ({
         onChange: value => dispatch(onChangeEmail(value)),
     })
-)(InputEmail);
+)(InputString);
+
+export const MappedMessageInputUsername = connect(
+    state => ({
+        message: state[NAMESPACE].errors.username,
+    }),
+)(MessageInput);
+
+export const MappedMessageInputPassword = connect(
+    state => ({
+        message: state[NAMESPACE].errors.password,
+    }),
+)(MessageInput);
+
+export const MappedMessageInputPassword2 = connect(
+    state => ({
+        message: state[NAMESPACE].errors.password2,
+    }),
+)(MessageInput);
+
+export const MappedMessageInputEmail = connect(
+    state => ({
+        message: state[NAMESPACE].errors.email,
+    }),
+)(MessageInput);

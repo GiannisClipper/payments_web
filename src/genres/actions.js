@@ -16,7 +16,7 @@ export const onChangeName = name => {
 
 export const onChangeIsIncoming = is_incoming => {
     return {
-        type: `${NAMESPACE}/${ACTIONS.CHANGE_IS_INCOME}`,
+        type: `${NAMESPACE}/${ACTIONS.CHANGE_IS_INCOMING}`,
 		payload: {is_incoming},
     }
 }

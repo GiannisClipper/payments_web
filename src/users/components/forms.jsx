@@ -1,83 +1,39 @@
 import React from 'react';
 
-import { FormInMode } from '../../core/components/forms.jsx';
-
-import {
-    DivFormMenu,
-    DivCreateMenu,
-    DivRetrieveMenu,
-    DivUpdateMenu,
-    DivDeleteMenu,
-} from '../../core/components/menus.jsx';
-
-import {
-    MappedDivInputs,
-    MappedDivItems,
-} from '../containers.js';
+import { CRUDForm } from '../../core/components/forms.jsx';
 
 import { LABELS, HOST_ARGS } from '../../root/constants.js';
 
 import { NAMESPACE } from '../constants.js';
 
+import {
+    MappedGroupInputs,
+    MappedGroupItems,
+} from '../containers.js';
+
 // --- --- --- --- --- --- --- --- ---
 
-export const UsersForm = ({namespace, mode}) => {
+export const UsersForm = ({mode}) => {
 
-    const name = namespace;
-    const title = LABELS.MENU_USERS;
-
-    return (mode === 'CREATE')?(
-        <FormInMode 
-            name = {name}
-            mode = {mode}
-            title = {title}
-            MappedDivModeData = {MappedDivInputs}
-            DivModeMenu = {DivCreateMenu}
-            hostArgs = {HOST_ARGS.CREATE_USERS}
-            namespace = {NAMESPACE}
+    return (
+        <CRUDForm 
+            namespace={NAMESPACE}
+            title={LABELS.MENU_USERS}
+            mode={mode}
+            hostArgs={
+                mode === 'CREATE'?HOST_ARGS.CREATE_USERS:
+                mode === 'RETRIEVE'?HOST_ARGS.RETRIEVE_USERS:
+                mode === 'UPDATE'?HOST_ARGS.UPDATE_USERS:
+                mode === 'DELETE'?HOST_ARGS.DELETE_USERS:
+                null
+            } 
+            GroupInputs={
+                mode === 'CREATE'?MappedGroupInputs:
+                mode === 'RETRIEVE'?MappedGroupInputs:
+                mode === 'UPDATE'?MappedGroupInputs:
+                mode === 'DELETE'?MappedGroupInputs:
+                MappedGroupItems
+            }
         />
-
-    ):(mode === 'RETRIEVE')?(
-        <FormInMode 
-            name = {name}
-            mode = {mode}
-            title = {title}
-            MappedDivModeData = {MappedDivInputs}
-            DivModeMenu = {DivRetrieveMenu}
-            hostArgs = {HOST_ARGS.RETRIEVE_USERS}
-            namespace = {NAMESPACE}
-        />
-
-    ):(mode === 'UPDATE')?(
-        <FormInMode 
-            name = {name}
-            mode = {mode}
-            title = {title}
-            MappedDivModeData = {MappedDivInputs}
-            DivModeMenu = {DivUpdateMenu}
-            hostArgs = {HOST_ARGS.UPDATE_USERS}
-            namespace = {NAMESPACE}
-        />
-
-    ):(mode === 'DELETE')?(
-        <FormInMode 
-            name = {name}
-            mode = {mode}
-            title = {title}
-            MappedDivModeData = {MappedDivInputs}
-            DivModeMenu = {DivDeleteMenu}
-            hostArgs = {HOST_ARGS.DELETE_USERS}
-            namespace = {NAMESPACE}
-        />
-
-    ):(
-        <FormInMode 
-            name = {name}
-            mode = 'list'
-            title = {title}
-            MappedDivModeData = {MappedDivItems}
-            DivModeMenu = {DivFormMenu}
-            namespace = {NAMESPACE}
-        />
-    );
+    )
 }

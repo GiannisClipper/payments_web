@@ -33,7 +33,7 @@ const App = ({auth}) => {
 		<BrowserRouter>
 			<NavBar auth={auth} />
 
-			{!auth.token.key?(
+			{auth.token.key?(
 				<Switch>
 					<Route path='/users' component={MappedUsersForm} />
 					<Route path='/funds' component={MappedFundsForm} />

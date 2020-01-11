@@ -5,8 +5,8 @@ import { NAMESPACE } from './constants.js';
 import { FundsForm } from './components/forms.jsx';
 
 import { 
-    DivInputs,
-    DivItems,
+    GroupInputs,
+    GroupItems,
 } from './components/groups.jsx';
 
 import {
@@ -35,19 +35,19 @@ export const MappedFundsForm = connect(
 // Groups
 // --- --- --- --- --- --- --- --- ---
 
-export const MappedDivInputs = connect(
+export const MappedGroupInputs = connect(
     state => ({
         message: state[NAMESPACE].errors.errors,
     }),
     ({})
-)(DivInputs);
+)(GroupInputs);
 
-export const MappedDivItems = connect(
+export const MappedGroupItems = connect(
     (state, {items}) => ({
         items: state[NAMESPACE].items,
     }),
     ({})
-)(DivItems);
+)(GroupItems);
 
 // --- --- --- --- --- --- --- --- ---
 // Inputs
