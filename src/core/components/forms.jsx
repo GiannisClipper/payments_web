@@ -11,6 +11,7 @@ import {
 // --- --- --- --- --- --- --- --- ---
 
 export const Form = ({namespace, title, mode, hostArgs, GroupInputs, GroupButtons}) => {
+
     mode = mode?mode.toLowerCase():'';
 
     return (
@@ -31,22 +32,20 @@ export const Form = ({namespace, title, mode, hostArgs, GroupInputs, GroupButton
     )
 }
 
-export const CRUDForm = ({namespace, title, mode, hostArgs, GroupInputs}) => {
+export const CRUDForm = ({namespace, title, mode, hostArgs, GroupInputs}) => (
 
-    return (
-        <Form
-            namespace = {namespace}
-            title = {title}
-            mode = {mode}
-            hostArgs = {hostArgs}
-            GroupInputs = {GroupInputs}
-            GroupButtons={
-                mode === 'CREATE'?GroupCreateButtons:
-                mode === 'RETRIEVE'?GroupRetrieveButtons:
-                mode === 'UPDATE'?GroupUpdateButtons:
-                mode === 'DELETE'?GroupDeleteButtons:
-                GroupFormButtons
-            } 
-        />
-    )
-}
+    <Form
+        namespace = {namespace}
+        title = {title}
+        mode = {mode}
+        hostArgs = {hostArgs}
+        GroupInputs = {GroupInputs}
+        GroupButtons={
+            mode === 'CREATE'?GroupCreateButtons:
+            mode === 'RETRIEVE'?GroupRetrieveButtons:
+            mode === 'UPDATE'?GroupUpdateButtons:
+            mode === 'DELETE'?GroupDeleteButtons:
+            GroupFormButtons
+        } 
+    />
+)

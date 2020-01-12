@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { InputValue } from '../../core/components/inputs.jsx';
-
 import { LABELS } from '../constants.js';
 
 import { 
@@ -22,128 +20,52 @@ import {
 
 // --- --- --- --- --- --- --- --- ---
 
-export const LabelInputUsername = () => {
-    return (
-        <LabelInput value={LABELS.INPUT_USERNAME} />
-    )
-}
+export const LabelInputUsername = () => (<LabelInput value={LABELS.INPUT_USERNAME} />)
 
-export const LabelInputPassword = () => {
-    return (
-        <LabelInput value={LABELS.INPUT_PASSWORD} />
-    )
-}
+export const LabelInputPassword = () => (<LabelInput value={LABELS.INPUT_PASSWORD} />)
 
-export const LabelInputPassword2 = () => {
-    return (
-        <LabelInput value={LABELS.INPUT_PASSWORD2} />
-    )
-}
+export const LabelInputPassword2 = () => (<LabelInput value={LABELS.INPUT_PASSWORD2} />)
 
-export const LabelInputEmail = () => {
-    return (
-        <LabelInput value={LABELS.INPUT_EMAIL} />
-    )
-}
-
-export const GroupInputUsername = () => {
-    return (
-        <GroupInput
-            name='username'
-            label={<LabelInputUsername />}
-            input={<MappedInputStringUsername />}
-            message={<MappedMessageInputUsername />}
-        />
-    )
-}
-
-export const GroupInputPassword = () => {
-    return (
-        <GroupInput
-            name='password'
-            label={<LabelInputPassword />}
-            input={<MappedInputHiddenPassword />}
-            message={<MappedMessageInputPassword />}
-        />
-    )
-}
-
-export const GroupInputPassword2 = () => {
-    return (
-        <GroupInput
-            name='password2'
-            label={<LabelInputPassword2 />}
-            input={<MappedInputHiddenPassword2 />}
-            message={<MappedMessageInputPassword2 />}
-        />
-    )
-}
-export const GroupInputEmail = () => {
-    return (
-        <GroupInput
-            name='email'
-            label={<LabelInputEmail />}
-            input={<MappedInputStringEmail />}
-            message={<MappedMessageInputEmail />}
-        />
-    )
-}
+export const LabelInputEmail = () => (<LabelInput value={LABELS.INPUT_EMAIL} />)
 
 // --- --- --- --- --- --- --- --- ---
 
+export const GroupInputUsername = () => (
 
-export const InputUsername = ({value, message, allowEdit, onChange}) => {
-    return (
-        <InputValue 
-            name = 'username'
-            label = {LABELS.INPUT_USERNAME}
-            value = {value}
-            message = {message}
-            allowEdit = {allowEdit}
-            onChange = {onChange}
-        />
-    )
-}
+    <GroupInput
+        name='username'
+        label={<LabelInputUsername />}
+        input={<MappedInputStringUsername />}
+        message={<MappedMessageInputUsername />}
+    />
+)
 
-export const InputPassword = ({value, message, allowEdit, onChange}) => {
-    return (
-        <InputValue 
-            type = 'password'
-            name = 'password'
-            label = {LABELS.INPUT_PASSWORD}
-            value = {value}
-            message = {message}
-            allowEdit = {allowEdit}
-            onChange = {onChange}
-        />
-    )
-}
+export const GroupInputPassword = () => (
 
-export const InputPassword2 = ({value, message, allowEdit, onChange}) => {
-    return (
-        <InputValue 
-            type = 'password'
-            name = 'password2'
-            label = {LABELS.INPUT_PASSWORD2}
-            value = {value}
-            message = {message}
-            allowEdit = {allowEdit}
-            onChange = {onChange}
-        />
-    )
-}
+    <GroupInput
+        name='password'
+        label={<LabelInputPassword />}
+        input={<MappedInputHiddenPassword />}
+        message={<MappedMessageInputPassword />}
+    />
+)
 
-export const InputEmail = ({value, message, allowEdit, onChange}) => {
-    return (
-        <InputValue 
-            name = 'email'
-            label = {LABELS.INPUT_EMAIL}
-            value = {value}
-            message = {message}
-            allowEdit = {allowEdit}
-            onChange = {onChange}
-        />
-    )
-}
+export const GroupInputPassword2 = () => (
 
-// --- --- --- --- --- --- --- --- ---
+    <GroupInput
+        name='password2'
+        label={<LabelInputPassword2 />}
+        input={<MappedInputHiddenPassword2 />}
+        message={<MappedMessageInputPassword2 />}
+    />
+)
+
+export const GroupInputEmail = () => (
+
+    <GroupInput
+        name='email'
+        label={<LabelInputEmail />}
+        input={<MappedInputStringEmail />}
+        message={<MappedMessageInputEmail />}
+    />
+)

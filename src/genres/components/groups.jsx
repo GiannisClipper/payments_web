@@ -11,10 +11,11 @@ import {
     GroupInputCode,
     GroupInputName,
     GroupInputIsIncoming,
+    GroupInputFund,
 } from './inputs.jsx';
 
-import {
-    MappedInputFund,
+import { MappedButtonRequestFund,
+         MappedRelatedFundList,
 } from '../containers.js';
 
 import { LABELS as CORE_LABELS } from '../../core/constants.js';
@@ -23,14 +24,38 @@ import { NAMESPACE, LABELS } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const GroupInputs = ({message}) => {
+export const RelatedFundList = ({items}) => {
+
+    const fields = ['code', 'name'];
+
+    let key = 0;
+
+    return (
+        <div className='related_list'>
+            <ul className='items'>
+                {items.order.map(id => (
+                    <li key={id}>
+                        {fields.map(field => 
+                            (<span key={key++}>{items.data[id][field]}</span>)
+                        )}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    )
+}
+
+export const GroupInputs = ({message, allowRelatedFundList}) => {
 
     const inputs = [
         GroupInputId,
         GroupInputCode,
         GroupInputName,
         GroupInputIsIncoming,
-        MappedInputFund,
+        GroupInputFund,
+        (allowRelatedFundList?
+        MappedRelatedFundList:
+        MappedButtonRequestFund),
     ];
 
     return (

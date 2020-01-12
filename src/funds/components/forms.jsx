@@ -13,27 +13,27 @@ import {
 
 // --- --- --- --- --- --- --- --- ---
 
-export const FundsForm = ({mode}) => {
+export const FundsForm = ({mode}) => (
 
-    return (
-        <CRUDForm 
-            namespace={NAMESPACE}
-            title={LABELS.MENU_FUNDS}
-            mode={mode}
-            hostArgs={
-                mode === 'CREATE'?HOST_ARGS.CREATE_FUNDS:
-                mode === 'RETRIEVE'?HOST_ARGS.RETRIEVE_FUNDS:
-                mode === 'UPDATE'?HOST_ARGS.UPDATE_FUNDS:
-                mode === 'DELETE'?HOST_ARGS.DELETE_FUNDS:
-                null
-            }
-            GroupInputs={
-                mode === 'CREATE'?MappedGroupInputs:
-                mode === 'RETRIEVE'?MappedGroupInputs:
-                mode === 'UPDATE'?MappedGroupInputs:
-                mode === 'DELETE'?MappedGroupInputs:
-                MappedGroupItems
-            }
-        />
-    )
-}
+    <CRUDForm 
+        namespace={NAMESPACE}
+        title={LABELS.MENU_FUNDS}
+        mode={mode}
+
+        hostArgs={
+            mode === 'CREATE'?HOST_ARGS.CREATE_FUNDS:
+            mode === 'RETRIEVE'?HOST_ARGS.RETRIEVE_FUNDS:
+            mode === 'UPDATE'?HOST_ARGS.UPDATE_FUNDS:
+            mode === 'DELETE'?HOST_ARGS.DELETE_FUNDS:
+            null
+        }
+
+        GroupInputs={
+            mode === 'CREATE'?MappedGroupInputs:
+            mode === 'RETRIEVE'?MappedGroupInputs:
+            mode === 'UPDATE'?MappedGroupInputs:
+            mode === 'DELETE'?MappedGroupInputs:
+            MappedGroupItems
+        }
+    />
+)

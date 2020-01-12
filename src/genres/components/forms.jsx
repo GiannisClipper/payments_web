@@ -13,27 +13,27 @@ import {
 
 // --- --- --- --- --- --- --- --- ---
 
-export const GenresForm = ({mode}) => {
+export const GenresForm = ({mode}) => (
 
-    return (
-        <CRUDForm 
-            namespace={NAMESPACE}
-            title={LABELS.MENU_GENRES}
-            mode={mode}
-            hostArgs={
-                mode === 'CREATE'?HOST_ARGS.CREATE_GENRES:
-                mode === 'RETRIEVE'?HOST_ARGS.RETRIEVE_GENRES:
-                mode === 'UPDATE'?HOST_ARGS.UPDATE_GENRES:
-                mode === 'DELETE'?HOST_ARGS.DELETE_GENRES:
-                null
-            } 
-            GroupInputs={
-                mode === 'CREATE'?MappedGroupInputs:
-                mode === 'RETRIEVE'?MappedGroupInputs:
-                mode === 'UPDATE'?MappedGroupInputs:
-                mode === 'DELETE'?MappedGroupInputs:
-                MappedGroupItems
-            }
-        />
-    )
-}
+    <CRUDForm 
+        namespace={NAMESPACE}
+        title={LABELS.MENU_GENRES}
+        mode={mode}
+
+        hostArgs={
+            mode === 'CREATE'?HOST_ARGS.CREATE_GENRES:
+            mode === 'RETRIEVE'?HOST_ARGS.RETRIEVE_GENRES:
+            mode === 'UPDATE'?HOST_ARGS.UPDATE_GENRES:
+            mode === 'DELETE'?HOST_ARGS.DELETE_GENRES:
+            null
+        } 
+
+        GroupInputs={
+            mode === 'CREATE'?MappedGroupInputs:
+            mode === 'RETRIEVE'?MappedGroupInputs:
+            mode === 'UPDATE'?MappedGroupInputs:
+            mode === 'DELETE'?MappedGroupInputs:
+            MappedGroupItems
+        }
+    />
+)

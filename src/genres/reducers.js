@@ -26,6 +26,7 @@ const initialRelated = {
 			data: {}, 
 			order: [],
 		},
+		allowList: false,
 	}
 };
 
@@ -67,12 +68,13 @@ export const genresReducer = (state=initialState(initialData, initialRelated), a
 			stateCopy.related.fund.filter = `${stateCopy.data.fund.id} ${stateCopy.data.fund.name}`;
 			return stateCopy;
 		
-		case `${NAMESPACE}/${ACTIONS.SUCCESS_RETRIEVE_FUNDS}`:
+		case `${NAMESPACE}/${ACTIONS.SUCCESS_RETRIEVE_FUND}`:
 			stateCopy = {...state};
 			stateCopy.related.fund.items.data = {};
 			stateCopy.related.fund.items.order = [];
 			action.payload.data.forEach(x => stateCopy.related.fund.items.data[x.id] = x);
 			action.payload.data.forEach(x => stateCopy.related.fund.items.order.push(x.id));
+			stateCopy.related.fund.allowList = true;
 			return stateCopy;
 
 		default:

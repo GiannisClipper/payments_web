@@ -7,6 +7,7 @@ import { HOST_ARGS } from '../root/constants.js';
 import { GenresForm } from './components/forms.jsx';
 
 import { 
+    RelatedFundList,
     GroupInputs,
     GroupItems,
 } from './components/groups.jsx';
@@ -16,10 +17,9 @@ import {
     MessageInput,
 } from '../core/components/inputs.jsx';
 
-import {
-    InputRadioIsIncoming,
-    InputFund,
-} from './components/inputs.jsx';
+import { InputRadioIsIncoming } from './components/inputs.jsx';
+
+import { ButtonRequestFund } from './components/buttons.jsx';
 
 import {
 	onChangeCode,
@@ -28,7 +28,7 @@ import {
     onChangeFund,
     onFocusFund,
     onBlurFund,
-    onSuccessRetrieveFunds,
+    onSuccessRetrieveFund,
 } from './actions.js';
 
 import { onRequestProcess } from '../core/actions.js';
@@ -51,6 +51,7 @@ export const MappedGenresForm = connect(
 export const MappedGroupInputs = connect(
     state => ({
         message: state[NAMESPACE].errors.errors,
+        allowRelatedFundList: state[NAMESPACE].related.fund.allowList,
     }),
     ({})
 )(GroupInputs);
@@ -96,44 +97,44 @@ export const MappedInputRadioIsIncoming = connect(
     })
 )(InputRadioIsIncoming);
 
+export const MappedInputStringFund = connect(
+    state => ({
+        value: state[NAMESPACE].related.fund.filter, //(x => x?`${x.id} ${x.name}`:'')(state[NAMESPACE].data.fund),
+        allowEdit: state[NAMESPACE].uiux.allowEdit,
+    }),
+    dispatch => ({
+        onChange: value => dispatch(onChangeFund(value)),
+        onFocus: () => dispatch(onFocusFund()),
+        onBlur: () => dispatch(onBlurFund()),
+    })
+)(InputString);
+
+export const MappedButtonRequestFund = connect(
+    (state, {namespace, hostArgs}) => ({
+        allowRequest: state[NAMESPACE].uiux.allowEdit,
+        auth: state.auth,
+        data: state[NAMESPACE].data.fund,
+        isLoading: state[NAMESPACE].uiux.isLoading,
+    }),
+    (dispatch, {namespace, hostArgs}) => ({
+        onRequest: (auth, data) => dispatch(onRequestProcess(NAMESPACE, HOST_ARGS.RETRIEVE_FUNDS, auth, data, onSuccessRetrieveFund)),
+    })
+)(ButtonRequestFund);
+
+export const MappedRelatedFundList = connect(
+    state => ({
+        items: state[NAMESPACE].related.fund.items,
+    }),
+)(RelatedFundList);
 
 export const MappedMessageInputCode = connect(
     state => ({
-        message: state[NAMESPACE].errors.code,
+        value: state[NAMESPACE].errors.code,
     }),
 )(MessageInput);
 
 export const MappedMessageInputName = connect(
     state => ({
-        message: state[NAMESPACE].errors.name,
+        value: state[NAMESPACE].errors.name,
     }),
 )(MessageInput);
-
-
-
-
-export const MappedInputFund = connect(
-    state => ({
-        input: {
-            value: state[NAMESPACE].related.fund.filter, //(x => x?`${x.id} ${x.name}`:'')(state[NAMESPACE].data.fund),
-            message: state[NAMESPACE].errors.fund,
-            allowEdit: state[NAMESPACE].uiux.allowEdit,    
-        },
-        request: {
-            isLoading: state[NAMESPACE].uiux.isLoading,
-            auth: state.auth,
-            data: state[NAMESPACE].data.fund,    
-        },
-        list: {
-            items: state[NAMESPACE].related.fund.items,
-        },
-    }),
-    dispatch => ({
-        events: {
-            onChange: value => dispatch(onChangeFund(value)),
-            onFocus: () => dispatch(onFocusFund()),
-            onBlur: () => dispatch(onBlurFund()),
-            onRequest: (auth, data) => dispatch(onRequestProcess(NAMESPACE, HOST_ARGS.RETRIEVE_FUNDS, auth, data, onSuccessRetrieveFunds)),
-        },
-    })
-)(InputFund);

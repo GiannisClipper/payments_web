@@ -16,36 +16,28 @@ import { LABELS } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const LabelInputCode = () => {
-    return (
-        <LabelInput value={LABELS.INPUT_CODE} />
-    )
-}
+export const LabelInputCode = () => (<LabelInput value={LABELS.INPUT_CODE} />)
 
-export const LabelInputName = () => {
-    return (
-        <LabelInput value={LABELS.INPUT_NAME} />
-    )
-}
+export const LabelInputName = () => (<LabelInput value={LABELS.INPUT_NAME} />)
 
-export const GroupInputCode = () => {
-    return (
-        <GroupInput
-            name='code'
-            label={<LabelInputCode />}
-            input={<MappedInputStringCode />}
-            message={<MappedMessageInputCode />}
-        />
-    )
-}
+// --- --- --- --- --- --- --- --- ---
 
-export const GroupInputName = () => {
-    return (
-        <GroupInput
-            name='name'
-            label={<LabelInputName />}
-            input={<MappedInputStringName />}
-            message={<MappedMessageInputName />}
-        />
-    )
-}
+export const GroupInputCode = () => (
+
+    <GroupInput
+        name='code'
+        label={<LabelInputCode />}
+        input={<MappedInputStringCode />}
+        message={<MappedMessageInputCode />}
+    />
+)
+
+export const GroupInputName = () => (
+ 
+    <GroupInput
+        name='name'
+        label={<LabelInputName />}
+        input={<MappedInputStringName />}
+        message={<MappedMessageInputName />}
+    />
+)

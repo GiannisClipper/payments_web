@@ -21,45 +21,41 @@ export class ButtonSelect extends React.Component {
     }
 }
 
-export const ButtonSelectCreate = ({onSelect}) => {
-    return (
-        <ButtonSelect
-            name = 'create'
-            label = {LABELS.BUTTON_SELECT_CREATE}
-            onSelect = {onSelect}
-        />
-    )
-}
+export const ButtonSelectCreate = ({onSelect}) => (
 
-export const ButtonSelectRetrieve = ({onSelect}) => {
-    return (
-        <ButtonSelect
-            name = 'retrieve'
-            label = {LABELS.BUTTON_SELECT_RETRIEVE}
-            onSelect = {onSelect}
-        />
-    )
-}
+    <ButtonSelect
+        name = 'create'
+        label = {LABELS.BUTTON_SELECT_CREATE}
+        onSelect = {onSelect}
+    />
+)
 
-export const ButtonSelectUpdate = ({onSelect}) => {
-    return (
-        <ButtonSelect
-            name = 'update'
-            label = {LABELS.BUTTON_SELECT_UPDATE}
-            onSelect = {onSelect}
-        />
-    )
-}
+export const ButtonSelectRetrieve = ({onSelect}) => (
 
-export const ButtonSelectDelete = ({onSelect}) => {
-    return (
-        <ButtonSelect
-            name = 'delete'
-            label = {LABELS.BUTTON_SELECT_DELETE}
-            onSelect = {onSelect}
-        />
-    )
-}
+    <ButtonSelect
+        name = 'retrieve'
+        label = {LABELS.BUTTON_SELECT_RETRIEVE}
+        onSelect = {onSelect}
+    />
+)
+
+export const ButtonSelectUpdate = ({onSelect}) => (
+
+    <ButtonSelect
+        name = 'update'
+        label = {LABELS.BUTTON_SELECT_UPDATE}
+        onSelect = {onSelect}
+    />
+)
+
+export const ButtonSelectDelete = ({onSelect}) => (
+
+    <ButtonSelect
+        name = 'delete'
+        label = {LABELS.BUTTON_SELECT_DELETE}
+        onSelect = {onSelect}
+    />
+)
 
 // --- --- --- --- --- --- --- --- ---
 // Button request...
@@ -87,73 +83,68 @@ export class ButtonRequest extends React.Component {
     }
 }
 
-export const ButtonRequestCreate = ({auth, data, allowRequest, isLoading, onRequest}) => {
-    return (
-        <ButtonRequest
-            name = 'create'
-            label = {LABELS.BUTTON_REQUEST_CREATE}
-            allowRequest = {allowRequest}
-            onRequest = {onRequest}
-            auth = {auth}
-            data = {data}
-            isLoading = {isLoading}
-        />
-    )
-}
+export const ButtonRequestCreate = ({auth, data, allowRequest, isLoading, onRequest}) => (
+        
+    <ButtonRequest
+        name = 'create'
+        label = {LABELS.BUTTON_REQUEST_CREATE}
+        allowRequest = {allowRequest}
+        onRequest = {onRequest}
+        auth = {auth}
+        data = {data}
+        isLoading = {isLoading}
+    />
+)
 
-export const ButtonRequestRetrieve = ({auth, data, isLoading, onRequest}) => {
-    return (
-        <ButtonRequest
-            name = 'retrieve'
-            label = {LABELS.BUTTON_REQUEST_RETRIEVE}
-            allowRequest = {true}
-            onRequest = {onRequest}
-            auth = {auth}
-            data = {data}
-            isLoading = {isLoading}
-        />
-    )
-}
+export const ButtonRequestRetrieve = ({auth, data, isLoading, onRequest}) => (
 
-export const ButtonRequestUpdate = ({auth, data, allowRequest, isLoading, onRequest}) => {
-    return (
-        <ButtonRequest
-            name = 'update'
-            label = {LABELS.BUTTON_REQUEST_UPDATE}
-            allowRequest = {allowRequest}
-            onRequest = {onRequest}
-            auth = {auth}
-            data = {data}
-            isLoading = {isLoading}
-        />
-    )
-}
+    <ButtonRequest
+        name = 'retrieve'
+        label = {LABELS.BUTTON_REQUEST_RETRIEVE}
+        allowRequest = {true}
+        onRequest = {onRequest}
+        auth = {auth}
+        data = {data}
+        isLoading = {isLoading}
+    />
+)
 
-export const ButtonRequestDelete = ({auth, data, isLoading, onRequest}) => {
-    return (
-        <ButtonRequest
-            name = 'delete'
-            label = {LABELS.BUTTON_REQUEST_DELETE}
-            allowRequest = {true}
-            onRequest = {onRequest}
-            auth = {auth}
-            data = {data}
-            isLoading = {isLoading}
-        />
-    )
-}
+export const ButtonRequestUpdate = ({auth, data, allowRequest, isLoading, onRequest}) => (
+
+    <ButtonRequest
+        name = 'update'
+        label = {LABELS.BUTTON_REQUEST_UPDATE}
+        allowRequest = {allowRequest}
+        onRequest = {onRequest}
+        auth = {auth}
+        data = {data}
+        isLoading = {isLoading}
+    />
+)
+
+export const ButtonRequestDelete = ({auth, data, isLoading, onRequest}) => (
+
+    <ButtonRequest
+        name = 'delete'
+        label = {LABELS.BUTTON_REQUEST_DELETE}
+        allowRequest = {true}
+        onRequest = {onRequest}
+        auth = {auth}
+        data = {data}
+        isLoading = {isLoading}
+    />
+)
 
 // --- --- --- --- --- --- --- --- ---
 // Button close...
 // --- --- --- --- --- --- --- --- ---
 
-export const ButtonCloseData = ({onClose}) => {
-    return (
-        <button
+export const ButtonCloseData = ({onClose}) => (
+
+    <button
             onClick={() => onClose()}
         >{LABELS.BUTTON_CLOSE_MODE}</button>
     )
-}
 
 export const ButtonCloseForm = ({onClose, onGoHome}) => {
     let history = useHistory();

@@ -97,24 +97,24 @@ export const MappedInputStringEmail = connect(
 
 export const MappedMessageInputUsername = connect(
     state => ({
-        message: state[NAMESPACE].errors.username,
+        value: state[NAMESPACE].errors.username,
     }),
 )(MessageInput);
 
 export const MappedMessageInputPassword = connect(
     state => ({
-        message: state[NAMESPACE].errors.password,
+        value: state[NAMESPACE].errors.password,
     }),
 )(MessageInput);
 
 export const MappedMessageInputPassword2 = connect(
     state => ({
-        message: state[NAMESPACE].errors.password2,
+        value: state[NAMESPACE].errors.password2,
     }),
 )(MessageInput);
 
 export const MappedMessageInputEmail = connect(
     state => ({
-        message: state[NAMESPACE].errors.email,
+        value: state[NAMESPACE].errors.email,
     }),
 )(MessageInput);

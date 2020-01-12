@@ -42,9 +42,9 @@ export const onBlurFund = () => {
     }
 }
 
-export const onSuccessRetrieveFunds = (namespace, data) => {
+export const onSuccessRetrieveFund = (namespace, data) => {
     return {
-        type: `${NAMESPACE}/${ACTIONS.SUCCESS_RETRIEVE_FUNDS}`,
+        type: `${NAMESPACE}/${ACTIONS.SUCCESS_RETRIEVE_FUND}`,
 		payload: {...data},
     }
 }

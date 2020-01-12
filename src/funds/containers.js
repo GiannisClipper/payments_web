@@ -75,12 +75,12 @@ export const MappedInputStringName = connect(
 
 export const MappedMessageInputCode = connect(
     state => ({
-        message: state[NAMESPACE].errors.code,
+        value: state[NAMESPACE].errors.code,
     }),
 )(MessageInput);
 
 export const MappedMessageInputName = connect(
     state => ({
-        message: state[NAMESPACE].errors.name,
+        value: state[NAMESPACE].errors.name,
     }),
 )(MessageInput);

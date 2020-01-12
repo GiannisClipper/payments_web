@@ -15,46 +15,42 @@ import {
 
 // --- --- --- --- --- --- --- --- ---
 
-export const ButtonSignup = ({auth, data, allowRequest, isLoading, onRequest}) => {
-    return (
-        <button
-            onClick={() => onRequest(auth, data)}
-            disabled={!allowRequest}
-        >
-            {(isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
-            {LABELS.BUTTON_SIGNUP}
-        </button>
-    )
-}
+export const ButtonSignup = ({auth, data, allowRequest, isLoading, onRequest}) => (
 
-export const ButtonSignin = ({auth, data, allowRequest, isLoading, onRequest}) => {
-    return (
-        <button
-            onClick={() => onRequest(auth, data)}
-            disabled={!allowRequest}
-        >
-            {(isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
-            {LABELS.BUTTON_SIGNIN}
-        </button>
-    )
-}
+    <button
+        onClick={() => onRequest(auth, data)}
+        disabled={!allowRequest}
+    >
+        {(isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
+        {LABELS.BUTTON_SIGNUP}
+    </button>
+)
+
+export const ButtonSignin = ({auth, data, allowRequest, isLoading, onRequest}) => (
+
+    <button
+        onClick={() => onRequest(auth, data)}
+        disabled={!allowRequest}
+    >
+        {(isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}
+        {LABELS.BUTTON_SIGNIN}
+    </button>
+)
 
 // --- --- --- --- --- --- --- --- ---
 
-export const GroupSignupButtons = props => {
-    return (
-        <div>
-            <MappedButtonSignup {...props} />
-            <MappedButtonCloseForm namespace={NAMESPACE} />
-        </div>
-    )
-}
+export const GroupSignupButtons = props => (
 
-export const GroupSigninButtons = props => {
-    return (
-        <div>
-            <MappedButtonSignin {...props} />
-            <MappedButtonCloseForm namespace={NAMESPACE} />
-        </div>
-    )
-}
+    <div>
+        <MappedButtonSignup {...props} />
+        <MappedButtonCloseForm namespace={NAMESPACE} />
+    </div>
+)
+
+export const GroupSigninButtons = props => (
+
+    <div>
+        <MappedButtonSignin {...props} />
+        <MappedButtonCloseForm namespace={NAMESPACE} />
+    </div>
+)

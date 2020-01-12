@@ -11,7 +11,7 @@ import {
 import {
     GroupSignupInputs,
     GroupSigninInputs,
-} from './components/inputs.jsx';
+} from './components/groups.jsx';
 
 import {
     ButtonSignup,
@@ -63,13 +63,13 @@ export const MappedSignoutForm = connect(
 
 export const MappedGroupSignupInputs = connect(
     state => ({
-        errors: state[NAMESPACE].errors.errors,
+        message: state[NAMESPACE].errors.errors,
     }),
 )(GroupSignupInputs);
 
 export const MappedGroupSigninInputs = connect(
     state => ({
-        errors: state[NAMESPACE].errors.errors,
+        message: state[NAMESPACE].errors.errors,
     }),
 )(GroupSigninInputs);
 
