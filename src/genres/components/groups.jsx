@@ -1,79 +1,61 @@
 import React from 'react';
 
-import { 
-    GroupInputs as CoreGroupInputs,
-    GroupItems as CoreGroupItems,
-} from '../../core/components/groups.jsx';
-
-import { GroupInputId } from '../../core/components/inputs.jsx';
+import { GroupInput } from '../../core/components/groups.jsx';
 
 import {
-    GroupInputCode,
-    GroupInputName,
-    GroupInputIsIncoming,
-    GroupInputFund,
+    LabelInputCode,
+    LabelInputName,
+    LabelInputIsIncoming,
+    LabelInputFund,
 } from './inputs.jsx';
 
-import { MappedButtonRequestFund,
-         MappedRelatedFundList,
-} from '../containers.js';
-
-import { LABELS as CORE_LABELS } from '../../core/constants.js';
-
-import { NAMESPACE, LABELS } from '../constants.js';
+import {
+    MappedInputStringCode,
+    MappedInputStringName,
+    MappedInputRadioIsIncoming,
+    MappedInputStringFund,
+    MappedMessageInputCode,
+    MappedMessageInputName,
+} from '../containers/inputs.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const GroupInputs = ({message, relatedNamespace}) => {
+export const GroupInputCode = () => (
 
-    const inputs = [
-        GroupInputId,
-        GroupInputCode,
-        GroupInputName,
-        GroupInputIsIncoming,
-        GroupInputFund,
-        MappedButtonRequestFund,
-    ];
+    <GroupInput
+        name='code'
+        label={<LabelInputCode />}
+        input={<MappedInputStringCode />}
+        message={<MappedMessageInputCode />}
+    />
+)
 
-    if (relatedNamespace)
-        inputs.push(MappedRelatedFundList);
+export const GroupInputName = () => (
 
-    return (
-        <CoreGroupInputs 
-            namespace={NAMESPACE}
-            inputs={inputs}
-            message={message} 
-        />
-    )
-}
+    <GroupInput
+        name='name'
+        label={<LabelInputName />}
+        input={<MappedInputStringName />}
+        message={<MappedMessageInputName />}
+    />
+)
 
-export const GroupItems = ({items}) => {
+export const GroupInputIsIncoming = () => (
 
-    const labels = [
-        CORE_LABELS.INPUT_ID,
-        LABELS.INPUT_CODE,
-        LABELS.INPUT_NAME,
-        LABELS.INPUT_IS_INCOMING,
-        LABELS.INPUT_FUND,
-    ];
+    <GroupInput
+        name='is_incoming'
+        label={<LabelInputIsIncoming />}
+        input={<MappedInputRadioIsIncoming />}
+        message={null}
+    />
+)
 
-    const fields = [
-        'id',
-        'code',
-        'name',
-        'is_incoming',
-        {fund: [
-            'id',
-            'name'
-        ]},
-    ];
+export const GroupInputFund = () => (
 
-    return (
-        <CoreGroupItems
-            namespace={NAMESPACE}
-            labels={labels} 
-            fields={fields} 
-            items={items} 
-        />
-    )
-}
+    <GroupInput
+        name='fund'
+        label={<LabelInputFund />}
+        input={<MappedInputStringFund />}
+        message={null}
+    />
+)

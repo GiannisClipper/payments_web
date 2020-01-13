@@ -1,48 +1,30 @@
 import React from 'react';
 
-import { GroupInputs } from '../../core/components/groups.jsx';
+import {
+    MappedButtonCloseForm,
+} from '../../core/containers/buttons.js';
 
 import {
-    GroupInputUsername,
-    GroupInputPassword,
-    GroupInputPassword2,
-    GroupInputEmail,
-} from '../../users/components/inputs.jsx';
+    MappedButtonSignup,
+    MappedButtonSignin,
+} from '../containers/buttons.js';
 
 import { NAMESPACE } from '../../users/constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const GroupSignupInputs = ({message}) => {
+export const GroupSignupButtons = props => (
 
-    const inputs = [
-        GroupInputUsername,
-        GroupInputPassword,
-        GroupInputPassword2,
-        GroupInputEmail,
-    ];
+    <div>
+        <MappedButtonSignup {...props} />
+        <MappedButtonCloseForm namespace={NAMESPACE} />
+    </div>
+)
 
-    return (
-        <GroupInputs 
-            namespace={NAMESPACE}
-            inputs={inputs}
-            message={message} 
-        />
-    )
-}
+export const GroupSigninButtons = props => (
 
-export const GroupSigninInputs = ({message}) => {
-
-    const inputs = [
-        GroupInputUsername,
-        GroupInputPassword,
-    ];
-
-    return (
-        <GroupInputs 
-            namespace={NAMESPACE}
-            inputs={inputs}
-            message={message} 
-        />
-    )
-}
+    <div>
+        <MappedButtonSignin {...props} />
+        <MappedButtonCloseForm namespace={NAMESPACE} />
+    </div>
+)

@@ -5,12 +5,12 @@ import { Form } from '../../core/components/forms.jsx';
 import {
     GroupSignupButtons,
     GroupSigninButtons,
-} from './buttons.jsx';
+} from './groups.jsx';
 
 import {
-    MappedGroupSignupInputs,
-    MappedGroupSigninInputs,
-} from '../containers.js';
+    MappedSignupSectionInputs,
+    MappedSigninSectionInputs,
+} from '../containers/sections.js';
 
 import { LABELS, HOST_ARGS } from '../../root/constants.js';
 
@@ -29,8 +29,8 @@ export const SignupForm = ({onSelectCreate}) => {
             mode={null}
             hostArgs={HOST_ARGS.SIGNUP}
     
-            GroupInputs={MappedGroupSignupInputs}
-            GroupButtons={GroupSignupButtons}
+            SectionData={MappedSignupSectionInputs}
+            SectionButtons={GroupSignupButtons}
         />
     )
 }
@@ -46,8 +46,8 @@ export const SigninForm = ({onSelectRetrieve}) => {
             mode={null}
             hostArgs={HOST_ARGS.SIGNIN}
     
-            GroupInputs={MappedGroupSigninInputs}
-            GroupButtons={GroupSigninButtons}
+            SectionData={MappedSigninSectionInputs}
+            SectionButtons={GroupSigninButtons}
         />
     )
 }
@@ -60,5 +60,3 @@ export const SignoutForm = ({auth, onSignout}) => {
 
     return (<></>);
 }
-
-// --- --- --- --- --- --- --- --- ---

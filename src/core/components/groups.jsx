@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { LabelInputId } from './inputs.jsx';
+
+import { MappedInputStringId } from '../containers/inputs.js';
+
 import {
     MappedButtonSelectCreate,
     MappedButtonSelectRetrieve,
@@ -13,71 +17,29 @@ import {
 
     MappedButtonCloseForm,
     MappedButtonCloseMode,
-} from '../containers.js';
+} from '../containers/buttons.js';
+
 
 // --- --- --- --- --- --- --- --- ---
 
-export class GroupInputs extends React.Component {
+export const GroupInput = ({name, label, input, message}) => (
 
-    render() {
-        const namespace = this.props.namespace;
-        const inputs = this.props.inputs;
-        const message = this.props.message;
-        let key = 0;
+    <span className={`group_input group_input_${name}`}>
+        {label?label:null}
+        {input?input:null}
+        {message?message:null}
+    </span>
+)
 
-        return (
-            <div className='data'>
-                <span className='message'>{message?message:''}</span>
+export const GroupInputId = ({namespace}) => (
 
-                {inputs.map(AnInput => (
-                    <li key={key++}>
-                        <span><AnInput {...{namespace}} /></span>
-                    </li>
-                ))}
-            </div>
-        )
-    }
-}
-
-export class GroupItems extends React.Component {
-
-    render() {
-        const namespace = this.props.namespace;
-        const labels = this.props.labels;
-        const fields = this.props.fields;
-        const items = this.props.items;
-        let key = 0;
-
-        return (
-            <div className='data'>
-                <span className='labels'>
-                    {labels.map(label => (
-                        <span key={key++}>{label}</span>
-                    ))}
-                </span>
-                <ul className='items'>
-                    {items.order.map(id => (
-                        <li key={id}>
-                            {fields.map(field => 
-                                !items.data[id][field]?
-                                    (<span key={key++}></span>)
-                                :typeof field !== 'object'?
-                                    (<span key={key++}>{items.data[id][field]}</span>)
-                                :
-                                    field[Object.keys(field)[0]].map(subField =>
-                                        (<span key={key++}>{items.data[id][field][subField]}</span>))
-                            )}
-                            <GroupItemButtons {...{namespace, id}} />
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        )
-    }
-}
-
-// --- --- --- --- --- --- --- --- ---
-// Group buttons
+    <GroupInput
+        name='id'
+        label={<LabelInputId />}
+        input={<MappedInputStringId namespace={namespace} />}
+        message={null}
+    />
+)
 // --- --- --- --- --- --- --- --- ---
 
 export const GroupFormButtons = props => {

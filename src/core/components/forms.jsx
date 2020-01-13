@@ -10,7 +10,7 @@ import {
 
 // --- --- --- --- --- --- --- --- ---
 
-export const Form = ({namespace, title, mode, hostArgs, GroupInputs, GroupButtons}) => {
+export const Form = ({namespace, title, mode, hostArgs, SectionData, SectionButtons}) => {
 
     mode = mode?mode.toLowerCase():'';
 
@@ -20,11 +20,11 @@ export const Form = ({namespace, title, mode, hostArgs, GroupInputs, GroupButton
                 {title}
             </div>
 
-            <GroupInputs
+            <SectionData
                 namespace = {namespace}
             />
 
-            <GroupButtons
+            <SectionButtons
                 namespace = {namespace}
                 hostArgs = {hostArgs} 
             />
@@ -32,15 +32,15 @@ export const Form = ({namespace, title, mode, hostArgs, GroupInputs, GroupButton
     )
 }
 
-export const CRUDForm = ({namespace, title, mode, hostArgs, GroupInputs}) => (
+export const CRUDForm = ({namespace, title, mode, hostArgs, SectionData}) => (
 
     <Form
         namespace = {namespace}
         title = {title}
         mode = {mode}
         hostArgs = {hostArgs}
-        GroupInputs = {GroupInputs}
-        GroupButtons={
+        SectionData = {SectionData}
+        SectionButtons={
             mode === 'CREATE'?GroupCreateButtons:
             mode === 'RETRIEVE'?GroupRetrieveButtons:
             mode === 'UPDATE'?GroupUpdateButtons:
@@ -49,22 +49,3 @@ export const CRUDForm = ({namespace, title, mode, hostArgs, GroupInputs}) => (
         } 
     />
 )
-
-export const RelatedList = ({items, onSelect}) => {
-
-    let key = 0;
-
-    return (
-        <div className='related_list'>
-            <ul className='items'>
-                {items.order.map(id => (
-                    <li key={id} onClick={() => onSelect(id)}>
-                        {items.reprKeys.map(k => 
-                            (<span key={key++}>{items.data[id][k]}</span>)
-                        )}
-                    </li>
-                ))}
-            </ul>
-        </div>
-    )
-}

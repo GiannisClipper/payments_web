@@ -2,14 +2,14 @@ import React from 'react';
 
 import { CRUDForm } from '../../core/components/forms.jsx';
 
-import { LABELS, HOST_ARGS } from '../../root/constants.js';
+import {
+    MappedSectionInputs,
+    MappedSectionList,
+} from '../containers/sections.js';
+
+import { LABELS as ROOT_LABELS, HOST_ARGS } from '../../root/constants.js';
 
 import { NAMESPACE } from '../constants.js';
-
-import {
-    MappedGroupInputs,
-    MappedGroupItems,
-} from '../containers.js';
 
 // --- --- --- --- --- --- --- --- ---
 
@@ -17,7 +17,7 @@ export const UsersForm = ({mode}) => (
 
     <CRUDForm 
         namespace={NAMESPACE}
-        title={LABELS.MENU_USERS}
+        title={ROOT_LABELS.MENU_USERS}
         mode={mode}
 
         hostArgs={
@@ -28,12 +28,12 @@ export const UsersForm = ({mode}) => (
             null
         } 
 
-        GroupInputs={
-            mode === 'CREATE'?MappedGroupInputs:
-            mode === 'RETRIEVE'?MappedGroupInputs:
-            mode === 'UPDATE'?MappedGroupInputs:
-            mode === 'DELETE'?MappedGroupInputs:
-            MappedGroupItems
+        SectionData={
+            mode === 'CREATE'?MappedSectionInputs:
+            mode === 'RETRIEVE'?MappedSectionInputs:
+            mode === 'UPDATE'?MappedSectionInputs:
+            mode === 'DELETE'?MappedSectionInputs:
+            MappedSectionList
         }
     />
 )

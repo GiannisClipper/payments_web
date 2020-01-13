@@ -7,6 +7,5 @@ import { NAMESPACE } from '../auth/constants.js';
 export const MappedApp = connect(
     state => ({
         auth: state[NAMESPACE],
-    }), 
-    ({})
+    }),
 )(App);

@@ -1,68 +1,63 @@
 import React from 'react';
 
-import { 
-    GroupInputs as CoreGroupInputs,
-    GroupItems as CoreGroupItems,
-} from '../../core/components/groups.jsx';
-
-import { GroupInputId } from '../../core/components/inputs.jsx';
+import { GroupInput } from '../../core/components/groups.jsx';
 
 import {
-    GroupInputUsername,
-    GroupInputPassword,
-    GroupInputPassword2,
-    GroupInputEmail,
+    LabelInputUsername,
+    LabelInputPassword,
+    LabelInputPassword2,
+    LabelInputEmail,
 } from './inputs.jsx';
 
-import { LABELS as CORE_LABELS } from '../../core/constants.js';
-
-import { NAMESPACE, LABELS } from '../constants.js';
+import {
+    MappedInputStringUsername,
+    MappedInputHiddenPassword,
+    MappedInputHiddenPassword2,
+    MappedInputStringEmail,
+    MappedMessageInputUsername,
+    MappedMessageInputPassword,
+    MappedMessageInputPassword2,
+    MappedMessageInputEmail,
+} from '../containers/inputs.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const GroupInputs = ({message}) => {
+export const GroupInputUsername = () => (
 
-    const inputs = [
-        GroupInputId,
-        GroupInputUsername,
-        GroupInputPassword,
-        GroupInputPassword2,
-        GroupInputEmail,
-    ];
+    <GroupInput
+        name='username'
+        label={<LabelInputUsername />}
+        input={<MappedInputStringUsername />}
+        message={<MappedMessageInputUsername />}
+    />
+)
 
-    return (
-        <CoreGroupInputs 
-            namespace={NAMESPACE}
-            inputs={inputs}
-            message={message} 
-        />
-    )
-}
+export const GroupInputPassword = () => (
 
-export const GroupItems = ({items}) => {
+    <GroupInput
+        name='password'
+        label={<LabelInputPassword />}
+        input={<MappedInputHiddenPassword />}
+        message={<MappedMessageInputPassword />}
+    />
+)
 
-    const labels = [
-        CORE_LABELS.INPUT_ID,
-        LABELS.INPUT_USERNAME,
-        LABELS.INPUT_PASSWORD,
-        LABELS.INPUT_PASSWORD2,
-        LABELS.INPUT_EMAIL
-    ];
+export const GroupInputPassword2 = () => (
 
-    const fields = [
-        'id',
-        'username',
-        'password',
-        'password2',
-        'email'
-    ];
+    <GroupInput
+        name='password2'
+        label={<LabelInputPassword2 />}
+        input={<MappedInputHiddenPassword2 />}
+        message={<MappedMessageInputPassword2 />}
+    />
+)
 
-    return (
-        <CoreGroupItems
-            namespace={NAMESPACE}
-            labels={labels} 
-            fields={fields} 
-            items={items} 
-        />
-    )
-}
+export const GroupInputEmail = () => (
+
+    <GroupInput
+        name='email'
+        label={<LabelInputEmail />}
+        input={<MappedInputStringEmail />}
+        message={<MappedMessageInputEmail />}
+    />
+)

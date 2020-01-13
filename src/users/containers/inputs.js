@@ -1,58 +1,20 @@
 import { connect } from 'react-redux';
 
-import { NAMESPACE } from './constants.js';
-
-import { UsersForm } from './components/forms.jsx';
-
-import { 
-    GroupInputs,
-    GroupItems,
-} from './components/groups.jsx';
-
 import {
     InputString,
     InputHidden,
     MessageInput,
-} from '../core/components/inputs.jsx';
+} from '../../core/components/inputs.jsx';
 
 import {
 	onChangeUsername,
 	onChangePassword,
 	onChangePassword2,
     onChangeEmail,
-} from './actions.js';
+} from '../actions.js';
 
-// --- --- --- --- --- --- --- --- ---
-// Forms
-// --- --- --- --- --- --- --- --- ---
+import { NAMESPACE } from '../constants.js';
 
-export const MappedUsersForm = connect(
-    state => ({
-        mode: state[NAMESPACE].uiux.mode,
-    }), 
-    dispatch => ({})
-)(UsersForm);
-
-// --- --- --- --- --- --- --- --- ---
-// Groups
-// --- --- --- --- --- --- --- --- ---
-
-export const MappedGroupInputs = connect(
-    state => ({
-        message: state[NAMESPACE].errors.errors,
-    }),
-    ({})
-)(GroupInputs);
-
-export const MappedGroupItems = connect(
-    (state, {items}) => ({
-        items: state[NAMESPACE].items,
-    }),
-    ({})
-)(GroupItems);
-
-// --- --- --- --- --- --- --- --- ---
-// Inputs
 // --- --- --- --- --- --- --- --- ---
 
 export const MappedInputStringUsername = connect(

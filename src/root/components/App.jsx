@@ -4,13 +4,13 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import { NavBar } from './NavBar.jsx';
 
-import { MappedSignupForm, MappedSigninForm, MappedSignoutForm } from '../../auth/containers.js';
+import { MappedSignupForm, MappedSigninForm, MappedSignoutForm } from '../../auth/containers/forms.js';
 
-import { MappedUsersForm } from '../../users/containers.js';
+import { MappedUsersForm } from '../../users/containers/forms.js';
 
-import { MappedFundsForm } from '../../funds/containers.js';
+import { MappedFundsForm } from '../../funds/containers/forms.js';
 
-import { MappedGenresForm } from '../../genres/containers.js';
+import { MappedGenresForm } from '../../genres/containers/forms.js';
 
 import Payments from './Payments.jsx';
 

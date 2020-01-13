@@ -2,14 +2,16 @@ import React from 'react';
 
 import { LABELS } from '../constants.js';
 
-import { MappedInputStringId } from '../containers.js';
-
 // --- --- --- --- --- --- --- --- ---
 
 export const LabelInput = ({value}) => (<span className='label'>{value}</span>)
 
+// --- --- --- --- --- --- --- --- ---
+
 export const MessageInput = ({value}) => (<span className='message'>{value?value.toString():''}</span>)
                                             // value may be an object and should be converted to string
+
+// --- --- --- --- --- --- --- --- ---
 
 export const InputString = ({type, value, allowEdit, onChange, onFocus, onBlur}) => (
 
@@ -59,27 +61,6 @@ export const InputRadio = ({name, labels, values, value, allowEdit, onChange}) =
 
 // --- --- --- --- --- --- --- --- ---
 
-export const GroupInput = ({name, label, input, message}) => (
-
-    <span className={`group_input group_input_${name}`}>
-        {label?label:null}
-        {input?input:null}
-        {message?message:null}
-    </span>
-)
-
-// --- --- --- --- --- --- --- --- ---
-
 export const LabelInputId = () => (<LabelInput value={LABELS.INPUT_ID} />)
 
 export const InputStringId = ({value}) => (<InputString value={value} />)
-
-export const GroupInputId = ({namespace}) => (
-
-    <GroupInput
-        name='id'
-        label={<LabelInputId />}
-        input={<MappedInputStringId namespace={namespace} />}
-        message={null}
-    />
-)
