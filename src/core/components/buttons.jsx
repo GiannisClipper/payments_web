@@ -135,16 +135,32 @@ export const ButtonRequestDelete = ({auth, data, isLoading, onRequest}) => (
     />
 )
 
+export const ButtonRequestRelated = ({auth, data, allowRequest, isLoading, onRequest}) => (
+
+    <ButtonRequest
+        name = 'related'
+        label = {LABELS.BUTTON_REQUEST_RELATED}
+        allowRequest = {allowRequest}
+        onRequest = {onRequest}
+        auth = {auth}
+        data = {data}
+        isLoading = {isLoading}
+    />
+)
+
 // --- --- --- --- --- --- --- --- ---
 // Button close...
 // --- --- --- --- --- --- --- --- ---
 
-export const ButtonCloseData = ({onClose}) => (
+export const ButtonGoHome = ({onGoHome}) => {
+    let history = useHistory();
 
-    <button
-            onClick={() => onClose()}
-        >{LABELS.BUTTON_CLOSE_MODE}</button>
+    return (
+        <button
+            onClick={() => onGoHome(history)}
+        >{LABELS.BUTTON_GO_HOME}</button>
     )
+}
 
 export const ButtonCloseForm = ({onClose, onGoHome}) => {
     let history = useHistory();
@@ -159,12 +175,16 @@ export const ButtonCloseForm = ({onClose, onGoHome}) => {
     )
 }
 
-export const ButtonGoHome = ({onGoHome}) => {
-    let history = useHistory();
+export const ButtonCloseMode = ({onClose}) => (
 
-    return (
-        <button
-            onClick={() => onGoHome(history)}
-        >{LABELS.BUTTON_GO_HOME}</button>
+    <button
+            onClick={() => onClose()}
+        >{LABELS.BUTTON_CLOSE_MODE}</button>
     )
-}
+
+export const ButtonCloseRelated = ({onClose}) => (
+
+    <button
+            onClick={() => onClose()}
+        >{LABELS.BUTTON_CLOSE_RELATED}</button>
+    )

@@ -11,10 +11,11 @@ import {
     MappedButtonRequestUpdate,
     MappedButtonRequestDelete,
 
-    MappedButtonCloseData,
     MappedButtonCloseForm,
-
+    MappedButtonCloseMode,
 } from '../containers.js';
+
+// --- --- --- --- --- --- --- --- ---
 
 export class GroupInputs extends React.Component {
 
@@ -98,13 +99,11 @@ export const GroupItemButtons = props => {
     )
 }
 
-// --- --- --- --- --- --- --- --- ---
-
 export const GroupCreateButtons = props => {
     return (
         <div>
             <MappedButtonRequestCreate {...props} />
-            <MappedButtonCloseData {...props} />
+            <MappedButtonCloseMode {...props} />
         </div>
     )
 }
@@ -113,7 +112,7 @@ export const GroupUpdateButtons = props => {
     return (
         <div>
             <MappedButtonRequestUpdate {...props} />
-            <MappedButtonCloseData {...props} />
+            <MappedButtonCloseMode {...props} />
         </div>
     )
 }
@@ -122,7 +121,7 @@ export const GroupRetrieveButtons = props => {
     return (
         <div>
             <MappedButtonRequestRetrieve {...props} />
-            <MappedButtonCloseData {...props} />
+            <MappedButtonCloseMode {...props} />
         </div>
     )
 }
@@ -131,7 +130,7 @@ export const GroupDeleteButtons = props => {
     return (
         <div>
             <MappedButtonRequestDelete {...props} />
-            <MappedButtonCloseData {...props} />
+            <MappedButtonCloseMode {...props} />
         </div>
     )
 }

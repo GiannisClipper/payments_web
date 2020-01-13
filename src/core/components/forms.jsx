@@ -49,3 +49,22 @@ export const CRUDForm = ({namespace, title, mode, hostArgs, GroupInputs}) => (
         } 
     />
 )
+
+export const RelatedList = ({items, onSelect}) => {
+
+    let key = 0;
+
+    return (
+        <div className='related_list'>
+            <ul className='items'>
+                {items.order.map(id => (
+                    <li key={id} onClick={() => onSelect(id)}>
+                        {items.reprKeys.map(k => 
+                            (<span key={key++}>{items.data[id][k]}</span>)
+                        )}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    )
+}

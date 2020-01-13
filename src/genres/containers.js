@@ -1,25 +1,27 @@
 import { connect } from 'react-redux';
 
-import { NAMESPACE } from './constants.js';
+import { NAMESPACE, LABELS } from './constants.js';
 
 import { HOST_ARGS } from '../root/constants.js';
 
 import { GenresForm } from './components/forms.jsx';
 
+import {
+    RelatedList,
+} from '../core/components/forms.jsx';
+
 import { 
-    RelatedFundList,
     GroupInputs,
     GroupItems,
 } from './components/groups.jsx';
 
 import {
     InputString,
+    InputRadio,
     MessageInput,
 } from '../core/components/inputs.jsx';
 
-import { InputRadioIsIncoming } from './components/inputs.jsx';
-
-import { ButtonRequestFund } from './components/buttons.jsx';
+import { ButtonRequestRelated } from '../core/components/buttons.jsx';
 
 import {
 	onChangeCode,
@@ -28,10 +30,13 @@ import {
     onChangeFund,
     onFocusFund,
     onBlurFund,
-    onSuccessRetrieveFund,
+    onSuccessRelatedFund,
 } from './actions.js';
 
-import { onRequestProcess } from '../core/actions.js';
+import { 
+    onRequestProcess,
+    onSelectRelated,
+} from '../core/actions.js';
 
 // --- --- --- --- --- --- --- --- ---
 // Forms
@@ -51,7 +56,7 @@ export const MappedGenresForm = connect(
 export const MappedGroupInputs = connect(
     state => ({
         message: state[NAMESPACE].errors.errors,
-        allowRelatedFundList: state[NAMESPACE].related.fund.allowList,
+        relatedNamespace: state[NAMESPACE].related.namespace,
     }),
     ({})
 )(GroupInputs);
@@ -89,17 +94,20 @@ export const MappedInputStringName = connect(
 
 export const MappedInputRadioIsIncoming = connect(
     state => ({
+        name: 'is_incoming',
+        values: ['true', 'false'],
+        labels: [LABELS.INPUT_IS_INCOMING_TRUE, LABELS.INPUT_IS_INCOMING_FALSE],
         value: state[NAMESPACE].data.is_incoming,
         allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
     dispatch => ({
         onChange: value => dispatch(onChangeIsIncoming(value)),
     })
-)(InputRadioIsIncoming);
+)(InputRadio);
 
 export const MappedInputStringFund = connect(
     state => ({
-        value: state[NAMESPACE].related.fund.filter, //(x => x?`${x.id} ${x.name}`:'')(state[NAMESPACE].data.fund),
+        value: state[NAMESPACE].related.fund.filter,
         allowEdit: state[NAMESPACE].uiux.allowEdit,
     }),
     dispatch => ({
@@ -108,24 +116,6 @@ export const MappedInputStringFund = connect(
         onBlur: () => dispatch(onBlurFund()),
     })
 )(InputString);
-
-export const MappedButtonRequestFund = connect(
-    (state, {namespace, hostArgs}) => ({
-        allowRequest: state[NAMESPACE].uiux.allowEdit,
-        auth: state.auth,
-        data: state[NAMESPACE].data.fund,
-        isLoading: state[NAMESPACE].uiux.isLoading,
-    }),
-    (dispatch, {namespace, hostArgs}) => ({
-        onRequest: (auth, data) => dispatch(onRequestProcess(NAMESPACE, HOST_ARGS.RETRIEVE_FUNDS, auth, data, onSuccessRetrieveFund)),
-    })
-)(ButtonRequestFund);
-
-export const MappedRelatedFundList = connect(
-    state => ({
-        items: state[NAMESPACE].related.fund.items,
-    }),
-)(RelatedFundList);
 
 export const MappedMessageInputCode = connect(
     state => ({
@@ -138,3 +128,33 @@ export const MappedMessageInputName = connect(
         value: state[NAMESPACE].errors.name,
     }),
 )(MessageInput);
+
+// --- --- --- --- --- --- --- --- ---
+// Buttons
+// --- --- --- --- --- --- --- --- ---
+
+export const MappedButtonRequestFund = connect(
+    (state, {hostArgs}) => ({
+        allowRequest: state[NAMESPACE].uiux.allowEdit,
+        auth: state.auth,
+        data: state[NAMESPACE].related.fund.filter,
+        isLoading: state[NAMESPACE].uiux.isLoading,
+    }),
+    (dispatch, {hostArgs}) => ({
+        onRequest: (auth, data) => dispatch(onRequestProcess(NAMESPACE, HOST_ARGS.RETRIEVE_FUNDS, auth, data, onSuccessRelatedFund)),
+    })
+)(ButtonRequestRelated);
+
+// --- --- --- --- --- --- --- --- ---
+// List
+// --- --- --- --- --- --- --- --- ---
+
+export const MappedRelatedFundList = connect(
+    state => ({
+        items: state[NAMESPACE].related.fund.items,
+    }),
+    dispatch => ({
+        onSelect: id => dispatch(onSelectRelated(NAMESPACE, id)),
+    })
+
+)(RelatedList);

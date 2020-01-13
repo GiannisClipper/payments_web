@@ -2,8 +2,6 @@ import React from 'react';
 
 import { 
     LabelInput,
-    InputRadio,
-    InputString,
     GroupInput,
 } from '../../core/components/inputs.jsx';
 
@@ -27,25 +25,6 @@ export const LabelInputName = () => (<LabelInput value={LABELS.INPUT_NAME} />)
 export const LabelInputIsIncoming = () => (<LabelInput value={LABELS.INPUT_IS_INCOMING} />)
 
 export const LabelInputFund = () => (<LabelInput value={LABELS.INPUT_FUND} />)
-
-// --- --- --- --- --- --- --- --- ---
-
-export const InputRadioIsIncoming = props => (
-
-    <InputRadio
-        name='is_incoming'
-        values={['true', 'false']}
-        labels={[LABELS.INPUT_IS_INCOMING_TRUE, LABELS.INPUT_IS_INCOMING_FALSE]}
-        {...props}
-    />
-)
-
-export const InputStringFund = props => (
-
-    <InputString
-        {...props}
-    />
-)
 
 // --- --- --- --- --- --- --- --- ---
 

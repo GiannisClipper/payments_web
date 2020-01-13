@@ -15,9 +15,10 @@ import {
     ButtonRequestUpdate,
     ButtonRequestDelete,
 
-    ButtonCloseData,
-    ButtonCloseForm,
     ButtonGoHome,
+    ButtonCloseForm,
+    ButtonCloseMode,
+    ButtonCloseRelated,
 } from './components/buttons.jsx';
 
 import {
@@ -32,9 +33,10 @@ import {
     onSuccessUpdate,
     onSuccessDelete,
 
-    onCloseData,
-    onCloseForm,
     onGoHome,
+    onCloseForm,
+    onCloseMode,
+    onCloseRelated,
 } from './actions.js';
 
 // --- --- --- --- --- --- --- --- ---
@@ -140,12 +142,12 @@ export const MappedButtonRequestDelete = connect(
 // Buttons to close 
 // --- --- --- --- --- --- --- --- ---
 
-export const MappedButtonCloseData = connect(
+export const MappedButtonGoHome = connect(
     state => ({}),
     (dispatch, {namespace}) => ({
-        onClose: () => dispatch(onCloseData(namespace)),
+        onGoHome: history => dispatch(onGoHome(namespace, history)),
     })
-)(ButtonCloseData);
+)(ButtonGoHome);
 
 export const MappedButtonCloseForm = connect(
     state => ({}),
@@ -155,11 +157,16 @@ export const MappedButtonCloseForm = connect(
     })
 )(ButtonCloseForm);
 
-export const MappedButtonGoHome = connect(
+export const MappedButtonCloseMode = connect(
     state => ({}),
     (dispatch, {namespace}) => ({
-        onGoHome: history => dispatch(onGoHome(namespace, history)),
+        onClose: () => dispatch(onCloseMode(namespace)),
     })
-)(ButtonGoHome);
+)(ButtonCloseMode);
 
-
+export const MappedButtonCloseRelated = connect(
+    state => ({}),
+    (dispatch, {namespace}) => ({
+        onClose: () => dispatch(onCloseRelated(namespace)),
+    })
+)(ButtonCloseRelated);

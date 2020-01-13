@@ -36,6 +36,13 @@ export const initialState = (initialData, initialRelated={}) => {
 
 export const baseFormReducer = (namespace, state=initialState(initialData, initialRelated), action) => {
 	let stateCopy;
+	let rel = {
+		namespace: null,
+		data: null,
+		keys: null,
+		reprKeys: null,
+	};
+
 	console.log('actiotn.type>>>', action.type);
     switch (action.type) {
         case `${namespace}/${ACTIONS.SELECT_CREATE}`:
@@ -51,7 +58,7 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 			stateCopy.uiux.allowEdit = true;
 			stateCopy.uiux.allowRequest = false;
 			return stateCopy;
-	
+
 		case `${namespace}/${ACTIONS.SELECT_UPDATE}`:
 			stateCopy = {...state};
 			stateCopy.data = {...stateCopy.initialData, ...stateCopy.items.data[action.payload.id]};
@@ -66,6 +73,20 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 			stateCopy.uiux.mode = 'DELETE';
 			stateCopy.uiux.allowEdit = false;
 			stateCopy.uiux.allowRequest = true;
+			return stateCopy;
+
+		case `${namespace}/${ACTIONS.SELECT_RELATED}`:
+			stateCopy = {...state};
+			rel.namespace = stateCopy.related.namespace;
+			rel.data = stateCopy.related[rel.namespace].items.data[action.payload.id];
+			rel.keys = Object.keys(stateCopy.data[rel.namespace]);
+			rel.reprKeys = stateCopy.related[rel.namespace].items.reprKeys;
+
+			rel.keys.forEach(k => stateCopy.data[rel.namespace][k] = rel.data[k]);
+			stateCopy.related[rel.namespace].filter = rel.reprKeys.map(k => rel.data[k]).join(' ');
+			stateCopy.uiux.allowEdit = true;
+			stateCopy.uiux.allowRequest = true;
+			stateCopy.related.namespace = null;
 			return stateCopy;
 	
 		case `${namespace}/${ACTIONS.SUCCESS_CREATE}`:
@@ -84,7 +105,7 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 			action.payload.data.forEach(x => stateCopy.items.order.push(x.id));
 			stateCopy.uiux.mode = null;
 			return stateCopy;
-	  
+
         case `${namespace}/${ACTIONS.SUCCESS_UPDATE}`:
         	stateCopy = {...state};
 			stateCopy.data = {...action.payload.data};
@@ -101,13 +122,29 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 			stateCopy.uiux.mode = null;
 			return stateCopy;
 
+		case `${namespace}/${ACTIONS.SUCCESS_RELATED}`:
+			stateCopy = {...state};
+			rel.namespace = action.payload.relatedNamespace;
+
+			stateCopy.related[rel.namespace].items.data = {};
+			stateCopy.related[rel.namespace].items.order = [];
+			action.payload.data.forEach(x => stateCopy.related[rel.namespace].items.data[x.id] = x);
+			action.payload.data.forEach(x => stateCopy.related[rel.namespace].items.order.push(x.id));
+			stateCopy.related.namespace = rel.namespace;
+			return stateCopy;
+	
+		case `${namespace}/${ACTIONS.CLOSE_RELATED}`:
+			stateCopy = {...state};
+			stateCopy.related.namespace = null;
+			return stateCopy;
+	
 		case `${namespace}/${ACTIONS.CLOSE_MODE}`:
 			stateCopy = {...state};
 			stateCopy.uiux = {...stateCopy.initialUiux};
 			stateCopy.data = {...stateCopy.initialData};
 			stateCopy.errors = {};
 			return stateCopy;
-	
+
 	    case `${namespace}/${ACTIONS.CLOSE_FORM}`:
 			stateCopy = {...state};
 			stateCopy.uiux = {...stateCopy.initialUiux};
@@ -162,5 +199,5 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 		default:
 	        return state;
     };
-};
+}
  

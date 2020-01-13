@@ -36,6 +36,13 @@ export const onSelectDelete = (namespace, id) => {
     }
 }
 
+export const onSelectRelated = (namespace, id) => {
+    return {
+        type: `${namespace}/${ACTIONS.SELECT_RELATED}`,
+        payload: {id},
+    }
+}
+
 // --- --- --- --- --- --- --- --- ---
 // onRequest...
 // --- --- --- --- --- --- --- --- ---
@@ -160,10 +167,10 @@ export const onSuccessDelete = (namespace, data, id) => {
 // onClose...
 // --- --- --- --- --- --- --- --- ---
 
-export const onCloseData = namespace => {
+export const onGoHome = (namespace, history) => {
     return {
-        type: `${namespace}/${ACTIONS.CLOSE_MODE}`,
-        payload: {},
+        type: `${namespace}/${ACTIONS.GO_HOME}`,
+        payload: {history},
     }
 }
 
@@ -174,9 +181,16 @@ export const onCloseForm = namespace => {
     }
 }
 
-export const onGoHome = (namespace, history) => {
+export const onCloseMode = namespace => {
     return {
-        type: `${namespace}/${ACTIONS.GO_HOME}`,
-        payload: {history},
+        type: `${namespace}/${ACTIONS.CLOSE_MODE}`,
+        payload: {},
+    }
+}
+
+export const onCloseRelated = namespace => {
+    return {
+        type: `${namespace}/${ACTIONS.CLOSE_RELATED}`,
+        payload: {},
     }
 }

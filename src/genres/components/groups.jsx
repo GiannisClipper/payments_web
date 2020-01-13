@@ -24,28 +24,7 @@ import { NAMESPACE, LABELS } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const RelatedFundList = ({items}) => {
-
-    const fields = ['code', 'name'];
-
-    let key = 0;
-
-    return (
-        <div className='related_list'>
-            <ul className='items'>
-                {items.order.map(id => (
-                    <li key={id}>
-                        {fields.map(field => 
-                            (<span key={key++}>{items.data[id][field]}</span>)
-                        )}
-                    </li>
-                ))}
-            </ul>
-        </div>
-    )
-}
-
-export const GroupInputs = ({message, allowRelatedFundList}) => {
+export const GroupInputs = ({message, relatedNamespace}) => {
 
     const inputs = [
         GroupInputId,
@@ -53,10 +32,11 @@ export const GroupInputs = ({message, allowRelatedFundList}) => {
         GroupInputName,
         GroupInputIsIncoming,
         GroupInputFund,
-        (allowRelatedFundList?
-        MappedRelatedFundList:
-        MappedButtonRequestFund),
+        MappedButtonRequestFund,
     ];
+
+    if (relatedNamespace)
+        inputs.push(MappedRelatedFundList);
 
     return (
         <CoreGroupInputs 

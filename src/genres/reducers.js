@@ -13,7 +13,8 @@ const initialData = {
 	name: '',
 	is_incoming: false,
 	fund: {
-		id: '', 
+		id: '',
+		code: '', 
 		name: '',
 	},
 };
@@ -23,11 +24,12 @@ const initialRelated = {
 		filter: '',
 		filterCopy: '',
 		items: {
+			reprKeys: ['code', 'name'],
 			data: {}, 
 			order: [],
 		},
-		allowList: false,
-	}
+	},
+	namespace: null,
 };
 
 export const genresReducer = (state=initialState(initialData, initialRelated), action) => {
@@ -65,16 +67,7 @@ export const genresReducer = (state=initialState(initialData, initialRelated), a
 		case `${NAMESPACE}/${ACTIONS.BLUR_FUND}`:
 			stateCopy = {...state};
 			stateCopy.related.fund.filterCopy = stateCopy.related.fund.filter;
-			stateCopy.related.fund.filter = `${stateCopy.data.fund.id} ${stateCopy.data.fund.name}`;
-			return stateCopy;
-		
-		case `${NAMESPACE}/${ACTIONS.SUCCESS_RETRIEVE_FUND}`:
-			stateCopy = {...state};
-			stateCopy.related.fund.items.data = {};
-			stateCopy.related.fund.items.order = [];
-			action.payload.data.forEach(x => stateCopy.related.fund.items.data[x.id] = x);
-			action.payload.data.forEach(x => stateCopy.related.fund.items.order.push(x.id));
-			stateCopy.related.fund.allowList = true;
+			stateCopy.related.fund.filter = stateCopy.related.fund.items.reprKeys.map(k => stateCopy.data.fund[k]).join(' ');
 			return stateCopy;
 
 		default:

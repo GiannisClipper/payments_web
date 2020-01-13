@@ -1,5 +1,7 @@
 import { NAMESPACE, ACTIONS } from './constants.js';
 
+import { ACTIONS as CORE_ACTIONS } from '../core/constants.js';
+
 export const onChangeCode = code => {
     return {
         type: `${NAMESPACE}/${ACTIONS.CHANGE_CODE}`,
@@ -42,9 +44,9 @@ export const onBlurFund = () => {
     }
 }
 
-export const onSuccessRetrieveFund = (namespace, data) => {
+export const onSuccessRelatedFund = (namespace, resData) => {
     return {
-        type: `${NAMESPACE}/${ACTIONS.SUCCESS_RETRIEVE_FUND}`,
-		payload: {...data},
+        type: `${NAMESPACE}/${CORE_ACTIONS.SUCCESS_RELATED}`,
+		payload: {...resData, relatedNamespace: 'fund'},
     }
 }
