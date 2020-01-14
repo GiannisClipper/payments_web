@@ -1,7 +1,10 @@
+import deepCopy from '../core/libs/deepcopy.js';
+
 import { NAMESPACE, ACTIONS } from './constants.js';
 
 import {
 	initialState,
+	initialRelatedPerNamespace,
 	baseFormReducer,
 } from '../core/reducers.js';
 
@@ -20,17 +23,10 @@ const initialData = {
 };
 
 const initialRelated = {
-	fund: {
-		filter: '',
-		filterCopy: '',
-		items: {
-			reprKeys: ['code', 'name'],
-			data: {}, 
-			order: [],
-		},
-	},
-	namespace: null,
+	fund: deepCopy(initialRelatedPerNamespace),
 };
+
+initialRelated.fund.items.reprKeys = ['code', 'name'];
 
 export const genresReducer = (state=initialState(initialData, initialRelated), action) => {
 	let stateCopy;

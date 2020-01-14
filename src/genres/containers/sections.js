@@ -16,7 +16,7 @@ import { NAMESPACE } from '../constants.js';
 export const MappedSectionInputs = connect(
     state => ({
         message: state[NAMESPACE].errors.errors,
-        relatedNamespace: state[NAMESPACE].related.namespace,
+        relatedNamespace: state[NAMESPACE].uiux.relatedNamespace,
     }),
     ({})
 )(SectionInputs);
