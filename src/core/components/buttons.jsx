@@ -178,13 +178,13 @@ export const ButtonCloseForm = ({onClose, onGoHome}) => {
 export const ButtonCloseMode = ({onClose}) => (
 
     <button
-            onClick={() => onClose()}
-        >{LABELS.BUTTON_CLOSE_MODE}</button>
-    )
+         onClick={() => onClose()}
+    >{LABELS.BUTTON_CLOSE_MODE}</button>
+)
 
 export const ButtonCloseRelated = ({onClose}) => (
 
     <button
-            onClick={() => onClose()}
-        >{LABELS.BUTTON_CLOSE_RELATED}</button>
-    )
+        onClick={() => onClose()}
+    >{LABELS.BUTTON_CLOSE_RELATED}</button>
+)

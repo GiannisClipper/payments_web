@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 
 import {
-    SignupForm,
-    SigninForm,
-    SignoutForm,
+    FormSignup,
+    FormSignin,
+    FormSignout,
 } from '../components/forms.jsx';
 
 import {
@@ -21,25 +21,25 @@ import { NAMESPACE } from '../../users/constants.js';
 // Forms
 // --- --- --- --- --- --- --- --- ---
 
-export const MappedSignupForm = connect(
+export const MappedFormSignup = connect(
     state => ({}),
     dispatch => ({
         onSelectCreate: () => dispatch(onSelectCreate(NAMESPACE)),
     })
-    )(SignupForm);
+)(FormSignup);
 
-export const MappedSigninForm = connect(
+export const MappedFormSignin = connect(
     state => ({}),
     dispatch => ({
         onSelectRetrieve: () => dispatch(onSelectRetrieve(NAMESPACE)),
     })
-)(SigninForm);
+)(FormSignin);
 
-export const MappedSignoutForm = connect(
+export const MappedFormSignout = connect(
     state => ({
         auth: state.auth,
     }),
     dispatch => ({
         onSignout: (auth, message) => dispatch(onSignout(auth, message)),
     })
-)(SignoutForm);
+)(FormSignout);

@@ -18,7 +18,7 @@ import {
 
 import { MappedButtonRequestFund } from '../containers/buttons.js';
 
-import { MappedRelatedFundList } from '../containers/sections.js';
+import { MappedSectionRelatedFund } from '../containers/sections.js';
 
 import { LABELS as CORE_LABELS } from '../../core/constants.js';
 
@@ -38,7 +38,7 @@ export const SectionInputs = ({message, relatedNamespace}) => {
     ];
 
     if (relatedNamespace)
-        inputs.push(MappedRelatedFundList);
+        inputs.push(MappedSectionRelatedFund);
 
     return (
         <CoreSectionInputs

@@ -4,13 +4,13 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import { NavBar } from './NavBar.jsx';
 
-import { MappedSignupForm, MappedSigninForm, MappedSignoutForm } from '../../auth/containers/forms.js';
+import { MappedFormSignup, MappedFormSignin, MappedFormSignout } from '../../auth/containers/forms.js';
 
-import { MappedUsersForm } from '../../users/containers/forms.js';
+import { MappedFormUsers } from '../../users/containers/forms.js';
 
-import { MappedFundsForm } from '../../funds/containers/forms.js';
+import { MappedFormFunds } from '../../funds/containers/forms.js';
 
-import { MappedGenresForm } from '../../genres/containers/forms.js';
+import { MappedFormGenres } from '../../genres/containers/forms.js';
 
 import Payments from './Payments.jsx';
 
@@ -31,21 +31,23 @@ const App = ({auth}) => {
 
 	return (
 		<BrowserRouter>
+
 			<NavBar auth={auth} />
 
 			{auth.token.key?(
 				<Switch>
-					<Route path='/users' component={MappedUsersForm} />
-					<Route path='/funds' component={MappedFundsForm} />
-					<Route path='/genres' component={MappedGenresForm} />
+					<Route path='/users' component={MappedFormUsers} />
+					<Route path='/funds' component={MappedFormFunds} />
+					<Route path='/genres' component={MappedFormGenres} />
 					<Route path='/payments' component={Payments} />
-					<Route path='/signout' component={MappedSignoutForm} />
+					<Route path='/signout' component={MappedFormSignout} />
 				</Switch>
+
 			):(
 				<>
 				<Switch>
-					<Route path='/signup' component={MappedSignupForm} />
-					<Route path='/signin' component={MappedSigninForm} />
+					<Route path='/signup' component={MappedFormSignup} />
+					<Route path='/signin' component={MappedFormSignin} />
 				</Switch>
 				<div className='welcome'>
 					{welcome.map(x => (
@@ -55,8 +57,9 @@ const App = ({auth}) => {
 				</div>
 				</>
 			)}
+
 		</BrowserRouter>
-		)
+	)
 }
 
 export default App;

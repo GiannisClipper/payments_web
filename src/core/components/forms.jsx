@@ -32,7 +32,7 @@ export const Form = ({namespace, title, mode, hostArgs, SectionData, SectionButt
     )
 }
 
-export const CRUDForm = ({namespace, title, mode, hostArgs, SectionData}) => (
+export const FormCRUD = ({namespace, title, mode, hostArgs, SectionData}) => (
 
     <Form
         namespace = {namespace}

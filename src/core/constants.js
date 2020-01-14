@@ -10,9 +10,10 @@ const LABELS = {
     BUTTON_REQUEST_DELETE: 'ΕΠΙΒΕΒΑΙΩΣΗ',
     BUTTON_REQUEST_RELATED: '...',
 
-    BUTTON_CLOSE_MODE: 'ΚΛΕΙΣΙΜΟ',
+    BUTTON_GO_HOME: 'ΑΡΧΙΚΗ',
     BUTTON_CLOSE_FORM: 'ΚΛΕΙΣΙΜΟ',
-    BUTTON_GO_HOME: 'ΑΡΧΙΚΗ ΟΘΟΝΗ',
+    BUTTON_CLOSE_MODE: 'ΚΛΕΙΣΙΜΟ',
+    BUTTON_CLOSE_RELATED: 'ΚΛΕΙΣΙΜΟ',
 
     INPUT_ID: 'ID',
 }

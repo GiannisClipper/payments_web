@@ -18,7 +18,7 @@ import { NAMESPACE } from '../../users/constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const SignupForm = ({onSelectCreate}) => {
+export const FormSignup = ({onSelectCreate}) => {
 
     onSelectCreate(NAMESPACE);  // To enable create operation
 
@@ -35,7 +35,7 @@ export const SignupForm = ({onSelectCreate}) => {
     )
 }
 
-export const SigninForm = ({onSelectRetrieve}) => {
+export const FormSignin = ({onSelectRetrieve}) => {
 
     onSelectRetrieve(NAMESPACE);  // To enable retrieve operation
 
@@ -52,7 +52,7 @@ export const SigninForm = ({onSelectRetrieve}) => {
     )
 }
 
-export const SignoutForm = ({auth, onSignout}) => {
+export const FormSignout = ({auth, onSignout}) => {
 
     const message = `Αποσύνδεση χρήστη (${auth.user.username})`;
 

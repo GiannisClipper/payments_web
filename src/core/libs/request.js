@@ -1,4 +1,4 @@
-export const request = async (url, method, token=null, data={}) => {
+const request = async (url, method, token=null, data={}) => {
 
     // Setup arguments
     let args = {
@@ -28,3 +28,5 @@ export const request = async (url, method, token=null, data={}) => {
         return {status: err.status, data: err.message};
     };
 }
+
+export default request;

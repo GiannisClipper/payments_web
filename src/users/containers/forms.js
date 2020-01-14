@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 
-import { UsersForm } from '../components/forms.jsx';
+import { FormUsers } from '../components/forms.jsx';
 
 import { NAMESPACE } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const MappedUsersForm = connect(
+export const MappedFormUsers = connect(
     state => ({
         mode: state[NAMESPACE].uiux.mode,
     }), 
-)(UsersForm);
+)(FormUsers);

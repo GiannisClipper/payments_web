@@ -1,4 +1,6 @@
-import { ACTIONS } from "./constants.js";
+import { ACTIONS } from './constants.js';
+
+import deepCopy from './libs/deepcopy.js';
 
 // --- --- --- --- --- --- --- --- ---
 
@@ -132,34 +134,37 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 			action.payload.data.forEach(x => stateCopy.related[rel.namespace].items.order.push(x.id));
 			stateCopy.related.namespace = rel.namespace;
 			return stateCopy;
-	
-		case `${namespace}/${ACTIONS.CLOSE_RELATED}`:
-			stateCopy = {...state};
-			stateCopy.related.namespace = null;
-			return stateCopy;
-	
-		case `${namespace}/${ACTIONS.CLOSE_MODE}`:
-			stateCopy = {...state};
-			stateCopy.uiux = {...stateCopy.initialUiux};
-			stateCopy.data = {...stateCopy.initialData};
-			stateCopy.errors = {};
-			return stateCopy;
 
-	    case `${namespace}/${ACTIONS.CLOSE_FORM}`:
+		case `${namespace}/${ACTIONS.GO_HOME}`:
+			action.payload.history.push('/')
+			return state;
+	
+		case `${namespace}/${ACTIONS.CLOSE_FORM}`:
 			stateCopy = {...state};
 			stateCopy.uiux = {...stateCopy.initialUiux};
 			stateCopy.data = {...stateCopy.initialData};
+			stateCopy.related = deepCopy(stateCopy.initialRelated);
 			stateCopy.errors = {};
 			stateCopy.items.data = {};
 			stateCopy.items.order = [];
 			console.log('items>>>', stateCopy.items);
 			return stateCopy;
 
-		case `${namespace}/${ACTIONS.GO_HOME}`:
-			action.payload.history.push('/')
-			return state;
+		case `${namespace}/${ACTIONS.CLOSE_MODE}`:
+			stateCopy = {...state};
+			stateCopy.uiux = {...stateCopy.initialUiux};
+			stateCopy.data = {...stateCopy.initialData};
+			stateCopy.related = deepCopy(stateCopy.initialRelated);
+			stateCopy.errors = {};
+			return stateCopy;
 
-		case `${namespace}/${ACTIONS.BEFORE_REQUEST}`:
+		case `${namespace}/${ACTIONS.CLOSE_RELATED}`:
+			stateCopy = {...state};
+			stateCopy.related = deepCopy(stateCopy.initialRelated);
+			//stateCopy.related.namespace = null;
+			return stateCopy;
+	
+			case `${namespace}/${ACTIONS.BEFORE_REQUEST}`:
 			stateCopy = {...state};
 			stateCopy.uiux.allowEdit = false;
 			stateCopy.uiux.allowRequest = false;

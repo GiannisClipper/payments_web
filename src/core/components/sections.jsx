@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { GroupItemButtons } from '../../core/components/groups.jsx';
+import { MappedButtonCloseRelated } from '../containers/buttons.js';
 
 // --- --- --- --- --- --- --- --- ---
 
@@ -13,7 +14,7 @@ export class SectionInputs extends React.Component {
         let key = 0;
 
         return (
-            <div className='data'>
+            <div className='section section_inputs'>
                 <span className='message'>{message?message:''}</span>
 
                 {inputs.map(AnInput => (
@@ -36,13 +37,13 @@ export class SectionList extends React.Component {
         let key = 0;
 
         return (
-            <div className='data'>
+            <div className='section section_list'>
                 <span className='labels'>
                     {labels.map(label => (
                         <span key={key++}>{label}</span>
                     ))}
                 </span>
-                <ul className='items'>
+                <ul>
                     {items.order.map(id => (
                         <li key={id}>
                             {fields.map(field => 
@@ -63,13 +64,13 @@ export class SectionList extends React.Component {
     }
 }
 
-export const RelatedList = ({items, onSelect}) => {
+export const SectionRelated = ({namespace, items, onSelect}) => {
 
     let key = 0;
 
     return (
-        <div className='related_list'>
-            <ul className='items'>
+        <div className='section section_related'>
+            <ul>
                 {items.order.map(id => (
                     <li key={id} onClick={() => onSelect(id)}>
                         {items.reprKeys.map(k => 
@@ -78,6 +79,7 @@ export const RelatedList = ({items, onSelect}) => {
                     </li>
                 ))}
             </ul>
+            <MappedButtonCloseRelated {...{namespace}} />
         </div>
     )
 }

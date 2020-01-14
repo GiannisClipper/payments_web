@@ -5,7 +5,7 @@ import {
     SectionList,
 } from '../components/sections.jsx';
 
-import { RelatedList } from '../../core/components/sections.jsx';
+import { SectionRelated } from '../../core/components/sections.jsx';
 
 import { onSelectRelated } from '../../core/actions.js';
 
@@ -28,7 +28,7 @@ export const MappedSectionList = connect(
     ({})
 )(SectionList);
 
-export const MappedRelatedFundList = connect(
+export const MappedSectionRelatedFund = connect(
     state => ({
         items: state[NAMESPACE].related.fund.items,
     }),
@@ -36,4 +36,4 @@ export const MappedRelatedFundList = connect(
         onSelect: id => dispatch(onSelectRelated(NAMESPACE, id)),
     })
 
-)(RelatedList);
+)(SectionRelated);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CRUDForm } from '../../core/components/forms.jsx';
+import { FormCRUD } from '../../core/components/forms.jsx';
 
 import {
     MappedSectionInputs,
@@ -13,9 +13,9 @@ import { NAMESPACE } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const UsersForm = ({mode}) => (
+export const FormUsers = ({mode}) => (
 
-    <CRUDForm 
+    <FormCRUD 
         namespace={NAMESPACE}
         title={ROOT_LABELS.MENU_USERS}
         mode={mode}

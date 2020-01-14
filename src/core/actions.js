@@ -1,6 +1,6 @@
 import { ACTIONS } from './constants.js';
 
-import { request } from '../core/lib.js';
+import request from './libs/request.js';
 
 import { onSignout } from '../auth/actions.js';
 
