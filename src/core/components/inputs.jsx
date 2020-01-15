@@ -34,7 +34,7 @@ export const InputHidden = props => (
 )
 
 export const InputRadio = ({name, labels, values, value, allowEdit, onChange}) => {
-    console.log(name, labels, values, value)
+
     let key = 0;
 
     return (

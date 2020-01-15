@@ -94,9 +94,9 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 
 			rel.keys.forEach(k => stateCopy.data[rel.namespace][k] = rel.data[k]);
 			stateCopy.related[rel.namespace].filter = rel.reprKeys.map(k => rel.data[k]).join(' ');
-			stateCopy.uiux.allowEdit = true;
-			stateCopy.uiux.allowRequest = true;
 			stateCopy.uiux.relatedNamespace = null;
+			stateCopy.uiux.allowRequest = true;
+			stateCopy.uiux.allowEdit = true;
 			return stateCopy;
 	
 		case `${namespace}/${ACTIONS.SUCCESS_CREATE}`:
@@ -141,6 +141,8 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 			action.payload.data.forEach(x => stateCopy.related[rel.namespace].items.data[x.id] = x);
 			action.payload.data.forEach(x => stateCopy.related[rel.namespace].items.order.push(x.id));
 			stateCopy.uiux.relatedNamespace = rel.namespace;
+			stateCopy.uiux.allowRequest = false;
+			stateCopy.uiux.allowEdit = false;
 			return stateCopy;
 
 		case `${namespace}/${ACTIONS.GO_HOME}`:
@@ -170,6 +172,8 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 			stateCopy = {...state};
 			stateCopy.related = deepCopy(stateCopy.initialRelated);
 			stateCopy.uiux.relatedNamespace = null;
+			stateCopy.uiux.allowRequest = true;
+			stateCopy.uiux.allowEdit = true;
 			return stateCopy;
 	
 			case `${namespace}/${ACTIONS.BEFORE_REQUEST}`:

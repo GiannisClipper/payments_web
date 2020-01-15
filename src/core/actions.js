@@ -48,6 +48,9 @@ export const onSelectRelated = (namespace, id) => {
 // --- --- --- --- --- --- --- --- ---
 
 export const onRequestProcess = (namespace, hostArgs, auth, reqData, onSuccess) => {
+
+    let querystring;
+
     return dispatch => {
         dispatch(onBeforeRequest(namespace));
         dispatch(
@@ -59,9 +62,15 @@ export const onRequestProcess = (namespace, hostArgs, auth, reqData, onSuccess) 
                 if (hostArgs.url.includes('<:id>'))
                     hostArgs.url = hostArgs.url.replace('<:id>', id);
 
+                // Create querystring when method is get
+                if (hostArgs.method.toUpperCase() === 'GET') {
+                    querystring = Object.keys(reqData).filter(x => reqData[x] !== '').map(x => `${x}=${reqData[x]}`).join('&');
+                    hostArgs.url += querystring?('?'+querystring):'';
+                }
+
                 // Place data in `reqDataKey`-namespace
                 if (hostArgs.reqDataKey)
-                    reqData = {[hostArgs.reqDataKey]: reqData}
+                    reqData = {[hostArgs.reqDataKey]: reqData};
 
                 let response = await request(hostArgs.url, hostArgs.method, auth?auth.token:null, reqData);
 

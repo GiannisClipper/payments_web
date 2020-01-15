@@ -16,7 +16,7 @@ export const MappedButtonRequestFund = connect(
     (state, {hostArgs}) => ({
         allowRequest: state[NAMESPACE].uiux.allowEdit,
         auth: state.auth,
-        data: state[NAMESPACE].related.fund.filter,
+        data: {name: state[NAMESPACE].related.fund.filterCopy},
         isLoading: state[NAMESPACE].uiux.isLoading,
     }),
     (dispatch, {hostArgs}) => ({
