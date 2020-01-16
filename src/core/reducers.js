@@ -16,16 +16,6 @@ const initialData = {};
 
 const initialRelated = {};
 
-export const initialRelatedPerNamespace = {
-	filter: '',
-	filterCopy: '',
-	items: {
-		reprKeys: [],
-		data: {}, 
-		order: [],
-	},
-};
-
 export const initialState = (initialData, initialRelated={}) => {
 	return {
 		initialUiux: deepCopy(initialUiux),

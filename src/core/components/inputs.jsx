@@ -33,6 +33,20 @@ export const InputHidden = props => (
     />
 )
 
+export const InputNumber = props => (
+
+    <InputString 
+        {...props} 
+    />
+)
+
+export const InputDate = props => (
+
+    <InputString 
+        {...props} 
+    />
+)
+
 export const InputRadio = ({name, labels, values, value, allowEdit, onChange}) => {
 
     let key = 0;

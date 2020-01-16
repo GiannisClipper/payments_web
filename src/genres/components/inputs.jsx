@@ -11,5 +11,3 @@ export const LabelInputCode = () => (<LabelInput value={LABELS.INPUT_CODE} />)
 export const LabelInputName = () => (<LabelInput value={LABELS.INPUT_NAME} />)
 
 export const LabelInputIsIncoming = () => (<LabelInput value={LABELS.INPUT_IS_INCOMING} />)
-
-export const LabelInputFund = () => (<LabelInput value={LABELS.INPUT_FUND} />)

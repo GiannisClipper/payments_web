@@ -10,18 +10,26 @@ import {
 } from '../../core/components/groups.jsx';
 
 import {
-    GroupInputCode,
-    GroupInputName,
-    GroupInputIsIncoming,
+    GroupInputDate,
+    GroupInputIncoming,
+    GroupInputOutgoing,
+    GroupInputRemarks,
 } from './groups.jsx';
 
 import {
     GroupInputFund,
+    GroupInputGenre,
 } from '../../related/components/groups.jsx';
 
-import { MappedButtonRequestFund } from '../../related/containers/buttons.js';
+import { 
+    MappedButtonRequestFund,
+    MappedButtonRequestGenre,
+} from '../../related/containers/buttons.js';
 
-import { MappedSectionRelatedFund } from '../../related/containers/sections.js';
+import { 
+    MappedSectionRelatedFund,
+    MappedSectionRelatedGenre,
+} from '../../related/containers/sections.js';
 
 import { LABELS as CORE_LABELS } from '../../core/constants.js';
 
@@ -33,14 +41,20 @@ export const SectionInputs = ({message, relatedNamespace}) => {
 
     const inputs = [
         GroupInputId,
-        GroupInputCode,
-        GroupInputName,
-        GroupInputIsIncoming,
+        GroupInputDate,
+        GroupInputGenre,
+        MappedButtonRequestGenre,
+        GroupInputIncoming,
+        GroupInputOutgoing,
+        GroupInputRemarks,
         GroupInputFund,
         MappedButtonRequestFund,
     ];
 
-    if (relatedNamespace)
+    if (relatedNamespace === 'genre')
+        inputs.push(MappedSectionRelatedGenre);
+
+    else if (relatedNamespace === 'fund')
         inputs.push(MappedSectionRelatedFund);
 
     return (
@@ -56,17 +70,24 @@ export const SectionList = ({items}) => {
 
     const labels = [
         CORE_LABELS.INPUT_ID,
-        LABELS.INPUT_CODE,
-        LABELS.INPUT_NAME,
-        LABELS.INPUT_IS_INCOMING,
+        LABELS.INPUT_DATE,
+        LABELS.INPUT_GENRE,
+        LABELS.INPUT_INCOMING,
+        LABELS.INPUT_OUTGOING,
+        LABELS.INPUT_REMARKS,
         LABELS.INPUT_FUND,
     ];
 
     const fields = [
         'id',
-        'code',
-        'name',
-        'is_incoming',
+        'date',
+        {genre: [
+            'id',
+            'name'
+        ]},
+        'incoming',
+        'outgoing',
+        'remarks',
         {fund: [
             'id',
             'name'

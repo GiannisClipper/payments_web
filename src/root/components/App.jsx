@@ -12,7 +12,7 @@ import { MappedFormFunds } from '../../funds/containers/forms.js';
 
 import { MappedFormGenres } from '../../genres/containers/forms.js';
 
-import Payments from './Payments.jsx';
+import { MappedFormPayments } from '../../payments/containers/forms.js';
 
 const App = ({auth}) => {
 
@@ -39,7 +39,7 @@ const App = ({auth}) => {
 					<Route path='/users' component={MappedFormUsers} />
 					<Route path='/funds' component={MappedFormFunds} />
 					<Route path='/genres' component={MappedFormGenres} />
-					<Route path='/payments' component={Payments} />
+					<Route path='/payments' component={MappedFormPayments} />
 					<Route path='/signout' component={MappedFormSignout} />
 				</Switch>
 

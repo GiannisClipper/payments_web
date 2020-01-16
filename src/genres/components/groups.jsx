@@ -6,14 +6,12 @@ import {
     LabelInputCode,
     LabelInputName,
     LabelInputIsIncoming,
-    LabelInputFund,
 } from './inputs.jsx';
 
 import {
     MappedInputStringCode,
     MappedInputStringName,
     MappedInputRadioIsIncoming,
-    MappedInputStringFund,
     MappedMessageInputCode,
     MappedMessageInputName,
 } from '../containers/inputs.js';
@@ -50,12 +48,3 @@ export const GroupInputIsIncoming = () => (
     />
 )
 
-export const GroupInputFund = () => (
-
-    <GroupInput
-        name='fund'
-        label={<LabelInputFund />}
-        input={<MappedInputStringFund />}
-        message={null}
-    />
-)

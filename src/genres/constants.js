@@ -6,16 +6,12 @@ const LABELS = {
     INPUT_IS_INCOMING: 'ΚΑΤΗΓΟΡΙΑ',
     INPUT_IS_INCOMING_TRUE: 'ΕΙΣΠΡΑΞΕΩΝ',
     INPUT_IS_INCOMING_FALSE: 'ΠΛΗΡΩΜΩΝ',
-    INPUT_FUND: 'ΛΟΓΑΡΙΑΣΜΟΣ',
 };
 
 const ACTIONS = {
     CHANGE_CODE: 'CHANGE_CODE',
     CHANGE_NAME: 'CHANGE_NAME',
     CHANGE_IS_INCOMING: 'CHANGE_IS_INCOMING',
-    CHANGE_FUND: 'CHANGE_FUND',
-    FOCUS_FUND: 'FOCUS_FUND',
-    BLUR_FUND: 'BLUR_FUND',
 };
 
 module.exports = {

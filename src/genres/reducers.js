@@ -4,9 +4,16 @@ import { NAMESPACE, ACTIONS } from './constants.js';
 
 import {
 	initialState,
-	initialRelatedPerNamespace,
-	baseFormReducer,
 } from '../core/reducers.js';
+
+import {
+	initialFundRelated,
+} from '../related/reducers.js';
+
+import {
+	relatedReducer,
+} from '../related/reducers.js';
+
 
 // --- --- --- --- --- --- --- --- ---
 
@@ -23,10 +30,8 @@ const initialData = {
 };
 
 const initialRelated = {
-	fund: deepCopy(initialRelatedPerNamespace),
+	fund: deepCopy(initialFundRelated),
 };
-
-initialRelated.fund.items.reprKeys = ['code', 'name'];
 
 export const genresReducer = (state=initialState(initialData, initialRelated), action) => {
 	let stateCopy;
@@ -50,23 +55,7 @@ export const genresReducer = (state=initialState(initialData, initialRelated), a
 			stateCopy.uiux.allowRequest = true;
 			return stateCopy;
 
-		case `${NAMESPACE}/${ACTIONS.CHANGE_FUND}`:
-			stateCopy = {...state};
-			stateCopy.related.fund.filter = action.payload.value;
-			return stateCopy;
-
-		case `${NAMESPACE}/${ACTIONS.FOCUS_FUND}`:
-			stateCopy = {...state};
-			stateCopy.related.fund.filter = stateCopy.related.fund.filterCopy;
-			return stateCopy;
-	
-		case `${NAMESPACE}/${ACTIONS.BLUR_FUND}`:
-			stateCopy = {...state};
-			stateCopy.related.fund.filterCopy = stateCopy.related.fund.filter;
-			stateCopy.related.fund.filter = stateCopy.related.fund.items.reprKeys.map(k => stateCopy.data.fund[k]).join(' ');
-			return stateCopy;
-
 		default:
-			return baseFormReducer(NAMESPACE, state, action)
+			return relatedReducer(NAMESPACE, state, action)
     };
 }

@@ -10,9 +10,6 @@ import {
 	onChangeCode,
     onChangeName,
     onChangeIsIncoming,
-    onChangeFund,
-    onFocusFund,
-    onBlurFund,
 } from '../actions.js';
 
 import { NAMESPACE, LABELS } from '../constants.js';
@@ -51,18 +48,6 @@ export const MappedInputRadioIsIncoming = connect(
         onChange: value => dispatch(onChangeIsIncoming(value)),
     })
 )(InputRadio);
-
-export const MappedInputStringFund = connect(
-    state => ({
-        value: state[NAMESPACE].related.fund.filter,
-        allowEdit: state[NAMESPACE].uiux.allowEdit,
-    }),
-    dispatch => ({
-        onChange: value => dispatch(onChangeFund(value)),
-        onFocus: () => dispatch(onFocusFund()),
-        onBlur: () => dispatch(onBlurFund()),
-    })
-)(InputString);
 
 export const MappedMessageInputCode = connect(
     state => ({
