@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Date from '../../core/libs/date.js';
+
 import { LABELS } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
@@ -13,7 +15,7 @@ export const MessageInput = ({value}) => (<span className='message'>{value?value
 
 // --- --- --- --- --- --- --- --- ---
 
-export const InputString = ({type, value, allowEdit, onChange, onFocus, onBlur}) => (
+export const InputString = ({type, value, allowEdit, onChange, onFocus, onBlur, onKeyPress}) => (
 
     <input 
         type={type?type:'text'}
@@ -21,7 +23,8 @@ export const InputString = ({type, value, allowEdit, onChange, onFocus, onBlur})
         disabled={!allowEdit}
         onChange={onChange?event => onChange(event.target.value):null}
         onFocus={onFocus?() => onFocus():null}
-        onBlur={onBlur?() => onBlur():null}
+        onBlur={onBlur?event => onBlur(event):null}
+        onKeyPress={onKeyPress?event => onKeyPress(event):null}
     />
 )
 
@@ -35,15 +38,19 @@ export const InputHidden = props => (
 
 export const InputNumber = props => (
 
-    <InputString 
+    <InputString
+        onKeyPress={event => '0123456789-.'.includes(event.key)?null:event.preventDefault()}
         {...props} 
     />
 )
 
 export const InputDate = props => (
 
-    <InputString 
+    <InputString
         {...props} 
+        onKeyPress={event => Date.keys().includes(event.key)?null:event.preventDefault()}
+        onChange={value => props.onChange && new Date(value).isDateEditing()?props.onChange(value):null}
+        onBlur={event => props.onChange && new Date(event.target.value).isDate()?null:props.onChange('')}
     />
 )
 
