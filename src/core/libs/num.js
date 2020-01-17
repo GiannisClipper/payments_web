@@ -43,6 +43,8 @@ class Num {
         
         this.integer = Boolean(this.integer)?parseInt(parts[1]):0;
         this.decimal = Boolean(this.decimal)?parseFloat('.' + parts[2]):0;
+        
+        return this;
     }
 
     getValue() {
