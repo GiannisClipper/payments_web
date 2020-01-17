@@ -1,40 +1,55 @@
 const numbers = '0123456789';
 
-const seperators = '/-. ';
-
 class Date {
     constructor(value) {
-        let sep = seperators;
-        let parts = [''];
+        this.seperators = '-/. ';
+
+        this.day = null;
+        this.month = null;
+        this.year = null;
 
         this.faults = false;
-
-        for (let i in value) {
-            if (sep.includes(value[i])) {
-                sep = value[i];
-                parts.push('');
-            } else {
-                if (numbers.includes(value[i]))
-                    parts[parts.length - 1] += value[i];
-                else
-                    this.faults = true;
-            }
-        }
-    
-        this.day = parts[0];
-        this.month = parts.length > 1?parts[1]:'';
-        this.year = parts.length > 2?parts[2]:'';
-
-        if (parts.length > 3 || this.day.length > 2 || this.month.length > 2 || this.year.length > 4)
-            this.faults = true;
-        
-        this.day = Boolean(this.day)?parseInt(parts[0]):0;
-        this.month = Boolean(this.month)?parseInt(parts[1]):0;
-        this.year = Boolean(this.year)?parseInt(parts[2]):0;
     }
 
-    static keys() {
-        return numbers + seperators;
+    keys() {
+        return numbers + this.seperators;
+    }
+
+    setValue(value) {
+        this.faults = false;
+
+        let sep = this.seperators;
+
+        let parts = [''];
+
+        for (let i in value) {
+            if (sep.includes(value[i]) && parts.length < 3)  // -/.
+                sep = (parts.push(''), value[i]);
+
+            else if (numbers.includes(value[i]) && parts.length === 1 && parts[0].length < 2)  // dd
+                parts[0] += value[i];
+
+            else if (numbers.includes(value[i]) && parts.length === 2 && parts[1].length < 2)  // dd-mm
+                parts[1] += value[i];
+
+            else if (numbers.includes(value[i]) && parts.length === 3 && parts[2].length < 4)  // dd-mm-yyyy
+                parts[2] += value[i];
+
+            else
+                this.faults = true;
+        }
+    
+        if (!this.faults) {
+            this.day = parts[0];
+            this.month = parts.length > 1?parts[1]:'';
+            this.year = parts.length > 2?parts[2]:'';
+        
+            this.day = Boolean(this.day)?parseInt(parts[0]):0;
+            this.month = Boolean(this.month)?parseInt(parts[1]):0;
+            this.year = Boolean(this.year)?parseInt(parts[2]):0;
+        }
+
+        return this;
     }
 
     fullYear() {
@@ -95,12 +110,15 @@ class Date {
         return true;
     }
 
-    formatted() {  // dd-mm-yyyy
+    getValue() {  // dd-mm-yyyy
+
         if (this.valid()) {
             const day = ('0' + this.day.toString()).slice(-2);
             const month = ('0' + this.month.toString()).slice(-2);
             const year = this.fullYear().toString();
+
             return `${day}-${month}-${year}`;
+
         } else {
             return '';
         };

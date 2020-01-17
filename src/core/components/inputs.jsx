@@ -47,22 +47,26 @@ export const InputNumber = props => {
     return (
         <InputString
             {...props}
-            onKeyPress={event => Num.keys().includes(event.key)?null:event.preventDefault()}
+            onKeyPress={event => num.keys().includes(event.key)?null:event.preventDefault()}
             onChange={value => props.onChange && num.setValue(value).validChange()?props.onChange(value):null}
-            onBlur={event => props.onChange?props.onChange(num.setValue(event.target.value).formatted()):null}
+            onBlur={event => props.onChange?props.onChange(num.setValue(event.target.value).getValue()):null}
         />
     )
 }
 
-export const InputDate = props => (
+export const InputDate = props => {
 
-    <InputString
-        {...props} 
-        onKeyPress={event => Date.keys().includes(event.key)?null:event.preventDefault()}
-        onChange={value => props.onChange && new Date(value).validChange()?props.onChange(value):null}
-        onBlur={event => props.onChange?props.onChange(new Date(event.target.value).formatted()):null}
-    />
-)
+    let date = new Date();
+
+    return (
+        <InputString
+            {...props} 
+            onKeyPress={event => date.keys().includes(event.key)?null:event.preventDefault()}
+            onChange={value => props.onChange && date.setValue(value).validChange()?props.onChange(value):null}
+            onBlur={event => props.onChange?props.onChange(date.setValue(event.target.value).getValue()):null}
+        />
+    )
+}
 
 export const InputRadio = ({name, labels, values, value, allowEdit, onChange}) => {
 
