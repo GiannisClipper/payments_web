@@ -2,6 +2,8 @@ import React from 'react';
 
 import Date from '../../core/libs/date.js';
 
+import Num from '../../core/libs/num.js';
+
 import { LABELS } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
@@ -36,21 +38,29 @@ export const InputHidden = props => (
     />
 )
 
-export const InputNumber = props => (
+export const InputNumber = props => {
 
-    <InputString
-        onKeyPress={event => '0123456789-.'.includes(event.key)?null:event.preventDefault()}
-        {...props} 
-    />
-)
+    let num = new Num();
+    num.minValue = -999999.99;
+    num.maxValue = +999999.99;
+
+    return (
+        <InputString
+            {...props}
+            onKeyPress={event => Num.keys().includes(event.key)?null:event.preventDefault()}
+            onChange={value => props.onChange && num.setValue(value).validChange()?props.onChange(value):null}
+            onBlur={event => props.onChange?props.onChange(num.setValue(event.target.value).formatted()):null}
+        />
+    )
+}
 
 export const InputDate = props => (
 
     <InputString
         {...props} 
         onKeyPress={event => Date.keys().includes(event.key)?null:event.preventDefault()}
-        onChange={value => props.onChange && new Date(value).isDateEditing()?props.onChange(value):null}
-        onBlur={event => props.onChange && new Date(event.target.value).isDate()?null:props.onChange('')}
+        onChange={value => props.onChange && new Date(value).validChange()?props.onChange(value):null}
+        onBlur={event => props.onChange?props.onChange(new Date(event.target.value).formatted()):null}
     />
 )
 
