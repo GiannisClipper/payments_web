@@ -1,8 +1,13 @@
 const numbers = '0123456789';
 
-class Date {
+const lZero = (val, len) => ('0'.repeat(len) + val.toString()).slice(-len);
+
+
+export class Date {
+
     constructor(value) {
-        this.seperators = '-/. ';
+
+        this.seperators = '-/.';
 
         this.day = null;
         this.month = null;
@@ -16,6 +21,7 @@ class Date {
     }
 
     setValue(value) {
+
         this.faults = false;
 
         let sep = this.seperators;
@@ -23,6 +29,7 @@ class Date {
         let parts = [''];
 
         for (let i in value) {
+
             if (sep.includes(value[i]) && parts.length < 3)  // -/.
                 sep = (parts.push(''), value[i]);
 
@@ -40,6 +47,7 @@ class Date {
         }
     
         if (!this.faults) {
+
             this.day = parts[0];
             this.month = parts.length > 1?parts[1]:'';
             this.year = parts.length > 2?parts[2]:'';
@@ -53,6 +61,7 @@ class Date {
     }
 
     fullYear() {
+
         if (this.year <= 69)
             return (2000 + this.year);
 
@@ -63,13 +72,16 @@ class Date {
     }
 
     leapYear() {
+
         if (this.fullYear() % 4 === 0 && (this.fullYear() % 100 !== 0 || this.fullYear() % 400 === 0))
             return true;
-        else
+
+            else
             return false;
     }
 
     validChange() {
+
         if (this.faults)
             return false;
 
@@ -86,6 +98,7 @@ class Date {
     }
 
     valid() {
+
         if (this.faults)
            return false;
 
@@ -110,19 +123,100 @@ class Date {
         return true;
     }
 
-    getValue() {  // dd-mm-yyyy
+    getValue() {  // yyyymmdd
 
-        if (this.valid()) {
-            const day = ('0' + this.day.toString()).slice(-2);
-            const month = ('0' + this.month.toString()).slice(-2);
-            const year = this.fullYear().toString();
+        if (this.valid())
+            return `${this.fullYear().toString()}${lZero(this.month, 2)}${lZero(this.day, 2)}`;
 
-            return `${day}-${month}-${year}`;
-
-        } else {
+        else
             return '';
-        };
+    }
+
+    reprValue() {  // dd-mm-yyyy (where - is the 1st of defined seperators)
+
+        if (this.valid())
+            return (
+                lZero(this.day, 2) +
+                this.seperators[0] +
+                lZero(this.month, 2) +
+                this.seperators[0] +
+                this.fullYear().toString()
+            );
+
+        else
+            return '';
     }
 }
 
-export default Date;
+// --- --- --- --- --- --- --- --- ---
+
+export class DateRange {
+
+    constructor() {
+        this.seperator = ' ';
+
+        this.date1 = new Date();
+        this.date2 = new Date();
+
+        this.faults = false;
+    }
+
+    set seperators(val) {
+        this.date1.seperators = val;
+        this.date2.seperators = val;
+    }
+
+    get seperators() {
+        return this.date1.seperators;
+    }
+
+    keys() {
+        return this.date1.keys() + this.seperator;
+    }
+
+    setValue(value) {
+
+        this.faults = false;
+
+        let values = value.split(this.seperator);
+
+        if (values.length < 2) 
+            values.push('');
+
+        else if (values.length > 2)
+            this.faults = true;
+
+        if (!this.faults) {
+            this.date1.setValue(values[0]);
+            this.date2.setValue(values[1]);
+        }
+
+        return this;
+    }
+
+    validChange() {
+
+        if (this.faults)
+            return false;
+
+        return (this.date1.validChange() && this.date2.validChange());
+    }
+
+    valid() {
+
+        if (this.faults)
+           return false;
+
+        return (this.date1.valid() && this.date2.valid());
+    }
+
+    getValue() {  // [yyyymmdd, yyyymmdd]
+
+        return [this.date1.getValue(), this.date2.getValue()];
+    }
+
+    reprValue() {  // dd-mm-yyyy dd-mm-yyyy
+
+        return `${this.date1.reprValue()}${this.date2.reprValue()?this.seperator:''}${this.date2.reprValue()}`;
+    }
+}

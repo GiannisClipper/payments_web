@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Date from '../../core/libs/date.js';
+import { DateRange as Date } from '../../core/libs/date.js';
 
-import Num from '../../core/libs/num.js';
+import { NumRange as Num } from '../../core/libs/num.js';
 
 import { LABELS } from '../constants.js';
 
@@ -49,7 +49,7 @@ export const InputNumber = props => {
             {...props}
             onKeyPress={event => num.keys().includes(event.key)?null:event.preventDefault()}
             onChange={value => props.onChange && num.setValue(value).validChange()?props.onChange(value):null}
-            onBlur={event => props.onChange?props.onChange(num.setValue(event.target.value).getValue()):null}
+            onBlur={event => props.onChange?props.onChange(num.setValue(event.target.value).reprValue()):null}
         />
     )
 }
@@ -63,7 +63,7 @@ export const InputDate = props => {
             {...props} 
             onKeyPress={event => date.keys().includes(event.key)?null:event.preventDefault()}
             onChange={value => props.onChange && date.setValue(value).validChange()?props.onChange(value):null}
-            onBlur={event => props.onChange?props.onChange(date.setValue(event.target.value).getValue()):null}
+            onBlur={event => props.onChange?props.onChange(date.setValue(event.target.value).reprValue()):null}
         />
     )
 }
