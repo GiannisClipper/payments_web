@@ -94,7 +94,7 @@ export const MappedButtonRequestRetrieve = connect(
     })
 )(ButtonRequestRetrieve);
 
-const onlyChangedData = (oldData, newData) => {  // Because backend triggers duplication errors when resending same field values 
+const onlyChangedData = (oldData, newData) => {  // Cause backend triggers duplication errors when resending same field values 
     let retval = {...newData};
     Object.keys(retval).forEach(x => (x !== 'id' && oldData[x] === newData[x])?delete retval[x]:null);
     return retval;

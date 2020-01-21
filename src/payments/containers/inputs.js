@@ -22,6 +22,7 @@ export const MappedInputDateDate = connect(
     state => ({
         value: state[NAMESPACE].data.date,
         allowEdit: state[NAMESPACE].uiux.allowEdit,
+        inputRange: state[NAMESPACE].uiux.mode === 'RETRIEVE'?true:false,
     }),
     dispatch => ({
         onChange: value => dispatch(onChangeDate(value)),
@@ -32,6 +33,7 @@ export const MappedInputNumberIncoming = connect(
     state => ({
         value: state[NAMESPACE].data.incoming,
         allowEdit: state[NAMESPACE].uiux.allowEdit,
+        inputRange: state[NAMESPACE].uiux.mode === 'RETRIEVE'?true:false,
     }),
     dispatch => ({
         onChange: value => dispatch(onChangeIncoming(value)),
@@ -42,6 +44,7 @@ export const MappedInputNumberOutgoing = connect(
     state => ({
         value: state[NAMESPACE].data.outgoing,
         allowEdit: state[NAMESPACE].uiux.allowEdit,
+        inputRange: state[NAMESPACE].uiux.mode === 'RETRIEVE'?true:false,
     }),
     dispatch => ({
         onChange: value => dispatch(onChangeOutgoing(value)),

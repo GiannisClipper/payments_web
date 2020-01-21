@@ -58,13 +58,20 @@ export const onRequestProcess = (namespace, hostArgs, auth, reqData, onSuccess) 
                 const id = reqData.id;
                 hostArgs = {...hostArgs}
 
-                // Replace `id` in url if should be
+                // Replace `id` in url if should be done
                 if (hostArgs.url.includes('<:id>'))
                     hostArgs.url = hostArgs.url.replace('<:id>', id);
 
                 // Create querystring when method is get
                 if (hostArgs.method.toUpperCase() === 'GET') {
-                    querystring = Object.keys(reqData).filter(x => reqData[x] !== '').map(x => `${x}=${reqData[x]}`).join('&');
+                    Object.keys(reqData).forEach(x => reqData[x] === null?delete reqData[x]:null);
+                    Object.keys(reqData).forEach(x => typeof reqData[x] === 'object'?reqData[x + '_id'] = reqData[x].id:null);
+                    Object.keys(reqData).forEach(x => typeof reqData[x] === 'object'?delete reqData[x]:null);
+                    querystring = Object.keys(reqData)
+                        .filter(x => reqData[x] !== null && reqData[x] !== '')
+                        .map(x => `filters=${x}:${reqData[x]}`)
+                        .join('&');
+
                     hostArgs.url += querystring?('?'+querystring):'';
                 }
 

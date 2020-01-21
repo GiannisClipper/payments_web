@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { DateRange as Date } from '../../core/libs/date.js';
+import { Date, DateRange } from '../../core/libs/date.js';
 
-import { NumRange as Num } from '../../core/libs/num.js';
+import { Num, NumRange } from '../../core/libs/num.js';
 
 import { LABELS } from '../constants.js';
 
@@ -40,7 +40,7 @@ export const InputHidden = props => (
 
 export const InputNumber = props => {
 
-    let num = new Num();
+    let num = props.inputRange?new NumRange():new Num();
     num.minValue = -999999.99;
     num.maxValue = +999999.99;
 
@@ -56,7 +56,7 @@ export const InputNumber = props => {
 
 export const InputDate = props => {
 
-    let date = new Date();
+    let date = props.inputRange?new DateRange():new Date();
 
     return (
         <InputString

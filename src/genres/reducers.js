@@ -21,7 +21,7 @@ const initialData = {
 	id: '',
 	code: '',
 	name: '',
-	is_incoming: false,
+	is_incoming: null,
 	fund: {
 		id: '',
 		code: '', 
@@ -51,7 +51,11 @@ export const genresReducer = (state=initialState(initialData, initialRelated), a
 
 		case `${NAMESPACE}/${ACTIONS.CHANGE_IS_INCOMING}`:
 			stateCopy = {...state};
-			stateCopy.data.is_incoming = action.payload.is_incoming;
+			stateCopy.data.is_incoming =
+				stateCopy.data.is_incoming !== action.payload.is_incoming
+					?action.payload.is_incoming
+					:null;
+
 			stateCopy.uiux.allowRequest = true;
 			return stateCopy;
 

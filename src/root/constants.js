@@ -15,6 +15,8 @@ const DATA_KEYS = {
     FUNDS: 'funds',
     GENRE: 'genre',
     GENRES: 'genres',
+    PAYMENT: 'payment',
+    PAYMENTS: 'payments',
 };
 
 const HOST_ARGS = {
@@ -114,6 +116,34 @@ const HOST_ARGS = {
         method: METHODS.DELETE,
         reqDataKey: DATA_KEYS.GENRE,
         resDataKey: DATA_KEYS.GENRE,
+    },
+
+    CREATE_PAYMENTS: {
+        url: `${ORIGIN}/payments/`,
+        method: METHODS.POST,
+        reqDataKey: DATA_KEYS.PAYMENT,
+        resDataKey: DATA_KEYS.PAYMENT,
+    },
+
+    RETRIEVE_PAYMENTS: {
+        url: `${ORIGIN}/payments/list`,
+        method: METHODS.GET,
+        reqDataKey: null,
+        resDataKey: DATA_KEYS.PAYMENTS,
+    },
+
+    UPDATE_PAYMENTS: {
+        url: `${ORIGIN}/payments/<:id>/`,
+        method: METHODS.PATCH,
+        reqDataKey: DATA_KEYS.PAYMENT,
+        resDataKey: DATA_KEYS.PAYMENT,
+    },
+
+    DELETE_PAYMENTS: {
+        url: `${ORIGIN}/payments/<:id>/`,
+        method: METHODS.DELETE,
+        reqDataKey: DATA_KEYS.PAYMENT,
+        resDataKey: DATA_KEYS.PAYMENT,
     },
 
 };
