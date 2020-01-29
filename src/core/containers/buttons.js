@@ -23,7 +23,7 @@ import {
     onSelectUpdate,
     onSelectDelete,
 
-    onRequestProcess,
+    Request,
     onSuccessCreate,
     onSuccessRetrieve,
     onSuccessUpdate,
@@ -79,7 +79,7 @@ export const MappedButtonRequestCreate = connect(
         isLoading: state[namespace].uiux.isLoading,
     }),
     (dispatch, {namespace, hostArgs}) => ({
-        onRequest: (auth, data) => dispatch(onRequestProcess(namespace, hostArgs, auth, data, onSuccessCreate)),
+        onRequest: (auth, data) => dispatch(new Request().onRequest(namespace, hostArgs, auth, data, onSuccessCreate)),
     })
 )(ButtonRequestCreate);
 
@@ -90,7 +90,7 @@ export const MappedButtonRequestRetrieve = connect(
         isLoading: state[namespace].uiux.isLoading,
     }),
     (dispatch, {namespace, hostArgs}) => ({
-        onRequest: (auth, data) => dispatch(onRequestProcess(namespace, hostArgs, auth, data, onSuccessRetrieve)),
+        onRequest: (auth, data) => dispatch(new Request().onRequest(namespace, hostArgs, auth, data, onSuccessRetrieve)),
     })
 )(ButtonRequestRetrieve);
 
@@ -108,7 +108,7 @@ export const MappedButtonRequestUpdate = connect(
         isLoading: state[namespace].uiux.isLoading,
     }),
     (dispatch, {namespace, hostArgs}) => ({
-        onRequest: (auth, data) => dispatch(onRequestProcess(namespace, hostArgs, auth, data, onSuccessUpdate)),
+        onRequest: (auth, data) => dispatch(new Request().onRequest(namespace, hostArgs, auth, data, onSuccessUpdate)),
     })
 )(ButtonRequestUpdate);
 
@@ -119,7 +119,7 @@ export const MappedButtonRequestDelete = connect(
         isLoading: state[namespace].uiux.isLoading,
     }),
     (dispatch, {namespace, hostArgs}) => ({
-        onRequest: (auth, data) => dispatch(onRequestProcess(namespace, hostArgs, auth, data, onSuccessDelete)),
+        onRequest: (auth, data) => dispatch(new Request().onRequest(namespace, hostArgs, auth, data, onSuccessDelete)),
     })
 )(ButtonRequestDelete);
 

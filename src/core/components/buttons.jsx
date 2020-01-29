@@ -57,6 +57,15 @@ export const ButtonSelectDelete = ({onSelect}) => (
     />
 )
 
+export const ButtonSelectDeleteRelated = ({onSelect}) => (
+
+    <ButtonSelect
+        name = 'delete related'
+        label = {LABELS.BUTTON_SELECT_DELETE_RELATED}
+        onSelect = {onSelect}
+    />
+)
+
 // --- --- --- --- --- --- --- --- ---
 // Button request...
 // --- --- --- --- --- --- --- --- ---

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { ButtonRequestRelated } from '../../core/components/buttons.jsx';
 
-import { onRequestProcess } from '../../core/actions.js';
+import { Request } from '../../core/actions.js';
 
 import { 
     onSuccessRelatedFund,
@@ -21,7 +21,7 @@ export const MappedButtonRequestFund = connect(
         isLoading: state[namespace].uiux.isLoading,
     }),
     (dispatch, {namespace}) => ({
-        onRequest: (auth, data) => dispatch(onRequestProcess(namespace, HOST_ARGS.RETRIEVE_FUNDS, auth, data, onSuccessRelatedFund)),
+        onRequest: (auth, data) => dispatch(new Request().onRequest(namespace, HOST_ARGS.RETRIEVE_FUNDS, auth, data, onSuccessRelatedFund)),
     })
 )(ButtonRequestRelated);
 
@@ -33,6 +33,6 @@ export const MappedButtonRequestGenre = connect(
         isLoading: state[namespace].uiux.isLoading,
     }),
     (dispatch, {namespace}) => ({
-        onRequest: (auth, data) => dispatch(onRequestProcess(namespace, HOST_ARGS.RETRIEVE_GENRES, auth, data, onSuccessRelatedGenre)),
+        onRequest: (auth, data) => dispatch(new Request().onRequest(namespace, HOST_ARGS.RETRIEVE_GENRES, auth, data, onSuccessRelatedGenre)),
     })
 )(ButtonRequestRelated);

@@ -47,74 +47,85 @@ export const onSelectRelated = (namespace, id) => {
 // onRequest...
 // --- --- --- --- --- --- --- --- ---
 
-export const onRequestProcess = (namespace, hostArgs, auth, reqData, onSuccess) => {
+export class Request {
 
-    let querystring;
+    constructor() {
+        this.onBeforeRequest = onBeforeRequest;
+        this.onAfterResponse = onAfterResponse;
+        this.onDataResponse = onDataResponse;
+        this.onErrorsResponse = onErrorsResponse;
+        this.onSignout = onSignout;
+    }
 
-    return dispatch => {
-        dispatch(onBeforeRequest(namespace));
-        dispatch(
-            async () => {
-                const id = reqData.id;
-                hostArgs = {...hostArgs}
+    onRequest(namespace, hostArgs, auth, reqData, onSuccess) {
 
-                // Replace `id` in url if should be done
-                if (hostArgs.url.includes('<:id>'))
-                    hostArgs.url = hostArgs.url.replace('<:id>', id);
+        let querystring;
 
-                // Create querystring when method is get
-                if (hostArgs.method.toUpperCase() === 'GET') {
-                    Object.keys(reqData).forEach(x => reqData[x] === null?delete reqData[x]:null);
-                    Object.keys(reqData).forEach(x => typeof reqData[x] === 'object'?reqData[x + '_id'] = reqData[x].id:null);
-                    Object.keys(reqData).forEach(x => typeof reqData[x] === 'object'?delete reqData[x]:null);
-                    querystring = Object.keys(reqData)
-                        .filter(x => reqData[x] !== null && reqData[x] !== '')
-                        .map(x => `filters=${x}:${reqData[x]}`)
-                        .join('&');
+        return dispatch => {
+            dispatch(this.onBeforeRequest(namespace));
+            dispatch(
+                async () => {
+                    const id = reqData.id;
+                    hostArgs = {...hostArgs}
 
-                    hostArgs.url += querystring?('?'+querystring):'';
+                    // Replace `id` in url if should be done
+                    if (hostArgs.url.includes('<:id>'))
+                        hostArgs.url = hostArgs.url.replace('<:id>', id);
+
+                    // Create querystring when method is get
+                    if (hostArgs.method.toUpperCase() === 'GET') {
+                        Object.keys(reqData).forEach(x => reqData[x] === null?delete reqData[x]:null);
+                        Object.keys(reqData).forEach(x => typeof reqData[x] === 'object'?reqData[x + '_id'] = reqData[x].id:null);
+                        Object.keys(reqData).forEach(x => typeof reqData[x] === 'object'?delete reqData[x]:null);
+                        querystring = Object.keys(reqData)
+                            .filter(x => reqData[x] !== null && reqData[x] !== '')
+                            .map(x => `filters=${x}:${reqData[x]}`)
+                            .join('&');
+
+                        hostArgs.url += querystring?('?'+querystring):'';
+                    }
+
+                    // Place data in `reqDataKey`-namespace
+                    if (hostArgs.reqDataKey)
+                        reqData = {[hostArgs.reqDataKey]: reqData};
+
+                    let response = await request(hostArgs.url, hostArgs.method, auth?auth.token:null, reqData);
+
+                    let resData = response.data;
+                    console.log('Response data with `resDataKey`)>>>', resData);
+
+                    if (response.status >= 200 && response.status <= 299) {
+                        // Rename `resDataKey`-namespace to a generic one
+                        if (hostArgs.resDataKey && resData[hostArgs.resDataKey] !== undefined) {
+                            resData.data = resData[hostArgs.resDataKey];
+                            delete resData[hostArgs.resDataKey];
+                        };
+                        console.log('Response data without `resDataKey`)>>>', resData);
+
+                        dispatch(this.onAfterResponse(namespace));
+                        dispatch(this.onDataResponse(namespace));
+                        if (onSuccess)
+                            dispatch(onSuccess(namespace, resData, id));
+
+                    } else {
+                        alert(response.status);
+                        // Rename `resDataKey`-namespace to a generic one
+                        if (hostArgs.resDataKey && resData[hostArgs.resDataKey] !== undefined) {
+                            resData.errors = resData[hostArgs.resDataKey];
+                            delete resData[hostArgs.resDataKey];
+                        };
+                        console.log('Response data without `resDataKey`)>>>', resData);
+
+                        dispatch(this.onAfterResponse(namespace));
+                        dispatch(this.onErrorsResponse(namespace, resData));
+
+                        if ([401, 403].includes(response.status))
+                            dispatch(this.onSignout('users', resData.errors.errors.toString()));
+
+                    };
                 }
-
-                // Place data in `reqDataKey`-namespace
-                if (hostArgs.reqDataKey)
-                    reqData = {[hostArgs.reqDataKey]: reqData};
-
-                let response = await request(hostArgs.url, hostArgs.method, auth?auth.token:null, reqData);
-
-                let resData = response.data;
-                console.log('Response data with `resDataKey`)>>>', resData);
-
-                if (response.status >= 200 && response.status <= 299) {
-                    // Rename `resDataKey`-namespace to a generic one
-                    if (hostArgs.resDataKey && resData[hostArgs.resDataKey] !== undefined) {
-                        resData.data = resData[hostArgs.resDataKey];
-                        delete resData[hostArgs.resDataKey];
-                    };
-                    console.log('Response data without `resDataKey`)>>>', resData);
-
-                    dispatch(onAfterResponse(namespace));
-                    dispatch(onDataResponse(namespace));
-                    if (onSuccess)
-                        dispatch(onSuccess(namespace, resData, id));
-
-                } else {
-                    alert(response.status);
-                    // Rename `resDataKey`-namespace to a generic one
-                    if (hostArgs.resDataKey && resData[hostArgs.resDataKey] !== undefined) {
-                        resData.errors = resData[hostArgs.resDataKey];
-                        delete resData[hostArgs.resDataKey];
-                    };
-                    console.log('Response data without `resDataKey`)>>>', resData);
-
-                    dispatch(onAfterResponse(namespace));
-                    dispatch(onErrorsResponse(namespace, resData));
-
-                    if ([401, 403].includes(response.status))
-                        dispatch(onSignout('users', resData.errors.errors.toString()));
-
-                };
-            }
-        )
+            )
+        }
     }
 }
 

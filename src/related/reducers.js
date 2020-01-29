@@ -59,7 +59,7 @@ export const relatedReducer = (namespace, state, action) => {
 			stateCopy.related.genre.filterCopy = stateCopy.related.genre.filter;
 			stateCopy.related.genre.filter = stateCopy.related.genre.items.reprKeys.map(k => stateCopy.data.genre[k]).join(' ');
 			return stateCopy;
-	
+
 		default:
 			return baseFormReducer(namespace, state, action)
     };

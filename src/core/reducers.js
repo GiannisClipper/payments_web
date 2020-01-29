@@ -184,7 +184,7 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 			stateCopy.uiux.allowRequest = true;
 			stateCopy.uiux.allowEdit = true;
 			return stateCopy;
-	
+
 		case `${namespace}/${ACTIONS.BEFORE_REQUEST}`:
 			stateCopy = {...state};
 			stateCopy.uiux.allowEdit = false;

@@ -6,7 +6,7 @@ import {
 } from '../components/buttons.jsx';
 
 import {
-    onRequestProcess,
+    Request,
 } from '../../core/actions.js';
 
 import {
@@ -26,7 +26,7 @@ export const MappedButtonSignup = connect(
         isLoading: state[NAMESPACE].uiux.isLoading,
     }),
     (dispatch, {hostArgs}) => ({
-        onRequest: (auth, data) => dispatch(onRequestProcess(NAMESPACE, hostArgs, null, data, onSignup)),
+        onRequest: (auth, data) => dispatch(new Request().onRequest(NAMESPACE, hostArgs, null, data, onSignup)),
     })
 )(ButtonSignup);
 
@@ -38,6 +38,6 @@ export const MappedButtonSignin = connect(
         isLoading: state[NAMESPACE].uiux.isLoading,
     }),
     (dispatch, {hostArgs}) => ({
-        onRequest: (auth, data) => dispatch(onRequestProcess(NAMESPACE, hostArgs, null, data, onSignin)),
+        onRequest: (auth, data) => dispatch(new Request().onRequest(NAMESPACE, hostArgs, null, data, onSignin)),
     })
 )(ButtonSignin);

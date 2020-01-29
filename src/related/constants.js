@@ -11,7 +11,6 @@ const ACTIONS = {
     CHANGE_GENRE: 'CHANGE_GENRE',
     FOCUS_GENRE: 'FOCUS_GENRE',
     BLUR_GENRE: 'BLUR_GENRE',
-
 };
 
 module.exports = {

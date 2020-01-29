@@ -3,12 +3,13 @@ const LABELS = {
     BUTTON_SELECT_RETRIEVE: 'ΑΝΑΖΗΤΗΣΗ',
     BUTTON_SELECT_UPDATE: 'ΕΠΕΞΕΡΓΑΣΙΑ',
     BUTTON_SELECT_DELETE: 'ΔΙΑΓΡΑΦΗ',
+    BUTTON_SELECT_DELETE_RELATED: 'X',
 
     BUTTON_REQUEST_CREATE: 'ΑΠΟΘΗΚΕΥΣΗ',
     BUTTON_REQUEST_RETRIEVE: 'ΑΝΑΖΗΤΗΣΗ',
     BUTTON_REQUEST_UPDATE: 'ΑΠΟΘΗΚΕΥΣΗ',
     BUTTON_REQUEST_DELETE: 'ΕΠΙΒΕΒΑΙΩΣΗ',
-    BUTTON_REQUEST_RELATED: '...',
+    BUTTON_REQUEST_RELATED: '?',
 
     BUTTON_GO_HOME: 'ΑΡΧΙΚΗ',
     BUTTON_CLOSE_FORM: 'ΚΛΕΙΣΙΜΟ',
