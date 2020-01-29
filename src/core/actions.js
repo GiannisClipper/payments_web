@@ -158,6 +158,31 @@ export const onErrorsResponse = (namespace, errors) => {
 }
 
 // --- --- --- --- --- --- --- --- ---
+
+export class RequestRelated extends Request {
+
+    constructor() {
+        super();
+        this.onBeforeRequest = onBeforeRequestRelated;
+        this.onAfterResponse = onAfterResponseRelated;
+    }
+}
+
+export const onBeforeRequestRelated = namespace => {
+    return {
+        type: `${namespace}/${ACTIONS.BEFORE_REQUEST_RELATED}`,
+        payload: {},
+    }
+}
+
+export const onAfterResponseRelated = namespace => {
+    return {
+        type: `${namespace}/${ACTIONS.AFTER_RESPONSE_RELATED}`,
+        payload: {},
+    }
+}
+
+// --- --- --- --- --- --- --- --- ---
 // onSuccess...
 // --- --- --- --- --- --- --- --- ---
 

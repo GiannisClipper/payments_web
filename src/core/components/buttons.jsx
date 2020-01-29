@@ -82,7 +82,9 @@ export class ButtonRequest extends React.Component {
 
         return (
             <button className={`button_request button_request_${name}`}
-                onClick={() => onRequest(auth, data)}
+                // related request button not exists when correspponded input looses focus
+                // so is used onMouseDown instead onClick to achieve triggering the event
+                onMouseDown={() => onRequest(auth, data)}
                 disabled={!allowRequest}
             >
                 {(isLoading)?(<i className="fa fa-refresh fa-spin"></i>):null}

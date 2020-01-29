@@ -4,19 +4,19 @@ import {
 } from "./constants.js";
 
 import {
-	initialState,
+	initState,
 	baseFormReducer,
 } from '../core/reducers.js'
 
 // --- --- --- --- --- --- --- --- ---
 
-const initialData = {
+const initData = {
 	id: '',
 	code: '..', 
 	name: '..',
 };
 
-export const fundsReducer = (state=initialState(initialData), action) => {
+export const fundsReducer = (state=initState(initData), action) => {
 	let stateCopy;
 
     switch (action.type) {  

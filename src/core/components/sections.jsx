@@ -17,7 +17,7 @@ export class SectionInputs extends React.Component {
             <div className='section section_inputs'>
                 <span className='message'>{message?message:''}</span>
 
-                {inputs.map(AnInput => (
+                {inputs.filter(x => x !==null).map(AnInput => (
                     <li key={key++}>
                         <span><AnInput {...{namespace}} /></span>
                     </li>

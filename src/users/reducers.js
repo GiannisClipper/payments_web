@@ -3,13 +3,13 @@ import { NAMESPACE } from './constants.js';
 import { ACTIONS } from './constants.js';
 
 import {
-	initialState,
+	initState,
 	baseFormReducer,
 } from '../core/reducers.js'
 
 // --- --- --- --- --- --- --- --- ---
 
-const initialData = {
+const initData = {
 	id: '',
     username: '',
 	password: '', 
@@ -17,7 +17,7 @@ const initialData = {
 	email: '', 
 };
 
-export const usersReducer = (state=initialState(initialData), action) => {
+export const usersReducer = (state=initState(initData), action) => {
     let stateCopy;
 
     switch (action.type) {

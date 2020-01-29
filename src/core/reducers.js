@@ -4,29 +4,35 @@ import deepCopy from './libs/deepcopy.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-const initialUiux = {
+const initUiux = {
 	mode: null,
 	allowRequest: null,
 	allowEdit: null,
 	isLoading: null,
-	relatedNamespace: null,
+	related: {
+		namespace: null,
+		allowRequest: null,
+		isLoading: null,
+	},
 };
 
-const initialData = {};
+const initData = {};
 
-const initialRelated = {};
+const initRelated = {};
 
-export const initialState = (initialData, initialRelated={}) => {
+export const initState = (initData, initRelated={}) => {
 	return {
-		initialUiux: deepCopy(initialUiux),
-		initialData: deepCopy(initialData),
-		initialRelated: deepCopy(initialRelated),
+		init: {
+			uiux: deepCopy(initUiux),
+			data: deepCopy(initData),
+			related: deepCopy(initRelated),
+		},
 
-		uiux: deepCopy(initialUiux),
-		data: deepCopy(initialData),
-		related: deepCopy(initialRelated),
+		uiux: deepCopy(initUiux),
+		data: deepCopy(initData),
+		related: deepCopy(initRelated),
 		errors: {},
-	
+
 		items: {
 			data: {}, 
 			order: [],
@@ -34,7 +40,7 @@ export const initialState = (initialData, initialRelated={}) => {
 	};
 };
 
-export const baseFormReducer = (namespace, state=initialState(initialData, initialRelated), action) => {
+export const baseFormReducer = (namespace, state=initState(initData, initRelated), action) => {
 	let stateCopy;
 	let rel = {
 		namespace: null,
@@ -73,7 +79,7 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 				stateCopy.items.data[action.payload.id][k] === null?delete stateCopy.items.data[action.payload.id][k]:null
 			);  // Cause null values in object keys overwrite object stuctures
 
-			stateCopy.data = {...stateCopy.initialData, ...stateCopy.items.data[action.payload.id]};
+			stateCopy.data = {...stateCopy.init.data, ...stateCopy.items.data[action.payload.id]};
 			reprRelated();
 
 			stateCopy.uiux.mode = 'UPDATE';
@@ -83,7 +89,7 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 	
 		case `${namespace}/${ACTIONS.SELECT_DELETE}`:
 			stateCopy = {...state};
-			stateCopy.data = {...stateCopy.initialData, ...stateCopy.items.data[action.payload.id]};
+			stateCopy.data = {...stateCopy.init.data, ...stateCopy.items.data[action.payload.id]};
 			reprRelated();
 
 			stateCopy.uiux.mode = 'DELETE';
@@ -93,24 +99,33 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 
 		case `${namespace}/${ACTIONS.SELECT_RELATED}`:
 			stateCopy = {...state};
-			rel.namespace = stateCopy.uiux.relatedNamespace;
+			rel.namespace = stateCopy.uiux.related.namespace;
 			rel.data = stateCopy.related[rel.namespace].items.data[action.payload.id];
 			rel.keys = Object.keys(stateCopy.data[rel.namespace]);
 			rel.reprKeys = stateCopy.related[rel.namespace].items.reprKeys;
 
-			stateCopy.data[rel.namespace] = deepCopy(stateCopy.data[rel.namespace]);  // Distinguish from initial object
+			stateCopy.data[rel.namespace] = deepCopy(stateCopy.data[rel.namespace]);  // Distinguish from init object
 			rel.keys.forEach(k => stateCopy.data[rel.namespace][k] = rel.data[k]);
 			stateCopy.related[rel.namespace].filter = rel.reprKeys.map(k => rel.data[k]).join(' ');
-			stateCopy.uiux.relatedNamespace = null;
+			stateCopy.uiux.related.namespace = null;
 			stateCopy.uiux.allowRequest = true;
 			stateCopy.uiux.allowEdit = true;
 			return stateCopy;
 	
+		case `${namespace}/${ACTIONS.SELECT_DELETE_RELATED}`:
+			stateCopy = {...state};
+			rel.namespace = action.payload.related.namespace;
+			rel.keys = Object.keys(stateCopy.data[rel.namespace]);
+
+			rel.keys.forEach(k => stateCopy.data[rel.namespace][k] = stateCopy.init.data[rel.namespace][k]);
+			stateCopy.related[rel.namespace].filter = '';
+			return stateCopy;
+
 		case `${namespace}/${ACTIONS.SUCCESS_CREATE}`:
 			stateCopy = {...state};
 			stateCopy.items.data[action.payload.data.id] = {...action.payload.data};
 			stateCopy.items.order = stateCopy.items.order.concat(action.payload.data.id);
-			stateCopy.data = {...stateCopy.initialData};
+			stateCopy.data = {...stateCopy.init.data};
 			stateCopy.uiux.mode = null;
 			return stateCopy;
 	
@@ -135,19 +150,19 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 			let orderPos = stateCopy.items.order.indexOf(action.payload.id);
 			stateCopy.items.order.splice(orderPos, 1);
 			delete stateCopy.items.data[action.payload.id];
-			stateCopy.data = {...stateCopy.initialData};
+			stateCopy.data = {...stateCopy.init.data};
 			stateCopy.uiux.mode = null;
 			return stateCopy;
 
 		case `${namespace}/${ACTIONS.SUCCESS_RELATED}`:
 			stateCopy = {...state};
-			rel.namespace = action.payload.relatedNamespace;
+			rel.namespace = action.payload.related.namespace;
 
 			stateCopy.related[rel.namespace].items.data = {};
 			stateCopy.related[rel.namespace].items.order = [];
 			action.payload.data.forEach(x => stateCopy.related[rel.namespace].items.data[x.id] = x);
 			action.payload.data.forEach(x => stateCopy.related[rel.namespace].items.order.push(x.id));
-			stateCopy.uiux.relatedNamespace = rel.namespace;
+			stateCopy.uiux.related.namespace = rel.namespace;
 			stateCopy.uiux.allowRequest = false;
 			stateCopy.uiux.allowEdit = false;
 			return stateCopy;
@@ -158,9 +173,9 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 	
 		case `${namespace}/${ACTIONS.CLOSE_FORM}`:
 			stateCopy = {...state};
-			stateCopy.uiux = deepCopy(stateCopy.initialUiux);
-			stateCopy.data = deepCopy(stateCopy.initialData);
-			stateCopy.related = deepCopy(stateCopy.initialRelated);
+			stateCopy.uiux = deepCopy(stateCopy.init.uiux);
+			stateCopy.data = deepCopy(stateCopy.init.data);
+			stateCopy.related = deepCopy(stateCopy.init.related);
 			stateCopy.errors = {};
 			stateCopy.items.data = {};
 			stateCopy.items.order = [];
@@ -169,18 +184,18 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 
 		case `${namespace}/${ACTIONS.CLOSE_MODE}`:
 			stateCopy = {...state};
-			stateCopy.uiux = deepCopy(stateCopy.initialUiux);
-			stateCopy.data = deepCopy(stateCopy.initialData);
-			stateCopy.related = deepCopy(stateCopy.initialRelated);
+			stateCopy.uiux = deepCopy(stateCopy.init.uiux);
+			stateCopy.data = deepCopy(stateCopy.init.data);
+			stateCopy.related = deepCopy(stateCopy.init.related);
 			stateCopy.errors = {};
 			return stateCopy;
 
 		case `${namespace}/${ACTIONS.CLOSE_RELATED}`:
 			stateCopy = {...state};
-			stateCopy.related = deepCopy(stateCopy.initialRelated);
+			stateCopy.related = deepCopy(stateCopy.init.related);
 			reprRelated();
 
-			stateCopy.uiux.relatedNamespace = null;
+			stateCopy.uiux.related.namespace = null;
 			stateCopy.uiux.allowRequest = true;
 			stateCopy.uiux.allowEdit = true;
 			return stateCopy;
@@ -192,12 +207,26 @@ export const baseFormReducer = (namespace, state=initialState(initialData, initi
 			stateCopy.uiux.isLoading = true;
 			return stateCopy;
 
+		case `${namespace}/${ACTIONS.BEFORE_REQUEST_RELATED}`:
+			stateCopy = {...state};
+			stateCopy.uiux.allowEdit = false;
+			stateCopy.uiux.allowRequest = false;
+			stateCopy.uiux.related.allowRequest = false;
+			stateCopy.uiux.related.isLoading = true;
+			return stateCopy;
+
 		case `${namespace}/${ACTIONS.AFTER_RESPONSE}`:
 			stateCopy = {...state};
 			stateCopy.uiux.allowEdit = true;
 			stateCopy.uiux.isLoading = false;
 			return stateCopy;
 
+		case `${namespace}/${ACTIONS.AFTER_RESPONSE_RELATED}`:
+			stateCopy = {...state};
+			stateCopy.uiux.allowEdit = true;
+			stateCopy.uiux.related.isLoading = false;
+			return stateCopy;
+		
 		case `${namespace}/${ACTIONS.DATA_RESPONSE}`:
 			stateCopy = {...state};
 			stateCopy.errors = {};

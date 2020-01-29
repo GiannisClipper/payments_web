@@ -19,7 +19,10 @@ import {
     GroupInputFund,
 } from '../../related/components/groups.jsx';
 
-import { MappedButtonRequestFund } from '../../related/containers/buttons.js';
+import { 
+    MappedButtonRequestRelatedFund,
+    MappedButtonSelectDeleteRelatedFund,
+} from '../../related/containers/buttons.js';
 
 import { MappedSectionRelatedFund } from '../../related/containers/sections.js';
 
@@ -29,7 +32,7 @@ import { NAMESPACE, LABELS } from '../constants.js';
 
 // --- --- --- --- --- --- --- --- ---
 
-export const SectionInputs = ({message, relatedNamespace}) => {
+export const SectionInputs = ({message, related, data}) => {
 
     const inputs = [
         GroupInputId,
@@ -37,11 +40,14 @@ export const SectionInputs = ({message, relatedNamespace}) => {
         GroupInputName,
         GroupInputIsIncoming,
         GroupInputFund,
-        MappedButtonRequestFund,
+        (related.namespace === 'fund')?
+            (related.allowRequest)?
+                MappedButtonRequestRelatedFund:
+                MappedSectionRelatedFund:
+            (data.fund.id)?
+                MappedButtonSelectDeleteRelatedFund:
+                null,
     ];
-
-    if (relatedNamespace)
-        inputs.push(MappedSectionRelatedFund);
 
     return (
         <CoreSectionInputs

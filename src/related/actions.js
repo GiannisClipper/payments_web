@@ -3,6 +3,8 @@ import { ACTIONS } from './constants.js';
 import { ACTIONS as CORE_ACTIONS } from '../core/constants.js';
 
 // --- --- --- --- --- --- --- --- ---
+// Fund...
+// --- --- --- --- --- --- --- --- ---
 
 export const onChangeFund = (namespace, value) => {
     return {
@@ -28,10 +30,19 @@ export const onBlurFund = namespace => {
 export const onSuccessRelatedFund = (namespace, resData) => {
     return {
         type: `${namespace}/${CORE_ACTIONS.SUCCESS_RELATED}`,
-		payload: {...resData, relatedNamespace: 'fund'},
+		payload: {...resData, related: {namespace: 'fund'}},
     }
 }
 
+export const onSelectDeleteRelatedFund = namespace => {
+    return {
+        type: `${namespace}/${CORE_ACTIONS.SELECT_DELETE_RELATED}`,
+		payload: {related: {namespace: 'fund'}},
+    }
+}
+
+// --- --- --- --- --- --- --- --- ---
+// Genre...
 // --- --- --- --- --- --- --- --- ---
 
 export const onChangeGenre = (namespace, value) => {
@@ -58,6 +69,13 @@ export const onBlurGenre = namespace => {
 export const onSuccessRelatedGenre = (namespace, resData) => {
     return {
         type: `${namespace}/${CORE_ACTIONS.SUCCESS_RELATED}`,
-		payload: {...resData, relatedNamespace: 'genre'},
+		payload: {...resData, related: {namespace: 'genre'}},
+    }
+}
+
+export const onSelectDeleteRelatedGenre = namespace => {
+    return {
+        type: `${namespace}/${CORE_ACTIONS.SELECT_DELETE_RELATED}`,
+		payload: {related: {namespace: 'genre'}},
     }
 }

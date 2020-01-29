@@ -3,11 +3,11 @@ import deepCopy from '../core/libs/deepcopy.js';
 import { NAMESPACE, ACTIONS } from './constants.js';
 
 import {
-	initialState,
+	initState,
 } from '../core/reducers.js';
 
 import {
-	initialFundRelated,
+	initFundRelated,
 } from '../related/reducers.js';
 
 import {
@@ -17,7 +17,7 @@ import {
 
 // --- --- --- --- --- --- --- --- ---
 
-const initialData = {
+const initData = {
 	id: '',
 	code: '',
 	name: '',
@@ -29,11 +29,11 @@ const initialData = {
 	},
 };
 
-const initialRelated = {
-	fund: deepCopy(initialFundRelated),
+const initRelated = {
+	fund: deepCopy(initFundRelated),
 };
 
-export const genresReducer = (state=initialState(initialData, initialRelated), action) => {
+export const genresReducer = (state=initState(initData, initRelated), action) => {
 	let stateCopy;
 
     switch (action.type) {  
