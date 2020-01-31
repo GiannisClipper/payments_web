@@ -2,13 +2,13 @@ import { connect } from 'react-redux';
 
 import {
     InputString,
+    MessageInput,
 } from '../../core/components/inputs.jsx';
 
 import {
     onChangeFund,
     onFocusFund,
     onBlurFund,
-
     onChangeGenre,
     onFocusGenre,
     onBlurGenre,
@@ -39,3 +39,17 @@ export const MappedInputStringGenre = connect(
         onBlur: () => dispatch(onBlurGenre(namespace)),
     })
 )(InputString);
+
+// --- --- --- --- --- --- --- --- ---
+
+export const MappedMessageInputFund = connect(
+    (state, {namespace}) => ({
+        value: state[namespace].errors.fund,
+    }),
+)(MessageInput);
+
+export const MappedMessageInputGenre = connect(
+    (state, {namespace}) => ({
+        value: state[namespace].errors.genre,
+    }),
+)(MessageInput);

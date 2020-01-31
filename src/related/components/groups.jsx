@@ -10,6 +10,8 @@ import {
 import {
     MappedInputStringFund,
     MappedInputStringGenre,
+    MappedMessageInputFund,
+    MappedMessageInputGenre,
 } from '../containers/inputs.js';
 
 // --- --- --- --- --- --- --- --- ---
@@ -20,7 +22,7 @@ export const GroupInputFund = ({namespace}) => (
         name='fund'
         label={<LabelInputFund />}
         input={<MappedInputStringFund namespace={namespace} />}
-        message={null}
+        message={<MappedMessageInputFund namespace={namespace} />}
     />
 )
 
@@ -30,6 +32,6 @@ export const GroupInputGenre = ({namespace}) => (
         name='genre'
         label={<LabelInputGenre />}
         input={<MappedInputStringGenre namespace={namespace} />}
-        message={null}
+        message={<MappedMessageInputGenre namespace={namespace} />}
     />
 )

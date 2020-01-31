@@ -4,6 +4,8 @@ import request from './libs/request.js';
 
 import { onSignout } from '../auth/actions.js';
 
+import deepCopy from './libs/deepcopy.js';
+
 // --- --- --- --- --- --- --- --- ---
 // onSelect...
 // --- --- --- --- --- --- --- --- ---
@@ -57,6 +59,14 @@ export class Request {
         this.onSignout = onSignout;
     }
 
+    parseData(parsers, data) {
+        if (parsers)
+            if (Array.isArray(data))
+                data.forEach(item => Object.keys(parsers).forEach(x => (x in item)?item[x] = parsers[x](item[x]):null));
+            else
+                Object.keys(parsers).forEach(x => (x in data)?data[x] = parsers[x](data[x]):null);
+    }
+
     onRequest(namespace, hostArgs, auth, reqData, onSuccess) {
 
         let querystring;
@@ -65,8 +75,10 @@ export class Request {
             dispatch(this.onBeforeRequest(namespace));
             dispatch(
                 async () => {
+                    hostArgs = deepCopy(hostArgs);
+                    reqData = deepCopy(reqData);
+                    this.parseData(hostArgs.reqDataParsers, reqData);
                     const id = reqData.id;
-                    hostArgs = {...hostArgs}
 
                     // Replace `id` in url if should be done
                     if (hostArgs.url.includes('<:id>'))
@@ -94,13 +106,15 @@ export class Request {
                     let resData = response.data;
                     console.log('Response data with `resDataKey`)>>>', resData);
 
-                    if (response.status >= 200 && response.status <= 299) {
-                        // Rename `resDataKey`-namespace to a generic one
+                    if (200 <= response.status && response.status <= 299) {
+                        // Rename `resDataKey`-namespace to a generic ones
                         if (hostArgs.resDataKey && resData[hostArgs.resDataKey] !== undefined) {
                             resData.data = resData[hostArgs.resDataKey];
                             delete resData[hostArgs.resDataKey];
                         };
                         console.log('Response data without `resDataKey`)>>>', resData);
+
+                        this.parseData(hostArgs.resDataParsers, resData.data);
 
                         dispatch(this.onAfterResponse(namespace));
                         dispatch(this.onDataResponse(namespace));

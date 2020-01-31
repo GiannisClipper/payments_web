@@ -16,10 +16,7 @@ export const MappedSectionInputs = connect(
             namespace: state[NAMESPACE].uiux.related.namespace,
             allowRequest: state[NAMESPACE].uiux.related.allowRequest,
         },
-        data: {
-            genre: {id: state[NAMESPACE].data.genre.id},
-            fund: {id: state[NAMESPACE].data.fund.id},
-        },
+        data: state[NAMESPACE].data,
     }),
 )(SectionInputs);
 

@@ -77,9 +77,9 @@ export const baseFormReducer = (namespace, state=initState(initData, initRelated
 			stateCopy = {...state};
 			Object.keys(stateCopy.items.data[action.payload.id]).forEach(k => 
 				stateCopy.items.data[action.payload.id][k] === null?delete stateCopy.items.data[action.payload.id][k]:null
-			);  // Cause null values in object keys overwrite object stuctures
+			);  // possible null values in object keys overwrite object stuctures
 
-			stateCopy.data = {...stateCopy.init.data, ...stateCopy.items.data[action.payload.id]};
+			stateCopy.data = {...stateCopy.init.data, ...deepCopy(stateCopy.items.data[action.payload.id])};
 			reprRelated();
 
 			stateCopy.uiux.mode = 'UPDATE';
@@ -119,6 +119,7 @@ export const baseFormReducer = (namespace, state=initState(initData, initRelated
 
 			rel.keys.forEach(k => stateCopy.data[rel.namespace][k] = stateCopy.init.data[rel.namespace][k]);
 			stateCopy.related[rel.namespace].filter = '';
+			stateCopy.uiux.allowRequest = true;
 			return stateCopy;
 
 		case `${namespace}/${ACTIONS.SUCCESS_CREATE}`:
@@ -140,8 +141,11 @@ export const baseFormReducer = (namespace, state=initState(initData, initRelated
 
         case `${namespace}/${ACTIONS.SUCCESS_UPDATE}`:
         	stateCopy = {...state};
-			stateCopy.data = {...action.payload.data};
-			stateCopy.items.data[action.payload.data.id] = {...stateCopy.data};
+			Object.keys(stateCopy.items.data[action.payload.data.id]).forEach(k => 
+				stateCopy.items.data[action.payload.data.id][k] === null?delete stateCopy.items.data[action.payload.data.id][k]:null
+			);  // possible null values in object keys overwrite object stuctures
+
+			stateCopy.data = {...stateCopy.init.data, ...deepCopy(stateCopy.items.data[action.payload.data.id])};
 			return stateCopy;
   
 	    case `${namespace}/${ACTIONS.SUCCESS_DELETE}`:

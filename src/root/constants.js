@@ -1,12 +1,35 @@
+import { 
+    dateParser,
+    relatedParser, 
+} from '../core/libs/parsers.js';
+
 const ORIGIN = 'http://localhost:8000';
 
-const TOKEN_PREFIX = 'Token';
+export const TOKEN_PREFIX = 'Token';
 
 const METHODS = {
     POST: 'POST',
     GET: 'GET',
     PATCH: 'PATCH',
     DELETE: 'DELETE',
+};
+
+const REQ_DATA_PARSERS = {
+    GENRES: {
+        fund: relatedParser,
+    },
+
+    PAYMENTS: {
+        date: x => dateParser(x, 'DD-MM-YYYY', 'YYYY-MM-DD'),
+        genre: relatedParser,
+        fund: relatedParser,
+    },
+};
+
+const RES_DATA_PARSERS = {
+    PAYMENTS: {
+        date: x => dateParser(x, 'YYYY-MM-DD', 'DD-MM-YYYY'),
+    },
 };
 
 const DATA_KEYS = {
@@ -19,7 +42,7 @@ const DATA_KEYS = {
     PAYMENTS: 'payments',
 };
 
-const HOST_ARGS = {
+export const HOST_ARGS = {
     SIGNUP: {
         url: `${ORIGIN}/users/signup/`, 
         method: METHODS.POST, 
@@ -95,6 +118,7 @@ const HOST_ARGS = {
         method: METHODS.POST,
         reqDataKey: DATA_KEYS.GENRE,
         resDataKey: DATA_KEYS.GENRE,
+        reqDataParsers: REQ_DATA_PARSERS.GENRES,
     },
 
     RETRIEVE_GENRES: {
@@ -102,6 +126,7 @@ const HOST_ARGS = {
         method: METHODS.GET,
         reqDataKey: null,
         resDataKey: DATA_KEYS.GENRES,
+        reqDataParsers: REQ_DATA_PARSERS.GENRES,
     },
 
     UPDATE_GENRES: {
@@ -123,6 +148,8 @@ const HOST_ARGS = {
         method: METHODS.POST,
         reqDataKey: DATA_KEYS.PAYMENT,
         resDataKey: DATA_KEYS.PAYMENT,
+        reqDataParsers: REQ_DATA_PARSERS.PAYMENTS,
+        resDataParsers: RES_DATA_PARSERS.PAYMENTS,
     },
 
     RETRIEVE_PAYMENTS: {
@@ -130,6 +157,8 @@ const HOST_ARGS = {
         method: METHODS.GET,
         reqDataKey: null,
         resDataKey: DATA_KEYS.PAYMENTS,
+        reqDataParsers: RES_DATA_PARSERS.PAYMENTS,
+        resDataParsers: RES_DATA_PARSERS.PAYMENTS,
     },
 
     UPDATE_PAYMENTS: {
@@ -137,6 +166,8 @@ const HOST_ARGS = {
         method: METHODS.PATCH,
         reqDataKey: DATA_KEYS.PAYMENT,
         resDataKey: DATA_KEYS.PAYMENT,
+        reqDataParsers: REQ_DATA_PARSERS.PAYMENTS,
+        resDataParsers: RES_DATA_PARSERS.PAYMENTS,
     },
 
     DELETE_PAYMENTS: {
@@ -148,7 +179,7 @@ const HOST_ARGS = {
 
 };
 
-const LABELS = {
+export const LABELS = {
     MENU_SIGNUP: 'ΕΓΓΡΑΦΗ ΝΕΟΥ ΧΡΗΣΤΗ',
     MENU_SIGNIN: 'ΣΥΝΔΕΣΗ ΧΡΗΣΤΗ',
     MENU_USERS: 'ΧΡΗΣΤΕΣ',
@@ -156,10 +187,4 @@ const LABELS = {
     MENU_GENRES: 'ΚΑΤΗΓΟΡΙΕΣ ΕΙΣΠΡΑΞΕΩΝ/ΠΛΗΡΩΜΩΝ',
     MENU_PAYMENTS: 'ΕΙΣΠΡΑΞΕΙΣ/ΠΛΗΡΩΜΕΣ',
     MENU_SIGNOUT: 'ΑΠΟΣΥΝΔΕΣΗ',
-};
-
-module.exports = {
-    TOKEN_PREFIX,
-    HOST_ARGS,
-    LABELS,
 };
