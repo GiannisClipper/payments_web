@@ -5,7 +5,6 @@ import { LABELS } from '../constants.js';
 // --- --- --- --- --- --- --- --- ---
 
 export const ButtonSignup = ({auth, data, allowRequest, isLoading, onRequest}) => (
-
     <button
         onClick={() => onRequest(auth, data)}
         disabled={!allowRequest}
@@ -16,7 +15,6 @@ export const ButtonSignup = ({auth, data, allowRequest, isLoading, onRequest}) =
 )
 
 export const ButtonSignin = ({auth, data, allowRequest, isLoading, onRequest}) => (
-
     <button
         onClick={() => onRequest(auth, data)}
         disabled={!allowRequest}

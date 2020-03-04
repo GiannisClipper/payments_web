@@ -69,17 +69,19 @@ export const SectionRelated = ({namespace, items, onSelect}) => {
     let key = 0;
 
     return (
-        <div className='section section_related'>
-            <ul>
-                {items.order.map(id => (
-                    <li key={id} onClick={() => onSelect(id)}>
-                        {items.reprKeys.map(k => 
-                            (<span key={key++}>{items.data[id][k]}</span>)
-                        )}
-                    </li>
-                ))}
-            </ul>
-            <MappedButtonCloseRelated {...{namespace}} />
+        <div className='modal containerH'>
+            <div className='section section_related containerV'>
+                <ul>
+                    {items.order.map(id => (
+                        <li key={id} onClick={() => onSelect(id)}>
+                            {items.reprKeys.map(k => 
+                                (<span key={key++}>{items.data[id][k]}</span>)
+                            )}
+                        </li>
+                    ))}
+                </ul>
+                <MappedButtonCloseRelated {...{namespace}} />
+            </div>
         </div>
     )
 }

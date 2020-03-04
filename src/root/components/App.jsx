@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-import { NavBar } from './NavBar.jsx';
+import { MappedNav } from '../containers/nav.js';
 
 import { MappedFormSignup, MappedFormSignin, MappedFormSignout } from '../../auth/containers/forms.js';
 
@@ -31,16 +31,18 @@ const App = ({auth}) => {
 
 	return (
 		<BrowserRouter>
-
-			<NavBar auth={auth} />
-
+            <div className='containerH'>
+			<div className='containerV'>
+			<div className='main'>
 			{auth.token.key?(
 				<Switch>
+					<Route exact path='/' component={MappedNav} />
 					<Route path='/users' component={MappedFormUsers} />
 					<Route path='/funds' component={MappedFormFunds} />
 					<Route path='/genres' component={MappedFormGenres} />
 					<Route path='/payments' component={MappedFormPayments} />
 					<Route path='/signout' component={MappedFormSignout} />
+					<Route render={() => (<Redirect to={{pathname: '/'}} />)} />
 				</Switch>
 
 			):(
@@ -48,6 +50,7 @@ const App = ({auth}) => {
 				<Switch>
 					<Route path='/signup' component={MappedFormSignup} />
 					<Route path='/signin' component={MappedFormSignin} />
+					<Route path='/' component={MappedNav} />
 				</Switch>
 				<div className='welcome'>
 					{welcome.map(x => (
@@ -57,7 +60,9 @@ const App = ({auth}) => {
 				</div>
 				</>
 			)}
-
+			</div>
+			</div>
+			</div>
 		</BrowserRouter>
 	)
 }

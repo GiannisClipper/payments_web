@@ -8,7 +8,7 @@ import thunk from "redux-thunk";
 import rootReducer from "./root/reducers.js";
 import { MappedApp } from "./root/containers/app.js";
 
-// import "./styles.css";
+import "./static/styles.css";
 
 let store = createStore(
     rootReducer,

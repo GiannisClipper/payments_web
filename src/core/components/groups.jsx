@@ -44,7 +44,7 @@ export const GroupInputId = ({namespace}) => (
 
 export const GroupFormButtons = props => {
     return (
-        <div>
+        <div className='section section_buttons'>
             <MappedButtonSelectCreate {...props} />
             <MappedButtonSelectRetrieve {...props} />
             <MappedButtonCloseForm {...props} />
@@ -72,7 +72,7 @@ export const GroupCreateButtons = props => {
 
 export const GroupUpdateButtons = props => {
     return (
-        <div>
+        <div className='section section_buttons'>
             <MappedButtonRequestUpdate {...props} />
             <MappedButtonCloseMode {...props} />
         </div>
@@ -81,7 +81,7 @@ export const GroupUpdateButtons = props => {
 
 export const GroupRetrieveButtons = props => {
     return (
-        <div>
+        <div className='section section_buttons'>
             <MappedButtonRequestRetrieve {...props} />
             <MappedButtonCloseMode {...props} />
         </div>
@@ -90,7 +90,7 @@ export const GroupRetrieveButtons = props => {
 
 export const GroupDeleteButtons = props => {
     return (
-        <div>
+        <div className='section section_buttons'>
             <MappedButtonRequestDelete {...props} />
             <MappedButtonCloseMode {...props} />
         </div>

@@ -1,9 +1,9 @@
 const NAMESPACE = 'users';
 
 const LABELS = {
-    INPUT_USERNAME: 'ΟΝΟΜΑ ΧΡΗΣΤΗ',
-    INPUT_PASSWORD: 'ΚΩΔΙΚΟΣ ΕΙΣΟΔΟΥ',
-    INPUT_PASSWORD2: 'ΕΠΑΝΑΛΗΨΗ ΚΩΔΙΚΟΥ',
+    INPUT_USERNAME: 'ΟΝΟΜΑ',
+    INPUT_PASSWORD: 'ΚΩΔΙΚΟΣ',
+    INPUT_PASSWORD2: 'ΕΠΑΝΑΛΗΨΗ',
     INPUT_EMAIL: 'EMAIL',
 };
 

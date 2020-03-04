@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import { LABELS } from '../constants.js';
 
-export const NavBar = ({auth}) => {
+export const Nav = ({auth}) => {
 	return (
 		auth.token.key?(
 			<div>
