@@ -19,13 +19,6 @@ import {
     GroupInputFund,
 } from '../../related/components/groups.jsx';
 
-import { 
-    MappedButtonRequestRelatedFund,
-    MappedButtonSelectDeleteRelatedFund,
-} from '../../related/containers/buttons.js';
-
-import { MappedSectionRelatedFund } from '../../related/containers/sections.js';
-
 import { LABELS as CORE_LABELS } from '../../core/constants.js';
 
 import { NAMESPACE, LABELS } from '../constants.js';
@@ -39,14 +32,7 @@ export const SectionInputs = ({message, related, data}) => {
         GroupInputCode,
         GroupInputName,
         GroupInputIsIncoming,
-        GroupInputFund,
-        (related.namespace === 'fund')?
-            (related.allowRequest)?
-                MappedButtonRequestRelatedFund:
-                MappedSectionRelatedFund:
-            (data.fund.id)?
-                MappedButtonSelectDeleteRelatedFund:
-                null,
+        GroupInputFund
     ];
 
     return (

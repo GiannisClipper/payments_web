@@ -17,6 +17,18 @@ export const MessageInput = ({value}) => (<span className='message'>{value?value
 
 // --- --- --- --- --- --- --- --- ---
 
+export const ToolInputRelated = ({namespace, related, MappedButtonRequestRelated, MappedSectionRelated, MappedButtonSelectDeleteRelated}) => (
+    (related.namespace)?
+        (related.allowRequest)?
+            <MappedButtonRequestRelated namespace={namespace}/>:
+            <MappedSectionRelated namespace={namespace} />:
+    (related.id)?
+        <MappedButtonSelectDeleteRelated namespace={namespace}/>:
+        null
+)
+
+// --- --- --- --- --- --- --- --- ---
+
 export const InputString = ({type, value, allowEdit, onChange, onFocus, onBlur, onKeyPress}) => (
 
     <input 

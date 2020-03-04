@@ -22,11 +22,12 @@ import {
 
 // --- --- --- --- --- --- --- --- ---
 
-export const GroupInput = ({name, label, input, message}) => (
+export const GroupInput = ({name, label, input, tool, message}) => (
 
     <span className={`group_input group_input_${name}`}>
         {label?label:null}
         {input?input:null}
+        {tool?tool:null}
         {message?message:null}
     </span>
 )

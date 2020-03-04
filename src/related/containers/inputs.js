@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 
 import {
     InputString,
+    ToolInputRelated,
     MessageInput,
 } from '../../core/components/inputs.jsx';
 
@@ -13,6 +14,18 @@ import {
     onFocusGenre,
     onBlurGenre,
 } from '../actions.js';
+
+import {
+    MappedButtonRequestRelatedFund,
+    MappedButtonSelectDeleteRelatedFund,
+    MappedButtonRequestRelatedGenre,
+    MappedButtonSelectDeleteRelatedGenre
+} from './buttons.js';
+
+import { 
+    MappedSectionRelatedFund,
+    MappedSectionRelatedGenre,
+} from './sections.js';
 
 // --- --- --- --- --- --- --- --- ---
 
@@ -39,6 +52,36 @@ export const MappedInputStringGenre = connect(
         onBlur: () => dispatch(onBlurGenre(namespace)),
     })
 )(InputString);
+
+// --- --- --- --- --- --- --- --- ---
+
+export const MappedToolInputFund = connect(
+    (state, {namespace}) => ({
+        namespace,
+        related: {
+            namespace: state[namespace].uiux.related.namespace === 'fund' ? 'fund' : null,
+            allowRequest: state[namespace].uiux.related.allowRequest,
+            id: state[namespace].data.fund.id,
+        },
+        MappedButtonRequestRelated: MappedButtonRequestRelatedFund,
+        MappedSectionRelated: MappedSectionRelatedFund,
+        MappedButtonSelectDeleteRelated: MappedButtonSelectDeleteRelatedFund
+    }),
+)(ToolInputRelated);
+
+export const MappedToolInputGenre = connect(
+    (state, {namespace}) => ({
+        namespace,
+        related: {
+            namespace: state[namespace].uiux.related.namespace === 'genre' ? 'genre' : null,
+            allowRequest: state[namespace].uiux.related.allowRequest,
+            id: state[namespace].data.genre.id,
+        },
+        MappedButtonRequestRelated: MappedButtonRequestRelatedGenre,
+        MappedSectionRelated: MappedSectionRelatedGenre,
+        MappedButtonSelectDeleteRelated: MappedButtonSelectDeleteRelatedGenre
+    }),
+)(ToolInputRelated);
 
 // --- --- --- --- --- --- --- --- ---
 
